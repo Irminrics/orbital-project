@@ -9,8 +9,14 @@ const Navigation = () => {
                 </div>
                 <div id="nav-container-right">
                     <ul id="nav-items">
+                    <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                            <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style={{marginLeft: "7px"}}>
+                                <a className="dropdown-item" href="#"><LinkNav to="/projects" className="nav-link">Orbital 2021</LinkNav></a>
+                                <a className="dropdown-item" href="#"><LinkNav to="/projects" className="nav-link">Orbital 2022</LinkNav></a>
+                            </div>
+                        </li>
                         <li id="about-nav" className="nav-item"><LinkNav to="/staff" className="nav-link">Staff</LinkNav></li>
-                        <li id="contact-nav" className="nav-item"><LinkNav to="/projects" className="nav-link">Projects</LinkNav></li>
                     </ul>
                 </div>
             </nav>
