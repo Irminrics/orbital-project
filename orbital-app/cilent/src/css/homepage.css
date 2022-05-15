@@ -28,6 +28,7 @@ html {
     padding-bottom: 0;
 }
 
+
 .icon {
     position: relative;
     width: 60px;
@@ -128,7 +129,7 @@ html {
 }
 
 .project-card:hover {
-    background: rgba(0,0,0,.7);
+    background: rgba(0, 0, 0, .7) ! important;
     -webkit-transition: all 1s ease;
     -moz-transition: all 1s ease;
     -o-transition: all 1s ease;
@@ -136,9 +137,10 @@ html {
     transition: all 1s ease;
 }
 
+
 .project-card:hover .project-overlay {
     opacity: 1;
-  }
+}
 
 .project-content {
     height: 350px
@@ -152,15 +154,6 @@ html {
     z-index: 1;
     transition: .5s ease;
 }
-
-.project-icon {
-    background-image: url(../images/artemis.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-size: 300px;
-}
-
 
 .project-title-container {
     padding-top: 130px;
@@ -182,6 +175,13 @@ html {
 
 .dropdown-menu {
     width: 90px;
+    padding: 0px;
+
+}
+
+.dropdown-item {
+    height: 60px;
+    line-height: 38px;
 }
 
 #footer {
