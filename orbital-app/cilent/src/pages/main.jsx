@@ -9,12 +9,14 @@ import Login from "../components/Login";
 import Footer from "../components/Footer/Footer";
 
 
-const MainPage = () => {
+const MainPage = ({ setAuth, isAuthenticated }) => {
     return (
         <>
-        <Navigation/>
-        <Login/>
-        <Footer/>
+            <Navigation setAuth={setAuth} isAuthenticated={isAuthenticated} />
+            <div className="page-container">
+                <Login setAuth={setAuth} />
+                <Footer />
+            </div>
         </>
     )
 }

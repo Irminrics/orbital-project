@@ -1,0 +1,25 @@
+.sidebar {
+    height: 1000px;
+    width: 250px;
+    position: relative;
+    margin-top: 77px;
+    padding-top: 15px;
+}
+
+.adminDashboard {
+    width: 85%;
+    float: right;
+    margin-top: 70px;
+}
+
+#usercount {
+    padding-top: 15px;
+}
+
+#projectcount {
+    padding-top: 15px;
+}
+
+.card {
+    margin: 10px;
+}

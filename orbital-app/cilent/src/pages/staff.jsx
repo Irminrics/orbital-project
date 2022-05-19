@@ -7,11 +7,13 @@ import '../css/homepage.css';
 import Navigation from "../components/Header/Navigation";
 import Footer from "../components/Footer/Footer";
 
-const StaffPage = () => {
+const StaffPage = ({ setAuth, isAuthenticated }) => {
     return (
         <>
-        <Navigation/>
-        <Footer/>
+            <Navigation setAuth={setAuth} isAuthenticated={isAuthenticated} />
+            <div className="page-container">
+                <Footer />
+            </div>
         </>
     )
 }

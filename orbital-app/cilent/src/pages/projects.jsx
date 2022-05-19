@@ -13,9 +13,30 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 
-const ProjectsPage = () => {
+const ProjectsPage = ({ setAuth, isAuthenticated }) => {
+    let { achievement } = useParams();
+
+    return (
+        <>
+            <Navigation setAuth={setAuth} isAuthenticated={isAuthenticated} />
+            <div className="page-container">
+                <ProjectTitle level={achievement} />
+                <div id="projects-div">
+                    <div className='container-xxxl'>
+                        <Project />
+                    </div>
+                </div>
+                <Footer />
+            </div>
+        </>
+    )
+}
+
+
+const Project = () => {
     const [projects, setProjects] = useState([]);
     let { achievement } = useParams();
+
 
     const getProjects = async (achievement) => {
         try {
@@ -32,22 +53,25 @@ const ProjectsPage = () => {
         getProjects(achievement);
     }, [])
 
-
-
-    return (
-        <>
-            <Navigation />
-            <ProjectTitle level={achievement} />
-            <div id="projects-div">
-                <div className='container-xxxl'>
-                    {projects.map(project => (
-                        <ProjectContent teamName={project.teamname} teamID={project.id} teamMember1={project.teammember1} teamMember2={project.teammember2} teamAdvisor={project.teamadvisor} achievement={project.achievement}/>
-                    ))}
+    if (projects.length === 0) {
+        return (
+            <>
+                <div className='emptyProject'>
+                    <p>There are no projects available.</p>
                 </div>
-            </div>
-            <Footer />
-        </>
-    )
+            </>
+        )
+    } else {
+        return (
+            <>
+                {projects.map(project => (
+                    <div key={project.id}>
+                        <ProjectContent teamName={project.teamname} teamID={project.id} teamMember1={project.teammember1} teamMember2={project.teammember2} teamAdvisor={project.teamadvisor} achievement={project.achievement} />
+                    </div>
+                ))}
+            </>
+        )
+    }
 }
 
 export default ProjectsPage

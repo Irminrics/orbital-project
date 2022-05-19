@@ -1,4 +1,59 @@
-const Login = () => {
+import { useState, useEffect } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+
+const Login = ({ setAuth }) => {
+
+    const [inputs, setInputs] = useState({
+        email: "",
+        password: ""
+    });
+
+    const { email, password } = inputs;
+
+    const onChange = e => {
+        setInputs({ ...inputs, [e.target.name]: e.target.value });
+    };
+
+    const onSubmitForm = async (e) => {
+        e.preventDefault();
+        try {
+            const body = { email, password }
+            const response = await fetch("http://localhost:3001/auth/login", {
+                method: "POST",
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(body)
+            })
+
+            const parseRes = await response.json();
+
+            if (parseRes.jwtToken) {
+                localStorage.setItem("token", parseRes.jwtToken);
+                setAuth(true);
+                toast.success('Login Successfully', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            } else {
+                setAuth(false);
+                toast.error(parseRes, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            }
+
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
+
+
     return (
         <>
             <section id='intro-div'>
@@ -24,14 +79,14 @@ const Login = () => {
                                     <div className="py-5 px-md-5">
                                         <h1><span>Sign in</span></h1>
                                         <p>Login here using your username</p> <br />
-                                        <form>
-                                            {/* Username input */}
+                                        <form onSubmit={onSubmitForm}>
+                                            {/* Email input */}
                                             <div className="form-outline mb-4">
-                                                <input type="email" className="form-control" placeholder="Username" />
+                                                <input type="email" name="email" className="form-control" placeholder="Email" defaultValue={email} onChange={(e) => onChange(e)} />
                                             </div>
                                             {/* Password input */}
                                             <div className="form-outline mb-4">
-                                                <input type="password" className="form-control" placeholder="Password" />
+                                                <input type="password" name="password" className="form-control" placeholder="Password" defaultValue={password} onChange={(e) => onChange(e)} />
                                             </div>
                                             {/* Submit button */}
                                             <button type="submit" className="btn btn-primary btn-block mb-4">
