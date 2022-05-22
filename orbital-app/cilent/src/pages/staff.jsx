@@ -13,6 +13,7 @@ const StaffPage = ({ setAuth, isAuthenticated }) => {
             <Navigation setAuth={setAuth} isAuthenticated={isAuthenticated} />
             <div className="page-container">
                 <Footer />
+                <div className='testDiv'></div>
             </div>
         </>
     )

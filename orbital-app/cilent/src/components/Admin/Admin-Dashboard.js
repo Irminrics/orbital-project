@@ -1,4 +1,45 @@
+import { useState, useEffect } from 'react';
+
 const AdminDashBoard = () => {
+    const [users, setUsers] = useState(0);
+    const [projects, setProjects] = useState(0);
+
+    useEffect(() => {
+        getUserCount();
+        getProjectCount();
+    }, []);
+
+    async function getUserCount() {
+        try {
+            const response = await fetch("http://localhost:3001/dashboard/users", {
+                method: "GET",
+            });
+
+            const parseRes = await response.json();
+
+            setUsers(parseRes);
+
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
+    async function getProjectCount() {
+        try {
+            const response = await fetch("http://localhost:3001/dashboard/projects", {
+                method: "GET",
+            });
+
+            const parseRes = await response.json();
+
+            setProjects(parseRes);
+
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
+
     return (
         <>
             <div className="adminDashboard">
@@ -32,14 +73,14 @@ const AdminDashBoard = () => {
                                         <div className="panel box-v1">
                                             <div className="panel-heading bg-white border-none">
                                                 <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
-                                                    <h4 className="text-left blue-text"><a href="AdminUserInfo.aspx">Visit</a></h4>
+                                                    <h4 className="text-left blue-text">Users</h4>
                                                 </div>
                                                 <div className="col-md-12 col-sm-6 col-xs-6 text-center">
                                                     <span className="fa fa-user" style={{ fontSize: '30px' }} />
                                                 </div>
                                             </div>
                                             <div className="panel-body text-center">
-                                                <label id="usercount" ><h1>5</h1></label>
+                                                <label id="usercount" ><h1>{users}</h1></label>
                                                 <p>Users Active</p>
                                                 <hr />
                                             </div>
@@ -55,14 +96,14 @@ const AdminDashBoard = () => {
                                         <div className="panel box-v1">
                                             <div className="panel-heading bg-white border-none">
                                                 <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
-                                                    <h4 className="text-left blue-text"><a href="AdminFacilitiesSchedule.aspx">Visit</a></h4>
+                                                    <h4 className="text-left blue-text">Projects</h4>
                                                 </div>
                                                 <div className="col-md-12 col-sm-6 col-xs-6 text-center">
                                                     <span className="fa fa-calendar" style={{ fontSize: '30px' }} />
                                                 </div>
                                             </div>
                                             <div className="panel-body text-center">
-                                            <label id="projectcount" ><h1>34</h1></label>
+                                                <label id="projectcount" ><h1>{projects}</h1></label>
                                                 <p>Projects Created</p>
                                                 <hr />
                                             </div>
@@ -75,10 +116,11 @@ const AdminDashBoard = () => {
                             <div className="col-md-8 mb-4">
                                 {/*Card*/}
                                 <div className="card">
-                                    {/* Card header */}
-                                    <div className="card-header">Project Activities</div>
                                     {/*Card content*/}
-                                    <div className="card-body" style={{ marginTop: '14px', marginBottom: '14px', height: "463px" }}>
+                                    <div className="card-body" style={{ marginTop: '14px', marginBottom: '14px', height: "510px" }}>
+                                        <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                            <h4 className="text-left blue-text">Project Distribution</h4>
+                                        </div>
                                         <canvas id="radarChart" />
                                     </div>
                                 </div>

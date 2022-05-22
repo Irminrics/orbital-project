@@ -16,4 +16,30 @@ router.get("/", authorization, async (req, res) => {
   }
 });
 
+router.get("/users", async (req, res) => {
+  try {
+    const user = await pool.query(
+        "SELECT * FROM users"
+    ); 
+
+    res.json(user.rowCount);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.get("/projects", async (req, res) => {
+  try {
+    const project = await pool.query(
+        "SELECT * FROM projects"
+    ); 
+
+    res.json(project.rowCount);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 module.exports = router;
