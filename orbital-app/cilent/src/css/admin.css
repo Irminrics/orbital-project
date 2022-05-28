@@ -6,10 +6,16 @@
     padding-top: 15px;
 }
 
-.adminDashboard {
+.container-fluid {
     width: 85%;
     float: right;
-    margin-top: 10px;
+    margin-top: 25px;
+    margin-bottom: 75px;
+}
+
+#project-piechart {
+    height: 100%;
+    width: 100%;
 }
 
 #usercount {
@@ -22,4 +28,18 @@
 
 .card {
     margin: 10px;
+}
+
+.modal {
+    text-align: center;
+}
+
+.modal-icon {
+    padding: 30px;
+    font-size: 70px;
+    color: #ff2f3e;
+}
+
+.modal-footer {
+    margin: 0 auto;
 }

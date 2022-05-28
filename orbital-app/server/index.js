@@ -11,7 +11,7 @@ app.use(express.json());
 
 //register and login routes
 app.use("/auth", require("./routes/auth"))
-app.use("/dashboard", require("./routes/dashboard"))
+app.use("/users", require("./routes/users"))
 app.use("/projects", require("./routes/projects"))
 
 app.listen(3001, () => {

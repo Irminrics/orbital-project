@@ -1,23 +1,37 @@
 import { useState, useEffect } from 'react';
+import { PieChart } from 'react-minimal-pie-chart';
+import ReactTooltip from 'react-tooltip';
 
 const AdminDashBoard = () => {
     const [users, setUsers] = useState(0);
     const [projects, setProjects] = useState(0);
+    const [hovered, setHovered] = useState();
 
-    useEffect(() => {
-        getUserCount();
-        getProjectCount();
-    }, []);
+    const [artemis, setArtemis] = useState(0);
+    const [apollo11, setApollo11] = useState(0);
+    const [gemini, setGemini] = useState(0);
+    const [vostok, setVostok] = useState(0);
+
+    const projectsData = [
+        { title: 'Artemis', value: artemis, color: '#003f5c' },
+        { title: 'Apollo 11', value: apollo11, color: '#00608f' },
+        { title: 'Gemini', value: gemini, color: '#0083c5' },
+        { title: 'Vostok', value: vostok, color: '#7bc0f1' },
+    ];
+
+    function makeTooltipContent(level, count) {
+        return `${level} (${count})`;
+    }
 
     async function getUserCount() {
         try {
-            const response = await fetch("http://localhost:3001/dashboard/users", {
+            const response = await fetch("http://localhost:3001/users/", {
                 method: "GET",
             });
 
             const parseRes = await response.json();
 
-            setUsers(parseRes);
+            setUsers(parseRes.rowCount);
 
         } catch (err) {
             console.error(err.message);
@@ -26,18 +40,65 @@ const AdminDashBoard = () => {
 
     async function getProjectCount() {
         try {
-            const response = await fetch("http://localhost:3001/dashboard/projects", {
+            const response = await fetch("http://localhost:3001/projects/", {
                 method: "GET",
             });
 
             const parseRes = await response.json();
 
-            setProjects(parseRes);
+            setProjects(parseRes.rowCount);
 
         } catch (err) {
             console.error(err.message);
         }
     }
+
+    async function getProjectData() {
+        try {
+            const artemis = await fetch("http://localhost:3001/projects/artemis", {
+                method: "GET",
+            });
+
+            const artemisRes = await artemis.json();
+
+            setArtemis(artemisRes.length);
+
+            const apollo11 = await fetch("http://localhost:3001/projects/apollo11", {
+                method: "GET",
+            });
+
+            const apollo11Res = await apollo11.json();
+
+            setApollo11(apollo11Res.length);
+
+            const gemini = await fetch("http://localhost:3001/projects/gemini", {
+                method: "GET",
+            });
+
+            const geminiRes = await gemini.json();
+
+            setGemini(geminiRes.length);
+
+            const vostok = await fetch("http://localhost:3001/projects/vostok", {
+                method: "GET",
+            });
+
+            const vostokRes = await vostok.json();
+
+            setVostok(vostokRes.length);
+
+        } catch (err) {
+            console.error(err.message);
+        }
+
+    }
+
+
+    useEffect(() => {
+        getUserCount();
+        getProjectCount();
+        getProjectData();
+    }, []);
 
 
     return (
@@ -121,7 +182,42 @@ const AdminDashBoard = () => {
                                         <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
                                             <h4 className="text-left blue-text">Project Distribution</h4>
                                         </div>
-                                        <canvas id="radarChart" />
+                                        <div id="project-piechart" data-tip="" data-for="chart">
+                                            <PieChart
+                                                animate
+                                                animationDuration={500}
+                                                animationEasing="ease-out"
+                                                center={[85, 50]}
+                                                data={projectsData}
+                                                lineWidth={20}
+                                                paddingAngle={18}
+                                                rounded
+                                                label={({ dataEntry }) => dataEntry.value !== 0 ? `${Math.round(dataEntry.percentage)}%` : ''}
+                                                labelStyle={(index) => ({
+                                                    fill: projectsData[index].color,
+                                                    fontSize: '5px',
+                                                    fontFamily: 'sans-serif',
+                                                })}
+                                                labelPosition={60}
+                                                lengthAngle={360}
+                                                radius={40}
+                                                startAngle={0}
+                                                viewBoxSize={[175, 100]}
+                                                onMouseOver={(_, index) => {
+                                                    setHovered(index);
+                                                }}
+                                                onMouseOut={() => {
+                                                    setHovered(null);
+                                                }}
+                                            />
+                                            <ReactTooltip
+                                                id="chart"
+                                                getContent={() =>
+                                                    typeof hovered === 'number' ?
+                                                        makeTooltipContent(projectsData[hovered].title, projectsData[hovered].value) : null
+                                                }
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 {/*/.Card*/}

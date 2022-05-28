@@ -2,7 +2,7 @@ const router = require("express").Router()
 const pool = require("../db")
 
 //create a project
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
     try {
         const { teamName, teamMember1, teamMember2, teamAdvisor, achievement } = req.body;
         const newProject = await pool.query("INSERT into projects (teamName, teamMember1, teamMember2, teamAdvisor, achievement) VALUES($1, $2, $3, $4, $5) RETURNING *",
@@ -16,23 +16,24 @@ router.post("/", async (req, res) => {
 //get all projects
 router.get("/", async (req, res) => {
     try {
-        const allProjects = await pool.query("SELECT * FROM projects")
-        res.json(allProjects.rows);
+        const projects = await pool.query("SELECT * FROM projects")
+        res.json(projects);
     } catch (err) {
         console.error(err.message);
     }
 });
 
-const getProjectsById = (request, response) => {
-    const id = parseInt(request.params.id)
+router.delete("/del/:id", async (req, res) => {
+    try {
+      const {id} = req.params;
+      const deleteUser = await pool.query("DELETE FROM projects WHERE id = $1", [id])
   
-    pool.query("SELECT * FROM projects WHERE id = $1", [id], (error, results) => {
-      if (error) {
-        throw error
-      }
-      response.status(200).json(results.rows)
-    })
-  }
+      res.json("Project is successfully deleted!");
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server error");
+    }
+  });
 
 //get all projects by level
 router.get("/:achievement", async(req, res) => {
@@ -60,20 +61,5 @@ router.put("/:id", async(req, res) => {
         console.error(err.message);
     }
 })
-
-//delete a project
-router.delete("/:id", async(req, res) => {
-    try {
-        const { id } = req.params;
-        const deleteProject = await pool.query("DELETE from projects WHERE id = $1", 
-        [id]
-        );
-        
-        res.json("Project was deleted!");
-    } catch (err) {
-        console.error(err.message);
-    }
-})
-
 
 module.exports = router;

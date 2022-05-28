@@ -12,8 +12,13 @@ TRUNCATE TABLE someTable RESTART IDENTITY;
 
 CREATE TABLE users(
     id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
-    username VARCHAR(255) NOT NULL,
+    firstName VARCHAR(255) NOT NULL,
+    lastName VARCHAR(255) NOT NULL,
+    studentNumber VARCHAR(255) NOT NULL,
+    userID VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
+    contactNumber VARCHAR(255) NOT NULL,
+    programme VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
 );
 

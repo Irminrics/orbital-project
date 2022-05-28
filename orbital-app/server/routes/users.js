@@ -2,7 +2,7 @@ const router = require("express").Router();
 const authorization = require("../middleware/authorization");
 const pool = require("../db");
 
-router.get("/", authorization, async (req, res) => {
+router.get("/me", authorization, async (req, res) => {
   try {
     const user = await pool.query(
         "SELECT * FROM users WHERE id = $1",
@@ -16,26 +16,25 @@ router.get("/", authorization, async (req, res) => {
   }
 });
 
-router.get("/users", async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const user = await pool.query(
         "SELECT * FROM users"
     ); 
 
-    res.json(user.rowCount);
+    res.json(user);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
   }
 });
 
-router.get("/projects", async (req, res) => {
+router.delete("/del/:id", async (req, res) => {
   try {
-    const project = await pool.query(
-        "SELECT * FROM projects"
-    ); 
+    const {id} = req.params;
+    const deleteUser = await pool.query("DELETE FROM users WHERE id = $1", [id])
 
-    res.json(project.rowCount);
+    res.json("User is successfully deleted!");
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

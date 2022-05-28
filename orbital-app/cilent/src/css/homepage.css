@@ -201,8 +201,8 @@ html {
     background: white;
 }
 
-
 .page-container {
     position: relative;
     min-height: 1000px;
+    overflow:auto;
 }

@@ -4,8 +4,11 @@ import { useState, useEffect } from "react";
 import MainPage from "./pages/main";
 import StaffPage from "./pages/staff";
 import ProjectsPage from "./pages/projects";
-import DashboardPage from "./pages/admin-dashboard";
-import AdminPage from "./pages/dashboard";
+import AdminPage from "./pages/admin-dashboard";
+import DashboardPage from "./pages/dashboard";
+import AdminUserPage from "./pages/admin-user";
+import AdminProjectPage from "./pages/admin-project";
+
 
 function App() {
 
@@ -34,14 +37,14 @@ function App() {
 
   async function getName() {
     try {
-      const response = await fetch("http://localhost:3001/dashboard/", {
+      const response = await fetch("http://localhost:3001/users/me", {
         method: "GET",
         headers: { token: localStorage.token }
       });
 
       const parseRes = await response.json();
 
-      setName(parseRes.username)
+      setName(parseRes.userid)
 
     } catch (err) {
       console.error(err.message);
@@ -58,11 +61,14 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route exact path='/' element={!isAuthenticated ? (<MainPage setAuth={setAuth} />) : (name === "admin") ? (<DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />) : (<AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} />)} />
+        <Route exact path='/' element={!isAuthenticated ? (<MainPage setAuth={setAuth} />) : (name === "admin") ? (<AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} />) : (<DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />)} />
         <Route exact path='/staff' element={<StaffPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
         <Route exact path='/projects/:achievement' element={<ProjectsPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
-        <Route exact path='/dashboard' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
-        <Route exact path='/admin' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+        <Route exact path='/dashboard' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+        <Route exact path='/admin' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+        <Route exact path='/admin/users' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminUserPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+        <Route exact path='/admin/projects' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminProjectPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+
       </Routes>
     </Router>
   )
