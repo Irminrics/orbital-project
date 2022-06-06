@@ -17,21 +17,30 @@ router.post("/register", validation, async (req, res) => {
 
         //Status 401 = Unauthenticated and 403 = Unauthorized
         if (user.rows.length !== 0) {
-            return res.status(401).send("User already existed");
+            return res.status(401).send("User already exist");
         }
 
-        //3. Bcrypt the user password
-        const saltRound = 10;
-        const salt = await bcrypt.genSalt(saltRound);
-        const bcryptPassword = await bcrypt.hash(password, salt);
+        var bcryptPassword;
+
+        if (password != "undefined") {
+            //3. Bcrypt the user password
+            const saltRound = 10;
+            const salt = await bcrypt.genSalt(saltRound);
+            bcryptPassword = await bcrypt.hash(password, salt);
+
+
+        } else {
+            bcryptPassword = '';
+        }
 
         //4. Enter the new user inside our database
         const newUser = await pool.query("INSERT INTO users (firstName, lastName, studentNumber, userID, email, contactNumber, programme, password) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
             [firstName, lastName, studentNumber, userID, email, contactNumber, programme, bcryptPassword])
 
+
         //5. Generating the jwt token
-        const token = jwtGenerator(newUser.rows[0].id);
-        return res.json({ token });
+        const jwtToken = jwtGenerator(newUser.rows[0].id);
+        return res.json({ jwtToken });
 
     } catch (err) {
         console.error(err.message);
@@ -65,7 +74,7 @@ router.post("/login", validation, async (req, res) => {
 
     } catch (err) {
         console.error(err.message);
-        res.status(500).send("Server Error");
+        return res.status(500).send("Server Error");
     }
 });
 

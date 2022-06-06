@@ -85,7 +85,8 @@ CREATE TABLE public.users (
     email character varying(255) NOT NULL,
     contactnumber character varying(255) NOT NULL,
     programme character varying(255) NOT NULL,
-    password character varying(255) NOT NULL
+    password character varying(255) NOT NULL,
+    otp character varying(255)
 );
 
 
@@ -148,9 +149,11 @@ COPY public.projects (id, teamname, teammember1, teammember2, teamadvisor, achie
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.users (id, firstname, lastname, studentnumber, userid, email, contactnumber, programme, password) FROM stdin;
-e0f6c4e1-cf74-4d2b-82b7-5aa35f6eaac5	Jun Kang	Ang	A0235183H	admin	orbital@u.nus.edu	91234567	Bachelor of Computing	$2b$10$OiwnKmOSwQo0D7fhNIlvce9uoDShImF/n/3SdI8KZ9tAcke18Gv2C
-768fba3d-b695-441e-952c-83fdf71eb2e5	Jun Kang	Ang	A0635183H	e0727183	angjunkang@u.nus.edu	91234567	Bachelor of Computing	$2b$10$4UrE18XiG5LujpuXVPd87evZqjhJls3iUHoUp6ktBxegOZFN4z9X6
+COPY public.users (id, firstname, lastname, studentnumber, userid, email, contactnumber, programme, password, otp) FROM stdin;
+6c093685-d3c2-49d7-9ddb-c568a9479d80	Jing En	Wong	A0000001H	e0000001	wongjinen@u.nus.edu.sg	91234567	Bachelor of Computing		\N
+bbd12ff3-8793-4a7b-a0fb-b76c0a48f62a	Jason	Tan	A0000002H	e0000002	jasontan@u.nus.edu.sg	91234567	Bachelor of Computing		\N
+ecab0e34-37dc-4100-bfdb-021874098ffd	Jun Kang	Ang	A0235183H	admin	orbital@u.nus.edu	91234567	Bachelor of Computing	$2b$10$cb3gxsKT9GcYmwQXEwK14OMIudgTVvNiJVMEnodJDAZWGyH/6M9Sm	948286280
+768fba3d-b695-441e-952c-83fdf71eb2e5	Jun Kang	Ang	A0635183H	adminn	angjunkang@u.nus.edu	91234567	Bachelor of Computing	$2b$10$jGhgH.vPNJUiP11pjz68JuUfRIw5KU3Qeux7kjVUHVujqn.RAE37O	
 \.
 
 
@@ -158,7 +161,7 @@ e0f6c4e1-cf74-4d2b-82b7-5aa35f6eaac5	Jun Kang	Ang	A0235183H	admin	orbital@u.nus.
 -- Name: projects_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.projects_project_id_seq', 39, true);
+SELECT pg_catalog.setval('public.projects_project_id_seq', 76, true);
 
 
 --
@@ -167,6 +170,22 @@ SELECT pg_catalog.setval('public.projects_project_id_seq', 39, true);
 
 ALTER TABLE ONLY public.projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users studentnum_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT studentnum_unique UNIQUE (studentnumber);
+
+
+--
+-- Name: users userid_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT userid_unique UNIQUE (userid);
 
 
 --

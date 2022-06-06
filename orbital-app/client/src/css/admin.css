@@ -37,7 +37,15 @@
 .modal-icon {
     padding: 30px;
     font-size: 70px;
+
+}
+
+.modal-icon-danger {
     color: #ff2f3e;
+}
+
+.modal-icon-success {
+    color: #00c147;
 }
 
 .modal-footer {

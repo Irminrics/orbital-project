@@ -20,14 +20,14 @@ const Sidebar = ({ activePage }) => {
         <>
             <div className="sidebar sidebar-fixed position-fixed">
                 <div className="time">
-                    <h1 className="animated fadeInLeft admin-time" style={{ fontWeight: 500, fontSize: '70px', textAlign: 'center', color: '#918C8C' }}>
+                    <h1 className="admin-time" style={{ fontWeight: 500, fontSize: '70px', textAlign: 'center', color: '#918C8C' }}>
                         {date.toLocaleString('en-US', {
                             hour: 'numeric',
                             minute: 'numeric',
                             hour12: false,
                         })}
                     </h1>
-                    <p className="animated fadeInRight admin-date text-center">
+                    <p className="admin-date text-center">
                         {date.toLocaleString('en-US', {
                             weekday: 'long',
                         })}

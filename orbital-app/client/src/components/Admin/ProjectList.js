@@ -1,18 +1,19 @@
 import { Fragment, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import EditUserList from './EditUserList'
+import AddProjectList from './AddProjectList'
 
-const UserList = () => {
-    const [users, setUsers] = useState([]);
-    const [deleteUser, setDeleteUser] = useState();
+const ProjectList = () => {
+    const [projects, setProjects] = useState([]);
+    const [deleteProject, setDeleteProject] = useState();
 
-    const deleteUsers = async id => {
+    const deleteProjects = async id => {
         try {
-            const deleteTodo = await fetch(`http://localhost:3001/users/del/${id}`, {
+            const deleteTodo = await fetch(`http://localhost:3001/projects/del/${id}`, {
                 method: "DELETE"
             });
 
-            toast.success('User is successfully deleted!', {
+            toast.success('Project is successfully deleted!', {
                 position: "top-center",
                 autoClose: 3000,
                 hideProgressBar: true,
@@ -20,25 +21,25 @@ const UserList = () => {
                 pauseOnHover: true,
             });
 
-            setUsers(users.filter(user => user.id !== id));
+            setProjects(projects.filter(project => project.id !== id));
         } catch (err) {
             console.error(err.message);
         }
     };
 
-    const getUsers = async () => {
+    const getProjects = async () => {
         try {
-            const response = await fetch("http://localhost:3001/users");
+            const response = await fetch("http://localhost:3001/projects");
             const jsonData = await response.json();
 
-            setUsers(jsonData.rows);
+            setProjects(jsonData.rows);
         } catch (err) {
             console.error(err.message);
         }
     };
 
     useEffect(() => {
-        getUsers();
+        getProjects();
     });
 
     return (
@@ -51,7 +52,7 @@ const UserList = () => {
                             <div className="panel box-shadow-none content-header">
                                 <div className="panel-body">
                                     <div className="col-md-12">
-                                        <h3 className="animated fadeInLeft">User Information</h3>
+                                        <h3>Project Information</h3>
                                     </div>
                                 </div>
                             </div>
@@ -68,55 +69,36 @@ const UserList = () => {
                             <table className="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Student Number</th>
-                                        <th>User ID</th>
-                                        <th>Email</th>
-                                        <th>Contact Number</th>
-                                        <th>Programme</th>
+                                        <th>Team Name</th>
+                                        <th>Team Members</th>
+                                        <th>Team Advisor</th>
+                                        <th>Achievement</th>
                                         <th></th>
                                         <th>
-                                            <button
-                                                className="btn-small btn-success"
-                                                data-bs-toggle=""
-                                                data-bs-target="#"
-                                                
-                                            >
-                                                <i class="fa fa-plus" aria-hidden="true"></i>
-                                            </button>
+                                            <AddProjectList />
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {users.map(user => (
-                                        <tr key={user.id}>
-                                            <td>{user.firstname}</td>
-                                            <td>{user.lastname}</td>
+                                    {projects.map(project => (
+                                        <tr key={project.id}>
+                                            <td>{project.teamname}</td>
                                             <td>
-                                                {user.studentnumber}
+                                                {project.teammember1}, &nbsp;
+                                                {project.teammember2}
                                             </td>
+                                            <td>{project.teamadvisor}</td>
+
+                                            <td>{project.achievement}</td>
+
                                             <td>
-                                                {user.userid}
-                                            </td>
-                                            <td>
-                                                {user.email}
-                                            </td>
-                                            <td>
-                                                {user.contactnumber}
-                                            </td>
-                                            <td>
-                                                {user.programme}
-                                            </td>
-                                            <td>
-                                                <EditUserList />
                                             </td>
                                             <td>
                                                 <button
                                                     className="btn-small btn-danger"
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#deleteModal"
-                                                    onClick={() => setDeleteUser(user)}
+                                                    onClick={() => setDeleteProject(project)}
                                                 >
                                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                                 </button>
@@ -129,10 +111,10 @@ const UserList = () => {
                                                         <div className="modal-content ">
                                                             <div className="modal-body">
                                                                 <i
-                                                                    class="fa fa-exclamation-triangle modal-icon"
+                                                                    class="fa fa-exclamation-triangle modal-icon modal-icon-danger"
                                                                     aria-hidden="true"
                                                                 ></i>
-                                                                <h6>Confirm deleting {deleteUser !== undefined ? deleteUser.firstname : ''}?</h6>
+                                                                <h6>Confirm deleting Project {deleteProject !== undefined ? deleteProject.teamname : ''}?</h6>
                                                             </div>
 
                                                             <div className="modal-footer">
@@ -140,7 +122,7 @@ const UserList = () => {
                                                                     type="button"
                                                                     className="btn btn-danger"
                                                                     data-bs-dismiss="modal"
-                                                                    onClick={() => deleteUsers(deleteUser.id)}
+                                                                    onClick={() => deleteProjects(deleteProject.id)}
                                                                 >
                                                                     Delete
                                                                 </button>
@@ -168,4 +150,4 @@ const UserList = () => {
     );
 };
 
-export default UserList;
+export default ProjectList;

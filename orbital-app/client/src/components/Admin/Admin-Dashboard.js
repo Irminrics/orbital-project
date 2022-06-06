@@ -112,7 +112,7 @@ const AdminDashBoard = () => {
                                 <div className="panel box-shadow-none content-header">
                                     <div className="panel-body">
                                         <div className="col-md-12">
-                                            <h3 className="animated fadeInLeft">My Dashboard</h3>
+                                            <h3>My Dashboard</h3>
                                             <p className="animated fadeInDown" style={{ lineHeight: '.4' }}>
                                                 Welcome To Orbital's Admin Dashboard.
                                             </p>
