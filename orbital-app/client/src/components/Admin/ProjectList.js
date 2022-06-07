@@ -9,7 +9,7 @@ const ProjectList = () => {
 
     const deleteProjects = async id => {
         try {
-            const deleteTodo = await fetch(`http://localhost:3001/projects/del/${id}`, {
+            const deleteTodo = await fetch(`/projects/del/${id}`, {
                 method: "DELETE"
             });
 
@@ -29,7 +29,7 @@ const ProjectList = () => {
 
     const getProjects = async () => {
         try {
-            const response = await fetch("http://localhost:3001/projects");
+            const response = await fetch("/projects");
             const jsonData = await response.json();
 
             setProjects(jsonData.rows);

@@ -15,7 +15,7 @@ const EditUserList = ({ user }) => {
         try {
             const body = { firstName, lastName, studentNumber, userid, email, contactNumber, programme };
             const response = await fetch(
-                `http://localhost:3001/users/update/${user.id}`,
+                `/users/update/${user.id}`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },

@@ -1,4 +1,4 @@
-CREATE DATABASE orbital;
+-- CREATE DATABASE orbital;
 
 CREATE TABLE projects(
     project_id SERIAL PRIMARY KEY,

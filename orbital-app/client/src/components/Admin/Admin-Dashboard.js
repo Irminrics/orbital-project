@@ -25,7 +25,7 @@ const AdminDashBoard = () => {
 
     async function getUserCount() {
         try {
-            const response = await fetch("http://localhost:3001/users/", {
+            const response = await fetch("/users/", {
                 method: "GET",
             });
 
@@ -40,7 +40,7 @@ const AdminDashBoard = () => {
 
     async function getProjectCount() {
         try {
-            const response = await fetch("http://localhost:3001/projects/", {
+            const response = await fetch("/projects/", {
                 method: "GET",
             });
 
@@ -55,7 +55,7 @@ const AdminDashBoard = () => {
 
     async function getProjectData() {
         try {
-            const artemis = await fetch("http://localhost:3001/projects/artemis", {
+            const artemis = await fetch("/projects/artemis", {
                 method: "GET",
             });
 
@@ -63,7 +63,7 @@ const AdminDashBoard = () => {
 
             setArtemis(artemisRes.length);
 
-            const apollo11 = await fetch("http://localhost:3001/projects/apollo11", {
+            const apollo11 = await fetch("/projects/apollo11", {
                 method: "GET",
             });
 
@@ -71,7 +71,7 @@ const AdminDashBoard = () => {
 
             setApollo11(apollo11Res.length);
 
-            const gemini = await fetch("http://localhost:3001/projects/gemini", {
+            const gemini = await fetch("/projects/gemini", {
                 method: "GET",
             });
 
@@ -79,7 +79,7 @@ const AdminDashBoard = () => {
 
             setGemini(geminiRes.length);
 
-            const vostok = await fetch("http://localhost:3001/projects/vostok", {
+            const vostok = await fetch("/projects/vostok", {
                 method: "GET",
             });
 

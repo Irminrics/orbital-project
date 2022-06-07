@@ -40,7 +40,7 @@ const Project = () => {
 
     const getProjects = async (achievement) => {
         try {
-            const response = await fetch(`http://localhost:3001/projects/${achievement}`);
+            const response = await fetch(`/projects/${achievement}`);
             const jsonData = await response.json();
 
             setProjects(jsonData);

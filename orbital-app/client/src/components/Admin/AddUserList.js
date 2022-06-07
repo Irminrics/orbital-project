@@ -23,7 +23,7 @@ const AddUserList = () => {
         try {
             const body = { firstName, lastName, studentNumber, userID, email, contactNumber, programme, password };
             const response = await fetch(
-                "http://localhost:3001/auth/register",
+                "/auth/register",
                 {
                     method: "POST",
                     headers: {

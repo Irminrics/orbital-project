@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import { BrowserRouter as Router, Routes, Route, Switch, Link, Redirect } from "react-router-dom";
+import { HashRouter, Routes, Route} from "react-router-dom";
 import { useState, useEffect } from "react";
 import MainPage from "./pages/main";
 import StaffPage from "./pages/staff";
@@ -21,7 +21,7 @@ function App() {
 
   async function isAuth() {
     try {
-      const response = await fetch("http://localhost:3001/auth/verify", {
+      const response = await fetch("/auth/verify", {
         method: "GET",
         headers: { token: localStorage.token },
       })
@@ -37,7 +37,7 @@ function App() {
 
   async function getName() {
     try {
-      const response = await fetch("http://localhost:3001/users/me", {
+      const response = await fetch("/users/me", {
         method: "GET",
         headers: { token: localStorage.token }
       });
@@ -59,7 +59,7 @@ function App() {
 
 
   return (
-    <Router>
+    <HashRouter>
       <Routes>
         <Route exact path='/' element={!isAuthenticated ? (<MainPage setAuth={setAuth} />) : (name === "admin") ? (<AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} />) : (<DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />)} />
         <Route exact path='/staff' element={<StaffPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
@@ -70,7 +70,7 @@ function App() {
         <Route exact path='/admin/projects' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminProjectPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
 
       </Routes>
-    </Router>
+    </HashRouter>
   )
 }
 

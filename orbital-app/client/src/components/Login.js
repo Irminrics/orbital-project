@@ -22,7 +22,7 @@ const Login = ({ setAuth }) => {
         e.preventDefault();
         try {
             const body = { email, password }
-            const response = await fetch("http://localhost:3001/auth/login", {
+            const response = await fetch("/auth/login", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(body)
@@ -60,7 +60,7 @@ const Login = ({ setAuth }) => {
         e.preventDefault();
         try {
             const body = { activateEmail }
-            const response = await fetch("http://localhost:3001/users/email", {
+            const response = await fetch("/users/email", {
                 method: "POST",
                 headers: { "Content-type": "application/json" },
                 body: JSON.stringify(body)
@@ -114,7 +114,7 @@ const Login = ({ setAuth }) => {
         try {
             const body = { OTP, activateEmail };
             const response = await fetch(
-                `http://localhost:3001/users/updateotp`,
+                `/users/updateotp`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -133,7 +133,7 @@ const Login = ({ setAuth }) => {
         try {
             const body = { OTP, activateEmail };
             const response = await fetch(
-                `http://localhost:3001/users/verifyotp`,
+                `/users/verifyotp`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -173,7 +173,7 @@ const Login = ({ setAuth }) => {
         try {
             const body = { newPassword, activateEmail };
             const response = await fetch(
-                `http://localhost:3001/users/updatepw`,
+                `/users/updatepw`,
                 {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -259,7 +259,7 @@ const Login = ({ setAuth }) => {
                                                 style={{
                                                     display: isActivate ? 'block' : 'none',
                                                 }}>
-                                                <h1><span>Get Started</span></h1>
+                                                <h2><span>{isValidatedOTP ? 'Enter your new password' : 'Get Started'}</span></h2>
                                                 <p>Activate your account using your email</p> <br />
                                                 <form onSubmit={isValidatedOTP ? updatePassword : validateOTP}>
                                                     {/* Email input */}

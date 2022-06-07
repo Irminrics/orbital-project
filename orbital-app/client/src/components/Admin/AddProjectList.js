@@ -23,7 +23,7 @@ const AddProjectList = () => {
         try {
             const body = { teamName, teamMember1, teamMember2, teamAdvisor, achievement };
             const response = await fetch(
-                "http://localhost:3001/projects/create",
+                "/projects/create",
                 {
                     method: "POST",
                     headers: {
