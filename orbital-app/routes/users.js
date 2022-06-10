@@ -51,7 +51,20 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/update/:id", async (req, res) => {
+router.get("/students", async (req, res) => {
+  try {
+    const user = await pool.query(
+      "SELECT * FROM users WHERE NOT studentnumber = 'admin'"
+    );
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
+router.put("/update/:id", validation, async (req, res) => {
   try {
     const { id } = req.params;
     const { firstName, lastName, studentNumber, userid, email, contactNumber, programme } = req.body;

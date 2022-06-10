@@ -257,3 +257,29 @@ input[type=number] {
 .flip-card-back {
     transform: rotateY(180deg);
 }
+
+.btn-circle.btn-sm {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    font-size: 8px;
+    text-align: center;
+}
+
+.btn-circle.btn-md {
+    width: 40px;
+    padding: 7px 10px;
+    border-radius: 25px;
+    color: #1e8bf1;
+    border: 1px solid #1e8bf1;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 12px;
+    text-align: center;
+}

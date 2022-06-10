@@ -57,8 +57,8 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/admin`} className="list-group-item active white-text">
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
-                <LinkNav to={`/admin/users`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Users
+                <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
+                    <i className="fa fa-user mr-3" />Students
                 </LinkNav>
                 <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
                     <i className="fa fa-table mr-3" />Projects
@@ -71,8 +71,8 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/admin`} className="list-group-item list-group-item-action ">
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
-                <LinkNav to={`/admin/users`} className="list-group-item active white-text">
-                    <i className="fa fa-user mr-3" />Users
+                <LinkNav to={`/admin/students`} className="list-group-item active white-text">
+                    <i className="fa fa-user mr-3" />Students
                 </LinkNav>
                 <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
                     <i className="fa fa-table mr-3" />Projects
@@ -85,8 +85,8 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/admin`} className="list-group-item list-group-item-action">
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
-                <LinkNav to={`/admin/users`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Users
+                <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
+                    <i className="fa fa-user mr-3" />Students
                 </LinkNav>
                 <LinkNav to={`/admin/projects`} className="list-group-item active waves-effect white-text">
                     <i className="fa fa-table mr-3" />Projects

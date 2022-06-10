@@ -9,6 +9,7 @@ router.post("/create", async (req, res) => {
             [teamName, teamMember1, teamMember2, teamAdvisor, achievement]
         );
 
+        return res.json({ newProject });
     } catch (err) {
         console.error(err.message);
     }

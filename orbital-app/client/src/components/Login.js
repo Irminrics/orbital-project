@@ -230,7 +230,7 @@ const Login = ({ setAuth }) => {
                                         <div className="flip-card-inner" style={{
                                             transform: isActivate ? 'rotateY(180deg)' : '',
                                         }}>
-                                            <div class="flip-card-front" style={{
+                                            <div className="flip-card-front" style={{
                                                 display: isActivate ? 'none' : 'block',
                                             }}>
                                                 <h1><span>Sign in</span></h1>
@@ -255,7 +255,7 @@ const Login = ({ setAuth }) => {
                                                     </p>
                                                 </form>
                                             </div>
-                                            <div class="flip-card-back"
+                                            <div className="flip-card-back"
                                                 style={{
                                                     display: isActivate ? 'block' : 'none',
                                                 }}>
@@ -264,9 +264,9 @@ const Login = ({ setAuth }) => {
                                                 <form onSubmit={isValidatedOTP ? updatePassword : validateOTP}>
                                                     {/* Email input */}
                                                     <div className="form-outline mb-4">
-                                                        <div class="input-group">
+                                                        <div className="input-group">
                                                             <input type="email" name="activateEmail" className="form-control" placeholder="Email" readOnly={isValidatedOTP ? true : false} defaultValue={activateEmail} onChange={(e) => onChange(e)} />
-                                                            <button class="btn btn-md btn-primary m-0" type="button" style={{
+                                                            <button className="btn btn-md btn-primary m-0" type="button" style={{
                                                                 display: isValidatedOTP ? 'none' : 'block',
                                                             }} onClick={sendOTP}>Send OTP</button>
                                                         </div>

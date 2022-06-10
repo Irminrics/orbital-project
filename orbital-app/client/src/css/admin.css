@@ -51,3 +51,11 @@
 .modal-footer {
     margin: 0 auto;
 }
+
+.searchBtn {
+    border-radius: 20px;
+    height: 40px;
+    margin-right: 20px;
+    padding: 0 10px;
+    border: 1px solid #1e8bf1;
+}

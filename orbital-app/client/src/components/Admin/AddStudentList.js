@@ -2,23 +2,29 @@ import React, { Fragment, useState } from "react";
 import Papa from "papaparse";
 import { toast } from 'react-toastify';
 
-const AddUserList = () => {
+const AddStudentList = () => {
     const [csv, setCsv] = useState([]);
+    const [validCsv, setValidCsv] = useState(false);
 
     const handleFileUpload = (e) => {
         const files = e.target.files;
         if (files) {
             Papa.parse(files[0], {
                 complete: function (results) {
-                    setCsv(results.data.slice(1));
-                    console.log("Finished:", results.data);
+                    if (results.data[0][0] == "First Name" && results.data[0][1] == "Last Name" && results.data[0][2] == "Student Number" 
+                    && results.data[0][3] == "User ID" && results.data[0][4] == "Email" && results.data[0][5] == "Contact Number" && results.data[0][6] == "Programme") {
+                        setCsv(results.data.slice(1));
+                        setValidCsv(true);
+                    } else {
+                        setValidCsv(false);
+                    }
                 }
             }
             )
         }
     };
 
-    const addUserList = async (e, firstName, lastName, studentNumber, userID, email, contactNumber, programme, password) => {
+    const addStudentList = async (e, firstName, lastName, studentNumber, userID, email, contactNumber, programme, password) => {
         e.preventDefault();
         try {
             const body = { firstName, lastName, studentNumber, userID, email, contactNumber, programme, password };
@@ -32,6 +38,7 @@ const AddUserList = () => {
                     body: JSON.stringify(body)
                 }
             );
+
             const parseRes = await response.json();
 
             if (parseRes.jwtToken) {
@@ -49,11 +56,7 @@ const AddUserList = () => {
 
     const csvToPSQL = async (e) => {
         for (let i = 0; i < csv.length; i++) {
-            var result = await addUserList(e, csv[i][0], csv[i][1], csv[i][2], csv[i][3], csv[i][4], csv[i][5], csv[i][6], "undefined");
-            if (result === false) {
-                console.log(csv[i][0]);
-                return result;
-            }
+            var result = await addStudentList(e, csv[i][0], csv[i][1], csv[i][2], csv[i][3], csv[i][4], csv[i][5], csv[i][6], "undefined");
         }
         return result;
 
@@ -61,18 +64,10 @@ const AddUserList = () => {
 
 
     const toastResult = async e => {
-        const result = await csvToPSQL(e);
-        if (csv.length === 0) {
-            toast.error("File is not chosen!", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-        } else {
-            if (result === true) {
-                toast.success('Successfully imported users', {
+        if (validCsv) {
+            const result = await csvToPSQL(e);
+            if (csv.length === 0) {
+                toast.error("File is not chosen!", {
                     position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -80,14 +75,32 @@ const AddUserList = () => {
                     pauseOnHover: true,
                 });
             } else {
-                toast.error("Error importing users", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
+                if (result === true) {
+                    toast.success('Successfully imported students', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                } else {
+                    toast.error("Error importing some students: Duplicate students", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                }
             }
+        } else {
+            toast.error("Please upload a valid CSV file!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
         }
     }
 
@@ -95,20 +108,17 @@ const AddUserList = () => {
         <Fragment>
             <button
                 type="button"
-                class="btn-small btn-success"
+                className="btn-circle btn-md"
                 data-bs-toggle="modal"
-                data-bs-target="#addUserModal"
+                data-bs-target="#addStudentModal"
             // data-target={`#id${todo.todo_id}`}
             >
-                <i class="fa fa-plus" aria-hidden="true"></i>
+                <i className="fa fa-plus" aria-hidden="true"></i>
             </button>
 
-            {/* 
-        id = id10
-      */}
             <div
                 className="modal"
-                id="addUserModal"
+                id="addStudentModal"
             >
                 <div className="modal-dialog modal-dialog-centered modal-sm">
                     <div className="modal-content ">
@@ -117,7 +127,6 @@ const AddUserList = () => {
                                 className="fa fa-upload modal-icon modal-icon-success"
                                 aria-hidden="true"
                             ></i>
-                            {/* <h6>Confirm deleting {deleteUser !== undefined ? deleteUser.firstname : ''}?</h6> */}
 
                             <input
                                 className="form-control form-control-sm"
@@ -151,4 +160,4 @@ const AddUserList = () => {
     );
 };
 
-export default AddUserList;
+export default AddStudentList;

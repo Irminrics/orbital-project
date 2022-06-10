@@ -1,5 +1,5 @@
 module.exports = function (req, res, next) {
-    const { firstName, lastName, studentNumber, userID, email, contactNumber, programme, password, activateEmail, OTP } = req.body;
+    const { firstName, lastName, studentNumber, userid, email, contactNumber, programme, password, activateEmail, OTP } = req.body;
 
     function validEmail(userEmail) {
         return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
@@ -13,7 +13,7 @@ module.exports = function (req, res, next) {
     //         return res.status(401).json("Invalid Email");
     //     }
     // } else 
-    
+
     if (req.path === "/login") {
         if (![email, password].every(Boolean)) {
             return res.status(401).json("Missing Credentials");
@@ -32,7 +32,12 @@ module.exports = function (req, res, next) {
         } else if (!validEmail(activateEmail)) {
             return res.status(401).json("Invalid Email");
         }
-    } 
-
+    } else if (req.path === "/update/:id") {
+        if (![firstName, lastName, studentNumber, userid, email, contactNumber, programme].every(Boolean)) {
+            return res.status(401).json("Missing Credentials");
+        } else if (!validEmail(email)) {
+            return res.status(401).json("Invalid Email");
+        }
+    }
     next();
 };

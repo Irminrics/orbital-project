@@ -1,7 +1,8 @@
+import { parse } from "papaparse";
 import React, { Fragment, useState } from "react";
 import { toast } from 'react-toastify';
 
-const EditUserList = ({ user }) => {
+const EditStudentList = ({ user }) => {
     const [firstName, setFirstName] = useState(user.firstname);
     const [lastName, setLastName] = useState(user.lastname);
     const [studentNumber, setStudentNumber] = useState(user.studentnumber);
@@ -24,46 +25,40 @@ const EditUserList = ({ user }) => {
 
             );
             const parseRes = await response.json();
-            console.log(parseRes);
-            return true;
+            if (parseRes === "User was updated!") {
+                toast.success('Successfully edited student', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            } else {
+                toast.error(parseRes, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+                
+                return false;
+            }
         } catch (err) {
             console.error(err.message);
             return false;
         }
     };
 
-    const toastResult = async e => {
-        const result = await updateUser(e);
-        console.log(result);
-        if (result === true) {
-            toast.success('Successfully edited user', {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-        } else {
-            toast.error("Error editing user", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-        }
-
-    }
-
     return (
         <Fragment>
             <button
                 type="button"
-                class="btn-small btn-warning"
+                className="btn-small btn-warning"
                 data-bs-toggle="modal"
                 data-bs-target={`#userid${user.id}`}
             >
-                <i class="fa fa-edit" aria-hidden="true"></i>
+                <i className="fa fa-edit" aria-hidden="true"></i>
             </button>
 
             {/* 
@@ -72,7 +67,6 @@ const EditUserList = ({ user }) => {
             <div
                 className="modal"
                 id={`userid${user.id}`}
-            // onClick={() => setDescription(todo.description)}
             >
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -82,42 +76,41 @@ const EditUserList = ({ user }) => {
                                 type="button"
                                 className="close"
                                 data-bs-dismiss="modal"
-                            // onClick={() => setDescription(todo.description)}
                             >
                                 &times;
                             </button>
                         </div>
 
                         <div className="modal-body">
-                            <label>First Name</label>
+                            <label className="control-label float-left mt-2">First Name</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 defaultValue={firstName}
                                 onChange={e => setFirstName(e.target.value)}
                             />
-                            <label>Last Name</label>
+                            <label className="control-label float-left mt-2">Last Name</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 defaultValue={lastName}
                                 onChange={e => setLastName(e.target.value)}
                             />
-                            <label>Student Number</label>
+                            <label className="control-label float-left mt-2">Student Number</label>
                             <input
                                 type="text"
                                 className="form-control"
                                 defaultValue={studentNumber}
                                 onChange={e => setStudentNumber(e.target.value)}
                             />
-                            <label>User ID</label>
+                            <label className="control-label float-left mt-2">User ID</label>
                             <input
-                                type="text"
+                                type="email"
                                 className="form-control"
                                 defaultValue={userid}
                                 onChange={e => setUserid(e.target.value)}
                             />
-                            <label>Email</label>
+                            <label className="control-label float-left mt-2">Email</label>
 
                             <input
                                 type="text"
@@ -125,23 +118,31 @@ const EditUserList = ({ user }) => {
                                 defaultValue={email}
                                 onChange={e => setEmail(e.target.value)}
                             />
-                            <label>Contact Number</label>
+                            <label className="control-label float-left mt-2">Contact Number</label>
 
                             <input
-                                type="text"
+                                type="number"
                                 className="form-control"
                                 defaultValue={contactNumber}
+                                pattern="\d{8}"
+                                required
                                 onChange={e => setContactNumber(e.target.value)}
                             />
 
-                            <label>Programme</label>
+                            <label className="control-label float-left mt-2">Programme</label>
 
-                            <input
-                                type="text"
-                                className="form-control"
-                                defaultValue={programme}
-                                onChange={e => setProgramme(e.target.value)}
-                            />
+                            <select class="form-select" aria-label="Default select example" defaultValue={programme} onChange={e => setProgramme(e.target.value)}>
+                                <option value="Bachelor of Business">Bachelor of Business</option>
+                                <option value="Bachelor of Computing">Bachelor of Computing</option>
+                                <option value="Bachelor of Dentistry">Bachelor of Dentistry</option>
+                                <option value="Bachelor of Engineering">Bachelor of Engineering</option>
+                                <option value="Bachelor of Law">Bachelor of Law</option>
+                                <option value="Bachelor of Music">Bachelor of Music</option>
+                                <option value="Bachelor of Nursing">Bachelor of Nursing</option>
+                                <option value="Bachelor of Pharmacy">Bachelor of Pharmacy</option>
+                                <option value="Bachelor of Science">Bachelor of Science</option>
+                            </select>
+
 
                         </div>
 
@@ -150,7 +151,7 @@ const EditUserList = ({ user }) => {
                                 type="button"
                                 className="btn btn-warning"
                                 data-bs-dismiss="modal"
-                                onClick={e => toastResult(e)}
+                                onClick={e => updateUser(e)}
                             >
                                 Edit
                             </button>
@@ -169,4 +170,4 @@ const EditUserList = ({ user }) => {
     );
 };
 
-export default EditUserList;
+export default EditStudentList;

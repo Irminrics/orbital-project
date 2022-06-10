@@ -22,6 +22,8 @@ const AddProjectList = () => {
         e.preventDefault();
         try {
             const body = { teamName, teamMember1, teamMember2, teamAdvisor, achievement };
+            console.log(JSON.stringify(body));
+
             const response = await fetch(
                 "/projects/create",
                 {
@@ -33,7 +35,13 @@ const AddProjectList = () => {
                 }
             );
 
-            return true;
+            const parseRes = await response.json();
+
+            if (parseRes.newProject) {
+                return true;
+            } else {
+                return false;
+            }
 
         } catch (err) {
             console.error(err.message);
@@ -43,12 +51,20 @@ const AddProjectList = () => {
 
 
     const csvToPSQL = async (e) => {
+        console.log(csv.length);
         for (let i = 0; i < csv.length; i++) {
             var result = await addProjectList(e, csv[i][0], csv[i][1], csv[i][2], csv[i][3], csv[i][4]);
             if (result === false) {
+                console.log('false');
+                console.log(i);
+
                 return result;
             }
+            console.log('last line in loop');
+
         }
+        console.log('out of loop');
+
         return result;
     }
 
@@ -73,7 +89,7 @@ const AddProjectList = () => {
                     pauseOnHover: true,
                 });
             } else {
-                toast.error("Error importing project", {
+                toast.error("Error importing projects", {
                     position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -88,17 +104,13 @@ const AddProjectList = () => {
         <Fragment>
             <button
                 type="button"
-                class="btn-small btn-success"
+                className="btn-circle btn-md"
                 data-bs-toggle="modal"
                 data-bs-target="#addProjectModal"
-            // data-target={`#id${todo.todo_id}`}
             >
-                <i class="fa fa-plus" aria-hidden="true"></i>
+                <i className="fa fa-plus" aria-hidden="true"></i>
             </button>
 
-            {/* 
-        id = id10
-      */}
             <div
                 className="modal"
                 id="addProjectModal"

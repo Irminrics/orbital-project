@@ -6,7 +6,7 @@ import StaffPage from "./pages/staff";
 import ProjectsPage from "./pages/projects";
 import AdminPage from "./pages/admin-dashboard";
 import DashboardPage from "./pages/dashboard";
-import AdminUserPage from "./pages/admin-user";
+import AdminStudentPage from "./pages/admin-student";
 import AdminProjectPage from "./pages/admin-project";
 
 
@@ -44,7 +44,7 @@ function App() {
 
       const parseRes = await response.json();
 
-      setName(parseRes.userid)
+      setName(parseRes.studentnumber)
 
     } catch (err) {
       console.error(err.message);
@@ -66,7 +66,7 @@ function App() {
         <Route exact path='/projects/:achievement' element={<ProjectsPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
         <Route exact path='/dashboard' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
         <Route exact path='/admin' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
-        <Route exact path='/admin/users' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminUserPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
+        <Route exact path='/admin/students' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminStudentPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
         <Route exact path='/admin/projects' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminProjectPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <DashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
 
       </Routes>

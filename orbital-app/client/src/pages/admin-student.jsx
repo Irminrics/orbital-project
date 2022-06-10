@@ -2,7 +2,7 @@ import Navigation from "../components/Header/Navigation";
 import Footer from "../components/Footer/Footer";
 import Sidebar from "../components/Sidebar";
 
-import UserList from "../components/Admin/UserList";
+import StudentList from "../components/Admin/StudentList";
 
 const AdminUserPage = ({ setAuth, isAuthenticated }) => {
 
@@ -12,7 +12,7 @@ const AdminUserPage = ({ setAuth, isAuthenticated }) => {
             <div className="page-container">
                 <Sidebar activePage={"user"}/>
                 <div className="container-fluid">
-                    <UserList />
+                    <StudentList />
                 </div>
                 <Footer />
             </div>
