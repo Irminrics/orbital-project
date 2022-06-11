@@ -104,8 +104,7 @@ const AdminDashBoard = () => {
     return (
         <>
             <div className="adminDashboard">
-                <main className="pt-5 mx-lg-5">
-                    <div className="container-xxl mt-5">
+                <main className="pt-5 mx-lg-5 my-5">
                         <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
                             {/*Card content*/}
                             <div className="card-body d-sm-flex justify-content-between">
@@ -224,7 +223,7 @@ const AdminDashBoard = () => {
                             </div>
                             {/*Grid column*/}
                         </div>
-                    </div></main>
+                    </main>
             </div>
         </>
     )

@@ -4,14 +4,20 @@ import { toast } from 'react-toastify';
 
 const AddProjectList = () => {
     const [csv, setCsv] = useState([]);
+    const [validCsv, setValidCsv] = useState(false);
 
     const handleFileUpload = (e) => {
         const files = e.target.files;
         if (files) {
             Papa.parse(files[0], {
                 complete: function (results) {
-                    setCsv(results.data.slice(1));
-                    console.log("Finished:", results.data);
+                    if (results.data[0][0] == "Team Name" && results.data[0][1] == "Team Member 1" && results.data[0][2] == "Team Member 2"
+                        && results.data[0][3] == "Team Advisor" && results.data[0][4] == "Achievement") {
+                        setCsv(results.data.slice(1));
+                        setValidCsv(true);
+                    } else {
+                        setValidCsv(false);
+                    }
                 }
             }
             )
@@ -22,8 +28,6 @@ const AddProjectList = () => {
         e.preventDefault();
         try {
             const body = { teamName, teamMember1, teamMember2, teamAdvisor, achievement };
-            console.log(JSON.stringify(body));
-
             const response = await fetch(
                 "/projects/create",
                 {
@@ -51,37 +55,18 @@ const AddProjectList = () => {
 
 
     const csvToPSQL = async (e) => {
-        console.log(csv.length);
         for (let i = 0; i < csv.length; i++) {
             var result = await addProjectList(e, csv[i][0], csv[i][1], csv[i][2], csv[i][3], csv[i][4]);
-            if (result === false) {
-                console.log('false');
-                console.log(i);
-
-                return result;
-            }
-            console.log('last line in loop');
-
         }
-        console.log('out of loop');
-
         return result;
     }
 
 
     const toastResult = async e => {
-        const result = await csvToPSQL(e);
-        if (csv.length === 0) {
-            toast.error("File is not chosen!", {
-                position: "top-center",
-                autoClose: 3000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-            });
-        } else {
-            if (result === true) {
-                toast.success('Successfully imported projects', {
+        if (validCsv) {
+            const result = await csvToPSQL(e);
+            if (csv.length === 0) {
+                toast.error("File is not chosen!", {
                     position: "top-center",
                     autoClose: 3000,
                     hideProgressBar: true,
@@ -89,14 +74,32 @@ const AddProjectList = () => {
                     pauseOnHover: true,
                 });
             } else {
-                toast.error("Error importing projects", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
+                if (result === true) {
+                    toast.success('Successfully imported projects', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                } else {
+                    toast.error("Error importing projects", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                }
             }
+        } else {
+            toast.error("Please upload a valid CSV file!", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
         }
     }
 

@@ -64,6 +64,20 @@ router.get("/students", async (req, res) => {
   }
 });
 
+router.get("/students/:userid", async (req, res) => {
+  const { userid } = req.params;
+  try {
+    const user = await pool.query(
+      "SELECT * FROM users WHERE userid = $1", [userid]
+    );
+
+    res.json(user);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+});
+
 router.put("/update/:id", validation, async (req, res) => {
   try {
     const { id } = req.params;

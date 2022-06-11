@@ -2,11 +2,13 @@ import { Fragment, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
 import EditStudentList from './EditStudentList'
 import AddStudentList from './AddStudentList'
+import LoadingSpinner from '../LoadingSpinner'
 import DataTable from 'react-data-table-component';
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
     const [deleteUser, setDeleteUser] = useState();
+    const [isLoading, setLoading] = useState(true);
 
     const columns = [
         {
@@ -145,6 +147,7 @@ const UserList = () => {
             const response = await fetch("/users/students");
             const jsonData = await response.json();
 
+            setLoading(false);
             setUsers(jsonData.rows);
         } catch (err) {
             console.error(err.message);
@@ -158,66 +161,58 @@ const UserList = () => {
 
     return (
         <Fragment>
-            <main className="pt-5 mx-lg-5">
-                <div className="my-5">
-                    <div className="card blue white-text mb-3">
-                        {/*Card content*/}
-                        <div className="card-body d-sm-flex justify-content-between">
-                            <div className="panel box-shadow-none content-header">
-                                <div className="panel-body">
-                                    <div className="col-md-12">
-                                        <h3 className="mb-0">Students Information</h3>
-                                    </div>
+            <main className="pt-5 mx-lg-5 my-5">
+                <div className="card blue white-text mb-3">
+                    {/*Card content*/}
+                    <div className="card-body d-sm-flex justify-content-between">
+                        <div className="panel box-shadow-none content-header">
+                            <div className="panel-body">
+                                <div className="col-md-12">
+                                    <h3 className="mb-0">Students Information</h3>
                                 </div>
                             </div>
-                            <div >
-                                <input type="text" className="searchBtn" placeholder="Search" onChange={e => setFilterText(e.target.value)} defaultValue={filterText} />
-                                <AddStudentList />
-                            </div>
+                        </div>
+                        <div >
+                            <input type="text" className="searchBtn" placeholder="Search" onChange={e => setFilterText(e.target.value)} defaultValue={filterText} />
+                            <AddStudentList />
                         </div>
                     </div>
-                    {(users.length - 1) !== 0 ?
-                        < div className="card" >
-                            < div className="card-body" ><div className="chartjs-size-monitor" style={{ position: 'absolute', left: '0px', top: '0px', right: '0px', bottom: '0px', overflow: 'hidden', pointerEvents: 'none', visibility: 'hidden', zIndex: -1 }}><div className="chartjs-size-monitor-expand" style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, overflow: 'hidden', pointerEvents: 'none', visibility: 'hidden', zIndex: -1 }}><div style={{ position: 'absolute', width: '1000000px', height: '1000000px', left: 0, top: 0 }} /></div><div className="chartjs-size-monitor-shrink" style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, overflow: 'hidden', pointerEvents: 'none', visibility: 'hidden', zIndex: -1 }}><div style={{ position: 'absolute', width: '200%', height: '200%', left: 0, top: 0 }} /></div></div>
-                                <DataTable
-                                    columns={columns}
-                                    data={filteredUsers}
-                                    customStyles={{
-                                        cells: {
-                                            style: {
-                                                textAlign: "center",
-                                            },
-                                        },
-                                        headCells: {
-                                            style: {
-                                                fontSize: "13px",
-                                                textAlign: "center",
-                                            },
-                                        },
-                                    }}
-                                    pagination
-                                    paginationComponentOptions={{
-                                        selectAllRowsItem: true,
-                                    }}
-                                />
-                            </div >
-                        </div >
-                        : <>
-                            <div className='emptyProject'>
-                                <p>There are no active students.</p>
-                            </div>
-                        </>}
                 </div>
+                {isLoading ? <LoadingSpinner /> : <> {users.length !== 0 ?
+                    < div className="card" >
+                        < div className="card-body" ><div className="chartjs-size-monitor" style={{ position: 'absolute', left: '0px', top: '0px', right: '0px', bottom: '0px', overflow: 'hidden', pointerEvents: 'none', visibility: 'hidden', zIndex: -1 }}><div className="chartjs-size-monitor-expand" style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, overflow: 'hidden', pointerEvents: 'none', visibility: 'hidden', zIndex: -1 }}><div style={{ position: 'absolute', width: '1000000px', height: '1000000px', left: 0, top: 0 }} /></div><div className="chartjs-size-monitor-shrink" style={{ position: 'absolute', left: 0, top: 0, right: 0, bottom: 0, overflow: 'hidden', pointerEvents: 'none', visibility: 'hidden', zIndex: -1 }}><div style={{ position: 'absolute', width: '200%', height: '200%', left: 0, top: 0 }} /></div></div>
+                            <DataTable
+                                columns={columns}
+                                data={filteredUsers}
+                                customStyles={{
+                                    cells: {
+                                        style: {
+                                            textAlign: "center",
+                                        },
+                                    },
+                                    headCells: {
+                                        style: {
+                                            fontSize: "13px",
+                                            textAlign: "center",
+                                        },
+                                    },
+                                }}
+                                pagination
+                                paginationComponentOptions={{
+                                    selectAllRowsItem: true,
+                                }}
+                            />
+                        </div >
+                    </div >
+                    : <>
+                        <div className='emptyProject'>
+                            <p>There are no active students.</p>
+                        </div>
+                    </>
+                }</>}
             </main>
         </Fragment>
     );
-};
-
-
-const UserCard = () => {
-
-
-
 };
 
 export default UserList;

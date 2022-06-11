@@ -104,44 +104,10 @@ ALTER TABLE ONLY public.projects ALTER COLUMN id SET DEFAULT nextval('public.pro
 --
 
 COPY public.projects (id, teamname, teammember1, teammember2, teamadvisor, achievement) FROM stdin;
-1	Bandersnatch	Wang Xinyi	Sun Ruoxin	Lim En Qi Angie	artemis
-2	JavaBean	Ng Shi Jun	Kang Wenhan	Theodore Pinto	artemis
-3	Pilot	Wong Jing En	Loh Yi Kuang	Andrea Tan Ker Yue	artemis
-4	Project Flow	Darren Teo De En	Wesley Bennett Loo Dela Cruz	Li Huankang	artemis
-5	W	Elbert Benedict	Farrel Dwireswara Salim	Hoang Manh Duc	artemis
-6	NoteTogether	Izz Hafeez Bin Zek Hazley	Saw Jing Wen	Suther David Samuel	artemis
-7	Crayonz	Joy Tan QiaoTong	Ritika Manish Joshi	Ni Jiaying	artemis
-8	Unlockal	Ong Jin Xiang, Bryan	Tabriz Pahlavi	Nicholas Lowie	artemis
-9	Focat	Lim Jia Yi Venus	Chia Yun Rong	Andrea Tan Ker Yue	artemis
-10	ModTree	Nguyen Vu Khang	Tan Wei Seng	Loh Jia Ming, Rayner	artemis
-11	Algo-Rhythm	Leo Zhen Yu, Melvin	 Brandon Lau	Hoon Darren	apollo11
-12	I Have A Team	Xu Yi	 Yan Xiaoying	Andrea Tan Ker Yue	apollo11
-13	SEPlan	Donovan Singh	Jamie Lee Fang Hua	Loh Jia Ming, Rayner	apollo11
-14	Shooting Portals	Eugene Tang KangJie	Thio Leng Kiat	Heng Guo Jun	apollo11
-15	Ren	Cedric Chia Hup Siang	Mok Yao Hui	Nay Lin Han	apollo11
-16	Event Horizon	Li Po Hsien	Connor Shihern Lim	Adi Nata	apollo11
-17	SushiWars	Adelle Low Song Leng	Eric Neo Zi Zheng	Lim Ngian Xin Terry	apollo11
-18	Sweet and Tasty	Liong Wei Yong Deen	Hung Hin Wang Clement	Papattarada Apithanangsiri	apollo11
-19	TaskSpace	Lee Jing Ting	Jeff Hong Zhi Yang	Alvin Chee Teck Weng	apollo11
-20	Annual Rings	Soo Jia Xi	Glenn Ong JunJie	Hoon Darren	apollo11
-21	Let's Meat	Wang Liang Bing	Yong Duan Kang	Adi Nata	apollo11
-22	CopyPaste	Wang Xiuxuan	Bag Devesh Kumar	Vevek Selvam	apollo11
-23	Finding Orbi	Lim Shi Ern Grace	Ng Rui Yan Rena	Adi Nata	apollo11
-24	Level Tree	Lim Hong Yuan	Chow Yee Sen	Andrea Tan Ker Yue	apollo11
-25	Team FitNUS	Loh Yuan Long, Kedrian	Ng Kai Wen	Elroy Goh Jun Ying	apollo11
-26	Pen Island	Lin Zizheng	Darryl Ee	Allard Quek	vostok
-27	Toothless	Lim Zhen Yong	Lewis Chong Li Wei	Chin Xing Yi Rebecca	vostok
-28	Kachow!	Wang Xin Yu	Charles Lim Jun Hao	Nguyen Van Binh	vostok
-29	SupperFarFetch	Javen Leo Jun Yuan	Lee Kai Sheng Shawn	Patrick Tan Kian Seong	vostok
-30	Jawa	Angela Wong Si Qi	Hor Jia Wei	Marcus Tan Wei	gemini
-31	NerdHelper	Denzel Tan Tze En	Justin Lum Jhun Mun	Nay Lin Han	gemini
-32	BoTurtle	Wu Yongxin	Oong Jin Rong Jared	Nay Lin Han	gemini
-33	StonkTrek	Ng Chek Khau	Jacky Lu Jiaxin	Noel Mathew Isaac	gemini
-34	Genesis	Tan Cheong Hsien Ryan	Wilson Lee Jun Wei	Papattarada Apithanangsiri	gemini
-35	Walkaholics	Ho Jia Wei	Shang Feiyang	Papattarada Apithanangsiri	gemini
-36	Sleepy	Tan Kylie	Gibson Yip Wei Yang	Rama Venkatesh	gemini
-37	AstroGemini	Vidya Pradeep	Ayushi Yadav	Tan Shi Min	gemini
-38	Team Splatoon	Yu Changyang	Yu Zizhen	Tan Shi Min	gemini
+145	Test Team	Test Team Member 1	Test Team Member 2	Test Team Advisor 	artemis
+146	Test Team	Test Team Member 1	Test Team Member 2	Test Team Advisor 	apollo11
+147	Test Team	Test Team Member 1	Test Team Member 2	Test Team Advisor 	gemini
+148	Test Team	Test Team Member 1	Test Team Member 2	Test Team Advisor 	vostok
 \.
 
 
@@ -150,10 +116,22 @@ COPY public.projects (id, teamname, teammember1, teammember2, teamadvisor, achie
 --
 
 COPY public.users (id, firstname, lastname, studentnumber, userid, email, contactnumber, programme, password, otp) FROM stdin;
-6c093685-d3c2-49d7-9ddb-c568a9479d80	Jing En	Wong	A0000001H	e0000001	wongjinen@u.nus.edu.sg	91234567	Bachelor of Computing		\N
-bbd12ff3-8793-4a7b-a0fb-b76c0a48f62a	Jason	Tan	A0000002H	e0000002	jasontan@u.nus.edu.sg	91234567	Bachelor of Computing		\N
-ecab0e34-37dc-4100-bfdb-021874098ffd	Jun Kang	Ang	A0235183H	admin	orbital@u.nus.edu	91234567	Bachelor of Computing	$2b$10$cb3gxsKT9GcYmwQXEwK14OMIudgTVvNiJVMEnodJDAZWGyH/6M9Sm	948286280
-768fba3d-b695-441e-952c-83fdf71eb2e5	Jun Kang	Ang	A0635183H	adminn	angjunkang@u.nus.edu	91234567	Bachelor of Computing	$2b$10$jGhgH.vPNJUiP11pjz68JuUfRIw5KU3Qeux7kjVUHVujqn.RAE37O	
+0cb0526d-fad1-45cd-9804-0656585d35f6	Jun Kang	Ang	admin	e0000000	orbital@u.nus.edu	91234567	Bachelor of Computing	$2b$10$7/HrZ1juL9NuQlKkOx1.vunc8HmLYbvWVFZtIZOjj0KyRShGVOpRm	\N
+d47a57e0-17be-4fc2-8563-9c90731e98cf	Zhen Yong	Lim	A0000004H	e0000004	limzhenyong@u.nus.edu	90000003	Bachelor of Science		\N
+5e4675f2-4412-4783-9c98-b43ade0763c0	Darryl	Ee	A0000005H	e0000005	darrylee@u.nus.edu	90000004	Bachelor of Computing		\N
+d8bb91fc-9864-40a2-a87c-8ebed7050a39	Feiyang	Shang 	A0000007H	e0000007	shangfeiyang@u.nus.edu	90000006	Bachelor of Computing		\N
+bb5288a9-3c40-4b80-b971-82bf4eeb58d0	Jia Wei	Ho 	A0000008H	e0000008	hojiawei@u.nus.edu	90000007	Bachelor of Computing		\N
+ff19c0b7-f9fc-4520-aa92-771135669d2e	Qi En	Wong	A0000009H	e0000009	wongqien@u.nus.edu	90000008	Bachelor of Computing		\N
+10a3f58b-2b7d-4745-8db9-d3cb5c91267c	Yongxin	Wu 	A0000010H	e0000010	wuyongxin@u.nus.edu	90000009	Bachelor of Computing		\N
+5fef5912-938f-4822-80ac-8d5c18ffa838	Joshua	Chan	A0000011H	e0000011	joshuachan@u.nus.edu	90000010	Bachelor of Science		\N
+86fd2e5f-d30e-4f40-82e7-362847891401	Jason	Tan	A0000002H	e0000002	jasontan@u.nus.edu	90000001	Bachelor of Science		\N
+ba670269-5667-41aa-a4a9-05cfc4e11fa7	Brandon	Tay	A0000003H	e0000003	brandontan@u.nus.edu	90000002	Bachelor of Computing		\N
+5c472583-4756-4264-a98f-5a48cb013adb	Jing En	Wong	A0000001H	e0000001	wongjinen@u.nus.edu	90000000	Bachelor of Computing		\N
+709600fc-a86e-49fb-bcf7-2f35c0881235	 Jia Wei	Hor	A0000012H	e0000012	horjiawei@u.nus.edu	90000011	Bachelor of Computing		\N
+49dc0679-3114-4770-a284-10cbff4a8bd5	Xiaoying	Yan	A0000013H	e0000013	yanxiaoying@u.nus.edu	90000012	Bachelor of Computing		\N
+85086930-dd79-4508-a004-1facd5a42800	Donovan	Singh	A0000014H	e0000014	donovansingh@u.nus.edu	90000013	Bachelor of Computing		\N
+0011e5bd-685e-45dc-9645-acf0a61c0131	Brandon	Lau	A0000015H	e0000015	brandonlau@u.nus.edu	90000014	Bachelor of Computing		\N
+5ab6ae1b-b1df-4aa9-92f8-e535bc8cbc94	Kai Wen	Ng 	A0000016H	e0000016	ngkaiwen@u.nus.edu	90000015	Bachelor of Science		\N
 \.
 
 
@@ -161,7 +139,7 @@ ecab0e34-37dc-4100-bfdb-021874098ffd	Jun Kang	Ang	A0235183H	admin	orbital@u.nus.
 -- Name: projects_project_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.projects_project_id_seq', 76, true);
+SELECT pg_catalog.setval('public.projects_project_id_seq', 148, true);
 
 
 --
@@ -170,14 +148,6 @@ SELECT pg_catalog.setval('public.projects_project_id_seq', 76, true);
 
 ALTER TABLE ONLY public.projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
-
-
---
--- Name: users studentnum_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.users
-    ADD CONSTRAINT studentnum_unique UNIQUE (studentnumber);
 
 
 --
