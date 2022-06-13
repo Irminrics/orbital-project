@@ -1,5 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import { toast } from 'react-toastify';
+import EditProjectList from './EditProjectList'
 import AddProjectList from './AddProjectList'
 import LoadingSpinner from '../LoadingSpinner'
 import DataTable from 'react-data-table-component';
@@ -41,7 +42,7 @@ const ProjectList = () => {
             sortable: false,
             cell: row => <>
 
-                {/* <EditProjectsList user={row} /> */}
+                <EditProjectList project={row} />
 
                 &nbsp;
                 &nbsp;
@@ -68,7 +69,7 @@ const ProjectList = () => {
                                     className="fa fa-exclamation-triangle modal-icon modal-icon-danger"
                                     aria-hidden="true"
                                 ></i>
-                                <h6>Confirm deleting {deleteProject !== undefined ? deleteProject.firstname : ''}?</h6>
+                                <h6>Confirm deleting {deleteProject !== undefined ? deleteProject.teamname : ''}?</h6>
                             </div>
 
                             <div className="modal-footer">
@@ -152,8 +153,8 @@ const ProjectList = () => {
     };
 
     useEffect(() => {
-        getProjects();
-    });
+        setInterval(function () { getProjects(); }, 2000)
+    }, []);
 
     return (
         <Fragment>

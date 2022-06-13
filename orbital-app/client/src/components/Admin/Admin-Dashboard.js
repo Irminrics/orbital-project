@@ -55,7 +55,7 @@ const AdminDashBoard = () => {
 
     async function getProjectData() {
         try {
-            const artemis = await fetch("/projects/artemis", {
+            const artemis = await fetch("/projects/achievement/artemis", {
                 method: "GET",
             });
 
@@ -63,7 +63,7 @@ const AdminDashBoard = () => {
 
             setArtemis(artemisRes.length);
 
-            const apollo11 = await fetch("/projects/apollo11", {
+            const apollo11 = await fetch("/projects/achievement/apollo11", {
                 method: "GET",
             });
 
@@ -71,7 +71,7 @@ const AdminDashBoard = () => {
 
             setApollo11(apollo11Res.length);
 
-            const gemini = await fetch("/projects/gemini", {
+            const gemini = await fetch("/projects/achievement/gemini", {
                 method: "GET",
             });
 
@@ -79,7 +79,7 @@ const AdminDashBoard = () => {
 
             setGemini(geminiRes.length);
 
-            const vostok = await fetch("/projects/vostok", {
+            const vostok = await fetch("/projects/achievement/vostok", {
                 method: "GET",
             });
 

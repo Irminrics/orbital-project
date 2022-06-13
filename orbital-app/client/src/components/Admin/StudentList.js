@@ -15,14 +15,14 @@ const UserList = () => {
             name: 'First Name',
             selector: row => row.firstname,
             sortable: true,
-            width: "150px",
+            width: "120px",
 
         },
         {
             name: 'Last Name',
             selector: row => row.lastname,
             sortable: true,
-            width: "150px",
+            width: "120px",
         },
         {
             name: 'Student Number',
@@ -70,7 +70,7 @@ const UserList = () => {
                     data-bs-target="#deleteModal"
                     onClick={() => setDeleteUser(row)}
                 >
-                    <i class="fa fa-trash" aria-hidden="true"></i>
+                    <i className="fa fa-trash" aria-hidden="true"></i>
                 </button>
 
                 <div
@@ -81,7 +81,7 @@ const UserList = () => {
                         <div className="modal-content ">
                             <div className="modal-body">
                                 <i
-                                    class="fa fa-exclamation-triangle modal-icon modal-icon-danger"
+                                    className="fa fa-exclamation-triangle modal-icon modal-icon-danger"
                                     aria-hidden="true"
                                 ></i>
                                 <h6>Confirm deleting {deleteUser !== undefined ? deleteUser.firstname : ''}?</h6>
@@ -138,7 +138,7 @@ const UserList = () => {
 
             setUsers(users.filter(user => user.id !== id));
         } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
         }
     };
 
@@ -150,7 +150,7 @@ const UserList = () => {
             setLoading(false);
             setUsers(jsonData.rows);
         } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
         }
     };
 

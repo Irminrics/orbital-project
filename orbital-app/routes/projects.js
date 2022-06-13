@@ -38,7 +38,7 @@ router.delete("/del/:id", async (req, res) => {
 });
 
 //get all projects by level
-router.get("/:achievement", async (req, res) => {
+router.get("/achievement/:achievement", async (req, res) => {
     try {
         const { achievement } = req.params;
         const project = await pool.query("SELECT * FROM projects WHERE achievement = $1", [achievement])
@@ -49,12 +49,35 @@ router.get("/:achievement", async (req, res) => {
     }
 })
 
+//get all projects by level
+router.get("/id/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const project = await pool.query("SELECT * FROM projects WHERE id = $1", [id])
+
+        res.json(project.rows[0])
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+//get all members in project
+router.get("/members", async (req, res) => {
+    try {
+        const projectMembers = await pool.query("select distinct unnest(array[ teammember1, teammember2 ]) from projects")
+        res.json(projectMembers.rows)
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
+
 //update a project
-router.put("/:id", async (req, res) => {
+router.put("/update/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const { teamName, teamMember1, teamMember2, teamAdvisor } = req.body;
-        const updateProject = await pool.query("UPDATE projects SET teamName = $1, teamMember1 = $2, teamMember2 = $3, teamAdvisor = $4 WHERE id = $5",
+        const updatedProject = await pool.query("UPDATE projects SET teamName = $1, teamMember1 = $2, teamMember2 = $3, teamAdvisor = $4 WHERE id = $5",
             [teamName, teamMember1, teamMember2, teamAdvisor, id]
         );
 

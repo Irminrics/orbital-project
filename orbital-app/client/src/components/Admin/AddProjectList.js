@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
 import Papa from "papaparse";
 import { toast } from 'react-toastify';
 
@@ -24,29 +24,71 @@ const AddProjectList = () => {
         }
     };
 
+    const checkUniqueMembers = async (userid) => {
+        try {
+            const response = await fetch(`/projects/members`);
+            const jsonData = await response.json();
+
+            for (let i = 0; i < jsonData.length; i++) {
+                if (jsonData[i].unnest === userid) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    const checkStudentExist = async (userid) => {
+        try {
+            const response = await fetch(`/users`);
+            const jsonData = await response.json();
+
+            for (let i = 0; i < jsonData.rows.length; i++) {
+                if (userid === jsonData.rows[i].userid) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
     const addProjectList = async (e, teamName, teamMember1, teamMember2, teamAdvisor, achievement) => {
         e.preventDefault();
         try {
             const body = { teamName, teamMember1, teamMember2, teamAdvisor, achievement };
-            const response = await fetch(
-                "/projects/create",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-type": "application/json"
-                    },
-                    body: JSON.stringify(body)
+            const duplicate = await checkUniqueMembers(teamMember1) || await checkUniqueMembers(teamMember2);
+            const exist = checkStudentExist(teamMember1) || checkStudentExist(teamMember2);
+
+            if (!exist) {
+                if (!duplicate) {
+                    const response = await fetch(
+                        "/projects/create",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify(body)
+                        }
+                    );
+
+                    const parseRes = await response.json();
+
+                    if (parseRes.newProject) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
                 }
-            );
-
-            const parseRes = await response.json();
-
-            if (parseRes.newProject) {
-                return true;
             } else {
                 return false;
             }
-
         } catch (err) {
             console.error(err.message);
             return false;

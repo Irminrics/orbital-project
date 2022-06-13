@@ -1,4 +1,3 @@
-import { parse } from "papaparse";
 import React, { Fragment, useState } from "react";
 import { toast } from 'react-toastify';
 
@@ -45,7 +44,7 @@ const EditStudentList = ({ user }) => {
                 return false;
             }
         } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
             return false;
         }
     };
@@ -131,7 +130,7 @@ const EditStudentList = ({ user }) => {
 
                             <label className="control-label float-left mt-2">Programme</label>
 
-                            <select class="form-select" aria-label="Default select example" defaultValue={programme} onChange={e => setProgramme(e.target.value)}>
+                            <select className="form-select" aria-label="Default select example" defaultValue={programme} onChange={e => setProgramme(e.target.value)}>
                                 <option value="Bachelor of Business">Bachelor of Business</option>
                                 <option value="Bachelor of Computing">Bachelor of Computing</option>
                                 <option value="Bachelor of Dentistry">Bachelor of Dentistry</option>

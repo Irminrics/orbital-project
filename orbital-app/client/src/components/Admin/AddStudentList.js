@@ -48,7 +48,7 @@ const AddStudentList = () => {
             }
 
         } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
             return false;
         }
     };
@@ -111,7 +111,6 @@ const AddStudentList = () => {
                 className="btn-circle btn-md"
                 data-bs-toggle="modal"
                 data-bs-target="#addStudentModal"
-            // data-target={`#id${todo.todo_id}`}
             >
                 <i className="fa fa-plus" aria-hidden="true"></i>
             </button>
