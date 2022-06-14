@@ -1,17 +1,17 @@
 import Navigation from "../components/Header/Navigation";
+import UserDashboard from "../components/User/User-Dashboard";
+import Sidebar from "../components/User/UserSidebar";
 import Footer from "../components/Footer/Footer";
-import Sidebar from "../components/Admin/AdminSidebar";
-import StudentList from "../components/Admin/StudentList";
 
-const AdminUserPage = ({ setAuth, isAuthenticated }) => {
+const UserTeamPage = ({ setAuth, isAuthenticated }) => {
 
     return (
         <>
             <Navigation setAuth={setAuth} isAuthenticated={isAuthenticated} />
             <div className="page-container">
-                <Sidebar activePage={"user"}/>
+                <Sidebar activePage={"team"}/>
                 <div className="container-fluid">
-                    <StudentList />
+                    <UserDashboard />
                 </div>
                 <Footer />
             </div>
@@ -19,4 +19,4 @@ const AdminUserPage = ({ setAuth, isAuthenticated }) => {
     )
 }
 
-export default AdminUserPage
+export default UserTeamPage

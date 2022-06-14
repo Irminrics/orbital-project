@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link as LinkNav } from 'react-router-dom'
 
-import '../css/sidebar.css';
-import '../css/admin.css';
+import '../../css/sidebar.css';
+import '../../css/admin.css';
 
 function getOrdinalNum(n) {
     return n + (n > 0 ? ['th', 'st', 'nd', 'rd'][(n > 3 && n < 21) || n % 10 > 3 ? 0 : n % 10] : '');
@@ -54,42 +54,42 @@ const SidebarNav = ({ activePage }) => {
     if (activePage === "dashboard") {
         return (
             <div className="list-group list-group-flush">
-                <LinkNav to={`/admin`} className="list-group-item active white-text">
+                <LinkNav to={`/user`} className="list-group-item active white-text">
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
-                <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Students
+                <LinkNav to={`/user/team`} className="list-group-item list-group-item-action">
+                    <i className="fa fa-user mr-3" />Team
                 </LinkNav>
-                <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-table mr-3" />Projects
+                <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
+                    <i className="fa fa-table mr-3" />Submissions
                 </LinkNav>
             </div>
         )
-    } else if (activePage === "user") {
+    } else if (activePage === "team") {
         return (
             <div className="list-group list-group-flush">
-                <LinkNav to={`/admin`} className="list-group-item list-group-item-action ">
+                <LinkNav to={`/user`} className="list-group-item list-group-item-action ">
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
-                <LinkNav to={`/admin/students`} className="list-group-item active white-text">
-                    <i className="fa fa-user mr-3" />Students
+                <LinkNav to={`/user/team`} className="list-group-item active white-text">
+                    <i className="fa fa-user mr-3" />Team
                 </LinkNav>
-                <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-table mr-3" />Projects
+                <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
+                    <i className="fa fa-table mr-3" />Submissions
                 </LinkNav>
             </div>
         )
     } else {
         return (
             <div className="list-group list-group-flush">
-                <LinkNav to={`/admin`} className="list-group-item list-group-item-action">
+                <LinkNav to={`/user`} className="list-group-item list-group-item-action">
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
-                <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Students
+                <LinkNav to={`/user/team`} className="list-group-item list-group-item-action">
+                    <i className="fa fa-user mr-3" />Team
                 </LinkNav>
-                <LinkNav to={`/admin/projects`} className="list-group-item active waves-effect white-text">
-                    <i className="fa fa-table mr-3" />Projects
+                <LinkNav to={`/user/submission`} className="list-group-item active waves-effect white-text">
+                    <i className="fa fa-table mr-3" />Submissions
                 </LinkNav>
             </div>
         )
