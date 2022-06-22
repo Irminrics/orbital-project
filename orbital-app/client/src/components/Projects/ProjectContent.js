@@ -4,10 +4,13 @@ import apollo11 from "../../images/apollo11.png"
 import gemini from "../../images/gemini.png"
 import vostok from "../../images/vostok.png"
 
-const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdvisor, achievement }) => {
+const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdvisor, achievement, poster }) => {
     const [teamMemberName1, setTeamMemberName1] = useState();
     const [teamMemberName2, setTeamMemberName2] = useState();
-    
+
+
+    console.log(poster);
+
     const getMemberName = async (teamMember1, teamMember2) => {
         try {
             const responseTM1 = await fetch(`/users/students/${teamMember1}`);
@@ -30,7 +33,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
     useEffect(() => {
         getMemberName(teamMember1, teamMember2);
     }, []);
-    
+
     if (achievement === "artemis") {
         return (
             <>
@@ -47,9 +50,33 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <br />
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
+                            <button
+                                type="button"
+                                className="btn-small btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#projectposter${teamID}`}
+                                style={{display: poster === null ? "none" : "block"}}
+                            >
+                                <i className="fa fa-edit" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                     <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                </div>
+
+                <div
+                    className="modal"
+                    id={`projectposter${teamID}`}
+                >
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <div className="modal-body">
+                                    <img src={poster} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </>
@@ -70,9 +97,33 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <br />
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
+                            <button
+                                type="button"
+                                className="btn-small btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#projectposter${teamID}`}
+                                style={{display: poster === null ? "none" : "block"}}
+                            >
+                                <i className="fa fa-edit" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                     <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                </div>
+
+                <div
+                    className="modal"
+                    id={`projectposter${teamID}`}
+                >
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <div className="modal-body">
+                                    <img src={poster} />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </>
@@ -93,9 +144,27 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <br />
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
+                            <button
+                                type="button"
+                                className="btn-small btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#projectposter${teamID}`}
+                                style={{display: poster === null ? "none" : "block"}}
+                            >
+                                <i className="fa fa-edit" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                     <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                </div>
+
+                <div
+                    className="modal"
+                    id={`projectposter${teamID}`}
+                >
+                    <div className="modal-dialog">
+                        <img src={poster} />
+                    </div>
                 </div>
 
             </>
@@ -116,9 +185,31 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <br />
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
+                            <button
+                                type="button"
+                                className="btn-small btn-warning"
+                                data-bs-toggle="modal"
+                                data-bs-target={`#projectposter${teamID}`}
+                                style={{display: poster === null ? "none" : "block"}}
+                            >
+                                <i className="fa fa-edit" aria-hidden="true"></i>
+                            </button>
                         </div>
                     </div>
                     <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                </div>
+
+                <div
+                    className="modal"
+                    id={`projectposter${teamID}`}
+                >
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <img src={poster} />
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </>

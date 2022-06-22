@@ -1,7 +1,7 @@
 import Navigation from "../components/Header/Navigation";
 import Footer from "../components/Footer/Footer";
 import Sidebar from "../components/Admin/AdminSidebar";
-import AdminDashBoard from "../components/Admin/Admin-Dashboard";
+import AdminDashBoard from "../components/Admin/AdminDashboard";
 
 const AdminDashBoardPage = ({ setAuth, isAuthenticated }) => {
 

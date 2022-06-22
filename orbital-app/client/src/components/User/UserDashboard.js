@@ -13,7 +13,6 @@ const UserDashboard = () => {
             const parseRes = await response.json();
 
             setName(parseRes.firstname + " " + parseRes.lastname);
-
         } catch (err) {
             console.error(err.message);
         }

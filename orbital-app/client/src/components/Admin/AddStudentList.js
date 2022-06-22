@@ -11,8 +11,8 @@ const AddStudentList = () => {
         if (files) {
             Papa.parse(files[0], {
                 complete: function (results) {
-                    if (results.data[0][0] == "First Name" && results.data[0][1] == "Last Name" && results.data[0][2] == "Student Number" 
-                    && results.data[0][3] == "User ID" && results.data[0][4] == "Email" && results.data[0][5] == "Contact Number" && results.data[0][6] == "Programme") {
+                    if (results.data[0][0] === "First Name" && results.data[0][1] === "Last Name" && results.data[0][2] === "Student Number" 
+                    && results.data[0][3] === "User ID" && results.data[0][4] === "Email" && results.data[0][5] === "Contact Number" && results.data[0][6] === "Programme") {
                         setCsv(results.data.slice(1));
                         setValidCsv(true);
                     } else {

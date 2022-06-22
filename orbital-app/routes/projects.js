@@ -49,6 +49,18 @@ router.get("/achievement/:achievement", async (req, res) => {
     }
 })
 
+//get projects from user
+router.get("/userid/:userid", async (req, res) => {
+    try {
+        const { userid } = req.params;
+        const project = await pool.query("SELECT * FROM projects WHERE teammember1 = $1 or teammember2 = $1", [userid])
+
+        res.json(project.rows[0])
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 //get all projects by level
 router.get("/id/:id", async (req, res) => {
     try {
@@ -71,6 +83,21 @@ router.get("/members", async (req, res) => {
     }
 })
 
+
+//update a project poster
+router.put("/poster/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { poster } = req.body;
+        const updatedProject = await pool.query("UPDATE projects SET poster = $1 WHERE teammember1 = $2 or teammember2 = $2",
+            [poster, id]
+        );
+
+        res.json("Poster was uploaded!");
+    } catch (err) {
+        console.error(err.message);
+    }
+})
 
 //update a project
 router.put("/update/:id", async (req, res) => {

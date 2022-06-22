@@ -1,5 +1,5 @@
 import Navigation from "../components/Header/Navigation";
-import UserDashboard from "../components/User/User-Dashboard";
+import UserTeam from "../components/User/UserTeam";
 import Sidebar from "../components/User/UserSidebar";
 import Footer from "../components/Footer/Footer";
 
@@ -11,7 +11,7 @@ const UserTeamPage = ({ setAuth, isAuthenticated }) => {
             <div className="page-container">
                 <Sidebar activePage={"team"}/>
                 <div className="container-fluid">
-                    <UserDashboard />
+                    <UserTeam />
                 </div>
                 <Footer />
             </div>

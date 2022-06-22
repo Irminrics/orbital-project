@@ -1,5 +1,5 @@
 import Navigation from "../components/Header/Navigation";
-import UserDashboard from "../components/User/User-Dashboard";
+import UserDashboard from "../components/User/UserDashboard";
 import Sidebar from "../components/User/UserSidebar";
 import Footer from "../components/Footer/Footer";
 

@@ -11,8 +11,8 @@ const AddProjectList = () => {
         if (files) {
             Papa.parse(files[0], {
                 complete: function (results) {
-                    if (results.data[0][0] == "Team Name" && results.data[0][1] == "Team Member 1" && results.data[0][2] == "Team Member 2"
-                        && results.data[0][3] == "Team Advisor" && results.data[0][4] == "Achievement") {
+                    if (results.data[0][0] === "Team Name" && results.data[0][1] === "Team Member 1" && results.data[0][2] === "Team Member 2"
+                        && results.data[0][3] === "Team Advisor" && results.data[0][4] === "Achievement") {
                         setCsv(results.data.slice(1));
                         setValidCsv(true);
                     } else {

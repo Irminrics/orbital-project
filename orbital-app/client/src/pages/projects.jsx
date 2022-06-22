@@ -42,7 +42,7 @@ const Project = () => {
         try {
             const response = await fetch(`/projects/achievement/${achievement}`);
             const jsonData = await response.json();
-
+            console.log(jsonData);
             setProjects(jsonData);
         } catch (err) {
             console.error(err.message);
@@ -66,7 +66,8 @@ const Project = () => {
             <>
                 {projects.map(project => (
                     <div key={project.id}>
-                        <ProjectContent teamName={project.teamname} teamID={project.id} teamMember1={project.teammember1} teamMember2={project.teammember2} teamAdvisor={project.teamadvisor} achievement={project.achievement} />
+                        <ProjectContent teamName={project.teamname} teamID={project.id} teamMember1={project.teammember1} teamMember2={project.teammember2} teamAdvisor={project.teamadvisor}
+                            achievement={project.achievement} poster={project.poster} />
                     </div>
                 ))}
             </>
