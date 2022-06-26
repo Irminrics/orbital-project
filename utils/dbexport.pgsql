@@ -75,6 +75,23 @@ ALTER SEQUENCE public.projects_project_id_seq OWNED BY public.projects.id;
 
 
 --
+-- Name: staffs; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.staffs (
+    id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    staffname character varying(255),
+    staffemail character varying(255),
+    staffgithub character varying(255),
+    staffwebsite character varying(255),
+    stafflinkedin character varying(255),
+    stafftitle character varying(255)
+);
+
+
+ALTER TABLE public.staffs OWNER TO postgres;
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -114,12 +131,20 @@ COPY public.projects (id, teamname, teammember1, teammember2, teamadvisor, achie
 
 
 --
+-- Data for Name: staffs; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.staffs (id, staffname, staffemail, staffgithub, staffwebsite, stafflinkedin, stafftitle) FROM stdin;
+c7ac0255-51e1-4bad-84c4-0f3dd0d69fff	junkang	angjunkang@u.nus.edu	https://github.com/Irminrics	http://irminrics.herokuapp.com	https://www.linkedin.com/in/angjunkang/	Temp
+\.
+
+
+--
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.users (id, firstname, lastname, studentnumber, userid, email, contactnumber, programme, password, otp) FROM stdin;
 0cb0526d-fad1-45cd-9804-0656585d35f6	Jun Kang	Ang	admin	e0000000	orbital@u.nus.edu	91234567	Bachelor of Computing	$2b$10$7/HrZ1juL9NuQlKkOx1.vunc8HmLYbvWVFZtIZOjj0KyRShGVOpRm	\N
-08af9ef0-3897-4872-9fc0-7237eb8191c6	Zhen Yong	Lim	A0000004H	e0000004	limzhenyong@u.nus.edu	90000003	Bachelor of Science		\N
 1e34e619-fbc1-4b08-ab2f-326fbd8cdc7a	Darryl	Ee	A0000005H	e0000005	darrylee@u.nus.edu	90000004	Bachelor of Computing		\N
 04d0aded-db1c-4ea2-aad7-eae20cd0e94b	Feiyang	Shang 	A0000007H	e0000007	shangfeiyang@u.nus.edu	90000006	Bachelor of Computing		\N
 a12dc774-37a8-40b6-86be-f1508bfab983	Jia Wei	Ho 	A0000008H	e0000008	hojiawei@u.nus.edu	90000007	Bachelor of Computing		\N
@@ -135,6 +160,7 @@ d8ea973b-294a-4abc-8bcb-8d7741283ac4	Jason	Tan	A0000002H	e0000002	jasontan@u.nus
 82811d3d-2d3f-4222-91ee-afcece13ddec	Jun Kang	Ang	A0000003H	e0000003	angjunkang@u.nus.edu	90000002	Bachelor of Computing	$2b$10$9RYAgj8EYjbD7InW2tExLOOZQgqYXR/uLmgA91S7QXewpZ8ifcM7y	
 91eeb2d4-a3a6-439e-bb17-03dcdc416dae	Jing En	Wong	A0000001H	e0000001	wongjinen@u.nus.edu	90000000	Bachelor of Computing		\N
 df1e72b7-5151-4012-94e0-74e1571b50f3	Gwen	Tan	A0000016H	e0000016	gwentan@u.nus.edu	90000015	Bachelor of Science		\N
+08af9ef0-3897-4872-9fc0-7237eb8191c6	Zhen Yong	Lim	A0000004H	e0000004	limzhenyong@u.nus.edu	90000003	Bachelor of Law		\N
 \.
 
 
@@ -151,6 +177,14 @@ SELECT pg_catalog.setval('public.projects_project_id_seq', 204, true);
 
 ALTER TABLE ONLY public.projects
     ADD CONSTRAINT projects_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: staffs staffs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.staffs
+    ADD CONSTRAINT staffs_pkey PRIMARY KEY (id);
 
 
 --

@@ -23,3 +23,13 @@ CREATE TABLE users(
 );
 
 INSERT INTO users (username, email, password) VALUES ('admin', 'orbital@u.nus.edu', 'P@sssw0rd');
+
+CREATE TABLE staffs(
+    id uuid PRIMARY KEY DEFAULT uuid_generate_v4(),
+    staffName VARCHAR(255), 
+    staffEmail VARCHAR(255), 
+    staffGithub VARCHAR(255), 
+    staffWebsite VARCHAR(255), 
+    staffLinkedin VARCHAR(255),
+    staffTitle VARCHAR(255)
+);

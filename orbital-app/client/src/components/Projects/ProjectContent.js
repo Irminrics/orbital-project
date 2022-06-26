@@ -82,7 +82,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
 
                         </div>
                     </div>
-                    <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                    <h4 className="font-weight-bold text-primary text-center">{teamName}</h4>
                 </div>
 
                 <div
@@ -149,7 +149,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
 
                         </div>
                     </div>
-                    <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                    <h4 className="font-weight-bold text-primary text-center">{teamName}</h4>
                 </div>
 
                 <div
@@ -218,7 +218,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
 
                         </div>
                     </div>
-                    <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                    <h4 className="font-weight-bold text-primary text-center">{teamName}</h4>
                 </div>
 
                 <div
@@ -278,7 +278,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             </div>
                         </div>
                     </div>
-                    <h4 className="font-weight-bold text-primary">{teamName}</h4>
+                    <h4 className="font-weight-bold text-primary text-center">{teamName}</h4>
                 </div>
 
                 <div
