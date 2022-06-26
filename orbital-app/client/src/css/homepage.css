@@ -162,7 +162,7 @@ input[type=number] {
 .project-overlay {
     margin: 30px;
     height: 100%;
-    width: 90%;
+    width: 79%;
     opacity: 0;
     z-index: 1;
     transition: .5s ease;
@@ -282,4 +282,8 @@ input[type=number] {
     border-radius: 35px;
     font-size: 12px;
     text-align: center;
+}
+
+.projectsButton {
+    
 }

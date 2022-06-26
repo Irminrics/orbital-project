@@ -67,7 +67,7 @@ const Project = () => {
                 {projects.map(project => (
                     <div key={project.id}>
                         <ProjectContent teamName={project.teamname} teamID={project.id} teamMember1={project.teammember1} teamMember2={project.teammember2} teamAdvisor={project.teamadvisor}
-                            achievement={project.achievement} poster={project.poster} />
+                            achievement={project.achievement} poster={project.poster} video={project.video} />
                     </div>
                 ))}
             </>

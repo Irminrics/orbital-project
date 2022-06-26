@@ -99,6 +99,22 @@ router.put("/poster/:id", async (req, res) => {
     }
 })
 
+//update a project poster
+router.put("/video/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { video } = req.body;
+        const updatedProject = await pool.query("UPDATE projects SET video = $1 WHERE teammember1 = $2 or teammember2 = $2",
+            [video, id]
+        );
+
+        
+        res.json("Video link was uploaded!");
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 //update a project
 router.put("/update/:id", async (req, res) => {
     try {

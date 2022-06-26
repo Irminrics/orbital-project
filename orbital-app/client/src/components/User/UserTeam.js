@@ -5,6 +5,7 @@ const UserDashboard = () => {
     const [team, setTeam] = useState([]);
     const [userid, setUserId] = useState([]);
     const [poster, setPoster] = useState();
+    const [video, setVideo] = useState();
     const [isValidPoster, setValidPoster] = useState(false);
 
     async function getUserId() {
@@ -29,6 +30,7 @@ const UserDashboard = () => {
             const parseRes = await response.json();
 
             setTeam(parseRes);
+            setVideo(parseRes.video);
         } catch (err) {
             console.error(err.message);
         }
@@ -85,6 +87,56 @@ const UserDashboard = () => {
         }
     };
 
+    const updateVideo = async e => {
+        e.preventDefault();
+        if (validSite(video)) {
+            try {
+                const body = { video };
+                const response = await fetch(
+                    `/projects/video/${userid}`,
+                    {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(body)
+                    }
+                );
+
+                const parseRes = await response.json();
+
+                toast.success('Video link updated!', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+
+
+            } catch (err) {
+                console.error(err.message);
+                return false;
+            }
+        } else {
+            if (video !== undefined) {
+                toast.error("Ensure video link is valid and starts with http", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            } else {
+                toast.error("Please enter your video link", {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+            }
+        }
+    };
+
     const retrievePoster = async () => {
         try {
             const response = await fetch(`/projects/id/${team.id}`);
@@ -92,6 +144,18 @@ const UserDashboard = () => {
 
             setPoster(jsonData.poster);
             console.log(jsonData.poster);
+        } catch (err) {
+            // console.error(err.message);
+        }
+    };
+
+    const retrieveVideo = async () => {
+        try {
+            const response = await fetch(`/projects/id/${team.id}`);
+            const jsonData = await response.json();
+
+            setVideo(jsonData.video);
+            console.log(jsonData.video);
         } catch (err) {
             // console.error(err.message);
         }
@@ -134,6 +198,11 @@ const UserDashboard = () => {
         }
     };
 
+    function validSite(site) {
+        var siteRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+        return siteRegex.test(site);
+    }
+
 
     useEffect(() => {
         getUserId();
@@ -163,7 +232,7 @@ const UserDashboard = () => {
                     Team Name: {team.teamname}  <br />
                     Team Member 1: {team.teammember1}  <br />
                     Team Member 2: {team.teammember2}  <br />
-                    Team Advisor: {team.advisor}  <br />
+                    Team Advisor: {team.teamadvisor}  <br />
                     Team Achievement: {team.achievement}  <br />
 
                     <br />
@@ -174,22 +243,30 @@ const UserDashboard = () => {
                         <input
                             type="text"
                             className="form-control"
-                        // defaultValue={firstName}
-                        // onChange={e => setFirstName(e.target.value)}
+                            defaultValue={team.video}
+                            onChange={e => setVideo(e.target.value)}
                         />
                         <button
                             type="button"
                             onClick={e => updatePoster(e)}
                         >
-                            Submit
+                            Submit Poster
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={e => updateVideo(e)}
+                        >
+                            Submit Video
                         </button>
 
                         <button
                             type="button"
                             onClick={e => retrievePoster(e)}
                         >
-                            Retrieve
+                            Retrieve Poster
                         </button>
+
                     </form>
 
 

@@ -72,7 +72,6 @@ function App() {
         <Route exact path='/user' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <UserDashboardPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
         <Route exact path='/user/team' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <UserTeamPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
         <Route exact path='/user/submission' element={!isAuthenticated ? <MainPage setAuth={setAuth} /> : name === "admin" ? <AdminPage setAuth={setAuth} isAuthenticated={isAuthenticated} /> : <UserSubmissionPage setAuth={setAuth} isAuthenticated={isAuthenticated} />} />
-
       </Routes>
     </HashRouter>
   )
