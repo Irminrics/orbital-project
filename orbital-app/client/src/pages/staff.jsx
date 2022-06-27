@@ -1,9 +1,8 @@
 import '../css/bootstrap/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../css/homepage.css';
-import '../css/staffpage.css';
+import '../css/staff.css';
 
 import Navigation from "../components/Header/Navigation";
 import Footer from "../components/Footer/Footer";
@@ -50,17 +49,17 @@ const Staff = () => {
         return (
             <>
                 <div className='emptyStaff'>
-                    <center><h3>There are no staffs available.</h3></center>
+                    <p>There are no staffs available.</p>
                 </div>
             </>
         )
     } else {
         return (
             <>
-                {staffs.map(staff => ( 
+                {staffs.map(staff => (
                     <div key={staff.id}>
-                        <StaffContent staffName={staff.staffname} staffEmail={staff.staffemail} staffGithub = {staff.staffgithub} 
-                        staffWebsite = {staff.staffwebsite} staffLinkedin = {staff.stafflinkedin} staffTitle = {staff.stafftitle} />
+                        <StaffContent staffName={staff.staffname} staffEmail={staff.staffemail} staffGithub={staff.staffgithub}
+                            staffWebsite={staff.staffwebsite} staffLinkedin={staff.stafflinkedin} staffTitle={staff.stafftitle} />
                     </div>
                 ))}
             </>

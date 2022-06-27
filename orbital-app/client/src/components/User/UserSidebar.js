@@ -58,7 +58,7 @@ const SidebarNav = ({ activePage }) => {
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/user/team`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Team
+                    <i className="fa-duotone fa-users mr-3" />Team
                 </LinkNav>
                 <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
                     <i className="fa fa-table mr-3" />Submissions
@@ -72,7 +72,7 @@ const SidebarNav = ({ activePage }) => {
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/user/team`} className="list-group-item active white-text">
-                    <i className="fa fa-user mr-3" />Team
+                    <i className="fa-duotone fa-users mr-3" />Team
                 </LinkNav>
                 <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
                     <i className="fa fa-table mr-3" />Submissions
@@ -86,7 +86,7 @@ const SidebarNav = ({ activePage }) => {
                     <i className="fa fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/user/team`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Team
+                    <i className="fa-duotone fa-users mr-3" />Team
                 </LinkNav>
                 <LinkNav to={`/user/submission`} className="list-group-item active waves-effect white-text">
                     <i className="fa fa-table mr-3" />Submissions

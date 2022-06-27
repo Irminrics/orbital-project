@@ -9,9 +9,6 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
     const [teamMemberName1, setTeamMemberName1] = useState();
     const [teamMemberName2, setTeamMemberName2] = useState();
 
-
-    console.log(poster);
-
     const getMemberName = async (teamMember1, teamMember2) => {
         try {
             const responseTM1 = await fetch(`/users/students/${teamMember1}`);
@@ -71,7 +68,6 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                                         style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            console.log(video);
                                             window.location.href = `${video}`;
                                         }}
                                     >
@@ -138,7 +134,6 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                                         style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            console.log(video);
                                             window.location.href = `${video}`;
                                         }}
                                     >
@@ -207,7 +202,6 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                                         style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            console.log(video);
                                             window.location.href = `${video}`;
                                         }}
                                     >
@@ -268,7 +262,6 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                                         style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
-                                            console.log(video);
                                             window.location.href = `${video}`;
                                         }}
                                     >

@@ -1,5 +1,4 @@
 import '../css/bootstrap/bootstrap.min.css';
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../css/homepage.css';
@@ -42,7 +41,6 @@ const Project = () => {
         try {
             const response = await fetch(`/projects/achievement/${achievement}`);
             const jsonData = await response.json();
-            console.log(jsonData);
             setProjects(jsonData);
         } catch (err) {
             console.error(err.message);

@@ -1,12 +1,8 @@
 import profile from "../../images/profile.jpg"
-import '../../css/staffpage.css';
-import { useRef } from 'react';
 
 const StaffContent = ({ staffName, staffEmail, staffGithub, staffWebsite, staffLinkedin, staffTitle }) => {
-    const thisref = useRef("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css");
     return (
         <>
-            <link rel="stylesheet" href={thisref.current}></link>
             <div className="staff float-left m-5">
                 <div className="card">
                     <div class="our-team">

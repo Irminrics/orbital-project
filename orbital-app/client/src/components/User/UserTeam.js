@@ -66,7 +66,6 @@ const UserDashboard = () => {
                 return false;
             }
         } else {
-            console.log(poster);
             if (poster !== undefined) {
                 toast.error("Ensure image size is within 860px x 1200px", {
                     position: "top-center",
@@ -143,7 +142,6 @@ const UserDashboard = () => {
             const jsonData = await response.json();
 
             setPoster(jsonData.poster);
-            console.log(jsonData.poster);
         } catch (err) {
             // console.error(err.message);
         }
@@ -155,7 +153,6 @@ const UserDashboard = () => {
             const jsonData = await response.json();
 
             setVideo(jsonData.video);
-            console.log(jsonData.video);
         } catch (err) {
             // console.error(err.message);
         }

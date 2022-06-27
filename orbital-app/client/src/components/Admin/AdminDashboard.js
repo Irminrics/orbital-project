@@ -136,7 +136,7 @@ const AdminDashBoard = () => {
                                                     <h4 className="text-left blue-text">Users</h4>
                                                 </div>
                                                 <div className="col-md-12 col-sm-6 col-xs-6 text-center">
-                                                    <span className="fa fa-user" style={{ fontSize: '30px' }} />
+                                                    <span className="fa-solid fa-users" style={{ fontSize: '30px' }} />
                                                 </div>
                                             </div>
                                             <div className="panel-body text-center">
@@ -159,7 +159,7 @@ const AdminDashBoard = () => {
                                                     <h4 className="text-left blue-text">Projects</h4>
                                                 </div>
                                                 <div className="col-md-12 col-sm-6 col-xs-6 text-center">
-                                                    <span className="fa fa-calendar" style={{ fontSize: '30px' }} />
+                                                    <span className="fa-solid fa-rectangle-history" style={{ fontSize: '30px' }} />
                                                 </div>
                                             </div>
                                             <div className="panel-body text-center">

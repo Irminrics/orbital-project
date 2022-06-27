@@ -55,13 +55,13 @@ const SidebarNav = ({ activePage }) => {
         return (
             <div className="list-group list-group-flush">
                 <LinkNav to={`/admin`} className="list-group-item active white-text">
-                    <i className="fa fa-chart-line mr-3" />Dashboard
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Students
+                    <i className="fa-solid fa-users mr-3" />Students
                 </LinkNav>
                 <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-table mr-3" />Projects
+                    <i className="fa-solid fa-rectangle-history mr-3" />Projects
                 </LinkNav>
             </div>
         )
@@ -69,13 +69,13 @@ const SidebarNav = ({ activePage }) => {
         return (
             <div className="list-group list-group-flush">
                 <LinkNav to={`/admin`} className="list-group-item list-group-item-action ">
-                    <i className="fa fa-chart-line mr-3" />Dashboard
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/admin/students`} className="list-group-item active white-text">
-                    <i className="fa fa-user mr-3" />Students
+                    <i className="fa-solid fa-users mr-3" />Students
                 </LinkNav>
                 <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-table mr-3" />Projects
+                    <i className="fa-solid fa-rectangle-history mr-3" />Projects
                 </LinkNav>
             </div>
         )
@@ -83,13 +83,13 @@ const SidebarNav = ({ activePage }) => {
         return (
             <div className="list-group list-group-flush">
                 <LinkNav to={`/admin`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-chart-line mr-3" />Dashboard
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-user mr-3" />Students
+                    <i className="fa-solid fa-users mr-3" />Students
                 </LinkNav>
                 <LinkNav to={`/admin/projects`} className="list-group-item active waves-effect white-text">
-                    <i className="fa fa-table mr-3" />Projects
+                    <i className="fa-solid fa-rectangle-history mr-3" />Projects
                 </LinkNav>
             </div>
         )

@@ -61,9 +61,9 @@ const AddProjectList = () => {
         try {
             const body = { teamName, teamMember1, teamMember2, teamAdvisor, achievement };
             const duplicate = await checkUniqueMembers(teamMember1) || await checkUniqueMembers(teamMember2);
-            const exist = checkStudentExist(teamMember1) || checkStudentExist(teamMember2);
+            const exist = await checkStudentExist(teamMember1) && await checkStudentExist(teamMember2);
 
-            if (!exist) {
+            if (exist) {
                 if (!duplicate) {
                     const response = await fetch(
                         "/projects/create",
@@ -77,6 +77,7 @@ const AddProjectList = () => {
                     );
 
                     const parseRes = await response.json();
+
 
                     if (parseRes.newProject) {
                         return true;
@@ -97,10 +98,14 @@ const AddProjectList = () => {
 
 
     const csvToPSQL = async (e) => {
+        var error = false;
         for (let i = 0; i < csv.length; i++) {
             var result = await addProjectList(e, csv[i][0], csv[i][1], csv[i][2], csv[i][3], csv[i][4]);
+            if (result === false) {
+                error = true;
+            }
         }
-        return result;
+        return !error;
     }
 
 
