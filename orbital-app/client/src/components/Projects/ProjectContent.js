@@ -49,23 +49,23 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
 
-                            <div className='row'>
-                                <div className='col-sm'>
+                            <div className='row text-center'>
+                                <div className='col-sm' style={{ display: poster === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
                                         data-bs-toggle="modal"
                                         data-bs-target={`#projectposter${teamID}`}
-                                        style={{ display: poster === null ? "none" : "block" }}
                                     >
                                         <i className="fa fa-image" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                                <div className='col-sm'>
+                                <div className='col-sm' style={{ display: video === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
-                                        style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             window.location.href = `${video}`;
@@ -115,23 +115,23 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
 
-                            <div className='row'>
-                                <div className='col-sm'>
+                            <div className='row text-center'>
+                                <div className='col-sm' style={{ display: poster === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
                                         data-bs-toggle="modal"
                                         data-bs-target={`#projectposter${teamID}`}
-                                        style={{ display: poster === null ? "none" : "block" }}
                                     >
                                         <i className="fa fa-image" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                                <div className='col-sm'>
+                                <div className='col-sm' style={{ display: video === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
-                                        style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             window.location.href = `${video}`;
@@ -183,23 +183,23 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
 
                             <br />
 
-                            <div className='row'>
-                                <div className='col-sm'>
+                            <div className='row text-center'>
+                                <div className='col-sm' style={{ display: poster === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
                                         data-bs-toggle="modal"
                                         data-bs-target={`#projectposter${teamID}`}
-                                        style={{ display: poster === null ? "none" : "block" }}
                                     >
                                         <i className="fa fa-image" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                                <div className='col-sm'>
+                                <div className='col-sm' style={{ display: video === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
-                                        style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             window.location.href = `${video}`;
@@ -243,23 +243,23 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                             <div className="white-text">Advised By: <br />
                                 {teamAdvisor}</div>
 
-                            <div className='row'>
-                                <div className='col-sm'>
+                            <div className='row text-center'>
+                                <div className='col-sm' style={{ display: poster === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
                                         data-bs-toggle="modal"
                                         data-bs-target={`#projectposter${teamID}`}
-                                        style={{ display: poster === null ? "none" : "block" }}
                                     >
                                         <i className="fa fa-image" aria-hidden="true"></i>
                                     </button>
                                 </div>
-                                <div className='col-sm'>
+                                <div className='col-sm' style={{ display: video === null ? "none" : "block" }}
+                                >
                                     <button
                                         type="button"
                                         className="btn-lg btn-outline-primary mx-auto"
-                                        style={{ display: video === null ? "none" : "block" }}
                                         onClick={(e) => {
                                             e.preventDefault();
                                             window.location.href = `${video}`;

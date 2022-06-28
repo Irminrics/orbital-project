@@ -25,6 +25,7 @@ const Sidebar = ({ activePage }) => {
                             hour: 'numeric',
                             minute: 'numeric',
                             hour12: false,
+                            hourCycle: 'h23',
                         })}
                     </h1>
                     <p className="admin-date text-center">
@@ -55,13 +56,13 @@ const SidebarNav = ({ activePage }) => {
         return (
             <div className="list-group list-group-flush">
                 <LinkNav to={`/user`} className="list-group-item active white-text">
-                    <i className="fa fa-chart-line mr-3" />Dashboard
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/user/team`} className="list-group-item list-group-item-action">
                     <i className="fa-duotone fa-users mr-3" />Team
                 </LinkNav>
                 <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-table mr-3" />Submissions
+                    <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
                 </LinkNav>
             </div>
         )
@@ -69,13 +70,13 @@ const SidebarNav = ({ activePage }) => {
         return (
             <div className="list-group list-group-flush">
                 <LinkNav to={`/user`} className="list-group-item list-group-item-action ">
-                    <i className="fa fa-chart-line mr-3" />Dashboard
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/user/team`} className="list-group-item active white-text">
                     <i className="fa-duotone fa-users mr-3" />Team
                 </LinkNav>
                 <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-table mr-3" />Submissions
+                    <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
                 </LinkNav>
             </div>
         )
@@ -83,13 +84,13 @@ const SidebarNav = ({ activePage }) => {
         return (
             <div className="list-group list-group-flush">
                 <LinkNav to={`/user`} className="list-group-item list-group-item-action">
-                    <i className="fa fa-chart-line mr-3" />Dashboard
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
                 </LinkNav>
                 <LinkNav to={`/user/team`} className="list-group-item list-group-item-action">
                     <i className="fa-duotone fa-users mr-3" />Team
                 </LinkNav>
                 <LinkNav to={`/user/submission`} className="list-group-item active waves-effect white-text">
-                    <i className="fa fa-table mr-3" />Submissions
+                    <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
                 </LinkNav>
             </div>
         )

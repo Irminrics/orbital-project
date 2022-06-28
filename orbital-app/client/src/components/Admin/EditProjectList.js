@@ -78,7 +78,7 @@ const EditProjectList = ({ project }) => {
         try {
             const body = { teamName, teamMember1, teamMember2, teamAdvisor, achievement };
             const duplicate = await checkUniqueMembers(teamMember1) || await checkUniqueMembers(teamMember2);
-            const exist = checkStudentExist(teamMember1) && checkStudentExist(teamMember2);
+            const exist = await checkStudentExist(teamMember1) && await checkStudentExist(teamMember2);
 
             if (exist) {
                 if (!duplicate) {

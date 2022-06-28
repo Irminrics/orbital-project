@@ -18,5 +18,11 @@ The main goal of this project is:
 2. Use the testing admin account provided:
    - Email: `orbital@u.nus.edu`
    - Password: `P@ssw0rd`
-3. If there are no existing data in the database, download the utils file in the repository and use the respective csv files to upload/generate new data.
-4. Test ahead!
+  
+	or
+
+3. Use the testing user account provided:
+   - Email: `angjunkang@u.nus.edu`
+   - Password: `P@ssw0rd` 
+4. If there are no existing data in the database, download the utils file in the repository and use the respective csv files to upload/generate new data.
+5. Test ahead!

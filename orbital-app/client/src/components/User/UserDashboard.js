@@ -40,9 +40,6 @@ const UserDashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="d-flex justify-content-center">
-                                <i className="fa fa-pie-chart mr-3" />
-                            </div>
                         </div>
                     </div>
                 </main>

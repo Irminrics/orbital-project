@@ -25,6 +25,7 @@ const AdminSidebar = ({ activePage }) => {
                             hour: 'numeric',
                             minute: 'numeric',
                             hour12: false,
+                            hourCycle: 'h23',
                         })}
                     </h1>
                     <p className="admin-date text-center">

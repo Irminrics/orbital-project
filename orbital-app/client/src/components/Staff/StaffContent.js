@@ -5,19 +5,19 @@ const StaffContent = ({ staffName, staffEmail, staffGithub, staffWebsite, staffL
         <>
             <div className="staff float-left m-5">
                 <div className="card">
-                    <div class="our-team">
-                        <div class="picture">
-                            <img class="img-fluid" src={profile}></img>
+                    <div className="our-team">
+                        <div className="picture">
+                            <img className="img-fluid" src={profile}></img>
                         </div>
-                        <div class="team-content">
-                            <h3 class="name">{staffName}</h3>
-                            <h4 class="title">{staffTitle}</h4>
+                        <div className="team-content">
+                            <h3 className="name">{staffName}</h3>
+                            <h4 className="title">{staffTitle}</h4>
                         </div>
-                        <ul class="social">
-                            <li><a href={"mailto:"+staffEmail} target="_blank" class="fa-solid fa-envelope" aria-hidden="true"></a></li>
-                            <li><a href={staffGithub} target="_blank" class="fa-brands fa-github" aria-hidden="true"></a></li>
-                            <li><a href={staffWebsite} target="_blank" class="fa-solid fa-globe" aria-hidden="true"></a></li>
-                            <li><a href={staffLinkedin} target="_blank" class="fa-brands fa-linkedin" aria-hidden="true"></a></li>
+                        <ul className="social">
+                            <li><a href={"mailto:"+staffEmail} target="_blank" className="fa-solid fa-envelope" aria-hidden="true"></a></li>
+                            <li><a href={staffGithub} target="_blank" className="fa-brands fa-github" aria-hidden="true"></a></li>
+                            <li><a href={staffWebsite} target="_blank" className="fa-solid fa-globe" aria-hidden="true"></a></li>
+                            <li><a href={staffLinkedin} target="_blank" className="fa-brands fa-linkedin" aria-hidden="true"></a></li>
                         </ul>
                     </div>
                 </div>
