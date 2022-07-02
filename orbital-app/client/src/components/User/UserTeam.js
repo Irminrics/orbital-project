@@ -201,87 +201,159 @@ const UserDashboard = () => {
 
     return (
         <>
-            <div className="adminDashboard">
-                <main className="pt-5 mx-lg-5 my-5">
-                    <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
-                        {/*Card content*/}
-                        <div className="card-body d-sm-flex justify-content-between">
-                            <div className="panel box-shadow-none content-header">
-                                <div className="panel-body">
-                                    <div className="col-md-12">
-                                        <h1>{team.teamname}</h1>
-                                    </div>
+            <main className="pt-5 mx-lg-5 my-5">
+                <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
+                    {/*Card content*/}
+                    <div className="card-body d-sm-flex justify-content-between">
+                        <div className="panel box-shadow-none content-header">
+                            <div className="panel-body">
+                                <div className="col-md-12">
+                                    <h1>{team.teamname}</h1>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div className='row'>
+                    <div className='col-md-7'>
 
-                    {/*Grid column*/}
-                    <div className="card">
-                        <div className="card-body">
-                            <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
-                                <h4 className="text-left blue-text">Basic Information</h4>
-                            </div>
-                            <div className='row'>
-                                <div className='col-md-6'>
-
-                                    Team ID: {team.id} <br />
-                                    Team Member 1: {team.teammember1}  <br />
-                                    Team Member 2: {team.teammember2}  <br />
-                                    Team Advisor: {team.teamadvisor}  <br />
-                                    Team Achievement: {team.achievement}  <br />
-
-                                    <br />
-
-                                    <form>
-
-
-                                        <label className="control-label float-left mt-2">Video Link</label>
-                                        <input
-                                            type="text"
-                                            className="form-control"
-                                            defaultValue={team.video}
-                                            onChange={e => setVideo(e.target.value)}
-                                        />
-
-
-                                        <button
-                                            type="button"
-                                            onClick={e => updateVideo(e)}
-                                        >
-                                            Submit Video
-                                        </button>
-
-
-                                    </form>
+                        {/*Grid column*/}
+                        <div className="card" style={{ height: '355px' }}>
+                            <div className="card-body">
+                                <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                    <h4 className="text-left blue-text mb-3">Basic Information</h4>
+                                    <p>Team ID: {team.id} </p>
+                                    <p>Team Member 1: {team.teammember1} </p>
+                                    <p>Team Member 2: {team.teammember2} </p>
+                                    <p>Team Advisor: {team.teamadvisor} </p>
+                                    <p>Team Achievement: {team.achievement} </p>
                                 </div>
-                                <div className='col-md-6'>
 
-                                    <img src={poster} key={poster} height="360" width="258" />
-                                    <br />
 
-                                    <br />
-                                    <br />
 
-                                    <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
+                                <br />
+                            </div>
+                        </div>
+
+                        {/* <div className="card">
+                            <div className="card-body">
+                                <img src={poster} key={poster} height="360" width="258" />
+                                <br />
+
+                                <br />
+                                <br />
+
+                                <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
+                                <button
+                                    type="button"
+                                    onClick={e => updatePoster(e)}
+                                >
+                                    Submit Poster
+                                </button>
+
+
+
+                                <form>
+
+
+                                    <label className="control-label float-left mt-2">Video Link</label>
+                                    <input
+                                        type="text"
+                                        className="form-control"
+                                        defaultValue={team.video}
+                                        onChange={e => setVideo(e.target.value)}
+                                    />
+
+
                                     <button
                                         type="button"
-                                        onClick={e => updatePoster(e)}
+                                        onClick={e => updateVideo(e)}
                                     >
-                                        Submit Poster
+                                        Submit Video
                                     </button>
 
 
+                                </form>
+
+                            </div>
+                        </div> */}
+                    </div>
+                    <div className='col-md-5'>
+
+
+                        <a className="card blue white-text mb-3" data-bs-toggle="modal"
+                            data-bs-target={`#myprojectposter`}>
+                            {/*Card content*/}
+                            <div className="card-body d-sm-flex justify-content-between">
+                                <div className="panel box-shadow-none content-header">
+                                    <div className="panel-body">
+                                        <div className="col-md-12">
+                                            <h4>Click for poster pop up</h4>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
+
+                        <a className="card white-text blue mb-3">
+                            {/*Card content*/}
+                            <div className="card-body d-sm-flex justify-content-between">
+                                <div className="panel box-shadow-none content-header">
+                                    <div className="panel-body">
+                                        <div className="col-md-12">
+                                            <h4>Click to open video on new page</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                        <a className="card blue white-text mb-3">
+                            {/*Card content*/}
+                            <div className="card-body d-sm-flex justify-content-between">
+                                <div className="panel box-shadow-none content-header">
+                                    <div className="panel-body">
+                                        <div className="col-md-12">
+                                            <h4>Click to open README on new page</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
+                        <a className="card blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
+                            {/*Card content*/}
+                            <div className="card-body d-sm-flex justify-content-between">
+                                <div className="panel box-shadow-none content-header">
+                                    <div className="panel-body">
+                                        <div className="col-md-12">
+                                            <h4>Click to open project log on new page</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+
+
                     </div>
+                </div>
 
 
-                </main>
+            </main>
 
-            </div >
+
+            <div
+                className="modal"
+                id={`myprojectposter`}
+            >
+                <div className="modal-dialog">
+                    <img src={poster} height="698" width="500" />
+                </div>
+            </div>
+
         </>
     )
 }
