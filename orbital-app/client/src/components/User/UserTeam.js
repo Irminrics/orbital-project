@@ -29,8 +29,12 @@ const UserDashboard = () => {
             const response = await fetch(`/projects/userid/${userid}`);
             const parseRes = await response.json();
 
+            parseRes.teammember1 = await getMemberName(parseRes.teammember1)
+            parseRes.teammember2 = await getMemberName(parseRes.teammember2)
+
             setTeam(parseRes);
             setVideo(parseRes.video);
+            setPoster(parseRes.poster);
         } catch (err) {
             console.error(err.message);
         }
@@ -136,28 +140,6 @@ const UserDashboard = () => {
         }
     };
 
-    const retrievePoster = async () => {
-        try {
-            const response = await fetch(`/projects/id/${team.id}`);
-            const jsonData = await response.json();
-
-            setPoster(jsonData.poster);
-        } catch (err) {
-            // console.error(err.message);
-        }
-    };
-
-    const retrieveVideo = async () => {
-        try {
-            const response = await fetch(`/projects/id/${team.id}`);
-            const jsonData = await response.json();
-
-            setVideo(jsonData.video);
-        } catch (err) {
-            // console.error(err.message);
-        }
-    };
-
     function getBase64(e) {
         var file = e.target.files[0]
         let reader = new FileReader()
@@ -200,6 +182,17 @@ const UserDashboard = () => {
         return siteRegex.test(site);
     }
 
+    const getMemberName = async (userid) => {
+        try {
+            const response = await fetch(`/users/students/${userid}`);
+            const jsonData = await response.json();
+            console.log("wdawdawdwadawadawdawdawdwa");
+            console.log(jsonData.rows[0].firstname + " " + jsonData.rows[0].lastname);
+            return (jsonData.rows[0].firstname + " " + jsonData.rows[0].lastname);
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
 
     useEffect(() => {
         getUserId();
@@ -216,60 +209,79 @@ const UserDashboard = () => {
                             <div className="panel box-shadow-none content-header">
                                 <div className="panel-body">
                                     <div className="col-md-12">
-                                        <h3>Hello!</h3>
-                                        <p className="animated fadeInDown" style={{ lineHeight: '.4' }}>
-                                            Welcome back to Skylab
-                                        </p>
+                                        <h1>{team.teamname}</h1>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    Team ID: {team.id} <br />
-                    Team Name: {team.teamname}  <br />
-                    Team Member 1: {team.teammember1}  <br />
-                    Team Member 2: {team.teammember2}  <br />
-                    Team Advisor: {team.teamadvisor}  <br />
-                    Team Achievement: {team.achievement}  <br />
-
-                    <br />
-
-                    <form>
-                        <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
-                        <label className="control-label float-left mt-2">Video Link</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            defaultValue={team.video}
-                            onChange={e => setVideo(e.target.value)}
-                        />
-                        <button
-                            type="button"
-                            onClick={e => updatePoster(e)}
-                        >
-                            Submit Poster
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={e => updateVideo(e)}
-                        >
-                            Submit Video
-                        </button>
-
-                        <button
-                            type="button"
-                            onClick={e => retrievePoster(e)}
-                        >
-                            Retrieve Poster
-                        </button>
-
-                    </form>
 
 
-                    <img src={poster} key={poster} />
+                    {/*Grid column*/}
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                <h4 className="text-left blue-text">Basic Information</h4>
+                            </div>
+                            <div className='row'>
+                                <div className='col-md-6'>
+
+                                    Team ID: {team.id} <br />
+                                    Team Member 1: {team.teammember1}  <br />
+                                    Team Member 2: {team.teammember2}  <br />
+                                    Team Advisor: {team.teamadvisor}  <br />
+                                    Team Achievement: {team.achievement}  <br />
+
+                                    <br />
+
+                                    <form>
+
+
+                                        <label className="control-label float-left mt-2">Video Link</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            defaultValue={team.video}
+                                            onChange={e => setVideo(e.target.value)}
+                                        />
+
+
+                                        <button
+                                            type="button"
+                                            onClick={e => updateVideo(e)}
+                                        >
+                                            Submit Video
+                                        </button>
+
+
+                                    </form>
+                                </div>
+                                <div className='col-md-6'>
+
+                                    <img src={poster} key={poster} height="360" width="258" />
+                                    <br />
+
+                                    <br />
+                                    <br />
+
+                                    <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
+                                    <button
+                                        type="button"
+                                        onClick={e => updatePoster(e)}
+                                    >
+                                        Submit Poster
+                                    </button>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </main>
-            </div>
+
+            </div >
         </>
     )
 }
