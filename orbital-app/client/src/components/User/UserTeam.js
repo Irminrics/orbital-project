@@ -186,8 +186,6 @@ const UserDashboard = () => {
         try {
             const response = await fetch(`/users/students/${userid}`);
             const jsonData = await response.json();
-            console.log("wdawdawdwadawadawdawdawdwa");
-            console.log(jsonData.rows[0].firstname + " " + jsonData.rows[0].lastname);
             return (jsonData.rows[0].firstname + " " + jsonData.rows[0].lastname);
         } catch (err) {
             console.error(err.message);
@@ -229,9 +227,6 @@ const UserDashboard = () => {
                                     <p>Team Advisor: {team.teamadvisor} </p>
                                     <p>Team Achievement: {team.achievement} </p>
                                 </div>
-
-
-
                                 <br />
                             </div>
                         </div>
@@ -280,64 +275,13 @@ const UserDashboard = () => {
                         </div> */}
                     </div>
                     <div className='col-md-5'>
+                        <MyProjectPoster disabled={poster === "" ? true : false} />
 
+                        <MyProjectVideo disabled={video === "" ? true : false} video={video} />
 
-                        <a className="card blue white-text mb-3" data-bs-toggle="modal"
-                            data-bs-target={`#myprojectposter`}>
-                            {/*Card content*/}
-                            <div className="card-body d-sm-flex justify-content-between">
-                                <div className="panel box-shadow-none content-header">
-                                    <div className="panel-body">
-                                        <div className="col-md-12">
-                                            <h4>Click for poster pop up</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
+                        <MyProjectREADME disabled={true} />
 
-                        <a className="card white-text blue mb-3">
-                            {/*Card content*/}
-                            <div className="card-body d-sm-flex justify-content-between">
-                                <div className="panel box-shadow-none content-header">
-                                    <div className="panel-body">
-                                        <div className="col-md-12">
-                                            <h4>Click to open video on new page</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-
-                        <a className="card blue white-text mb-3">
-                            {/*Card content*/}
-                            <div className="card-body d-sm-flex justify-content-between">
-                                <div className="panel box-shadow-none content-header">
-                                    <div className="panel-body">
-                                        <div className="col-md-12">
-                                            <h4>Click to open README on new page</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-
-                        <a className="card blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
-                            {/*Card content*/}
-                            <div className="card-body d-sm-flex justify-content-between">
-                                <div className="panel box-shadow-none content-header">
-                                    <div className="panel-body">
-                                        <div className="col-md-12">
-                                            <h4>Click to open project log on new page</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-
-
+                        <MyProjectLog disabled={true} />
                     </div>
                 </div>
 
@@ -356,6 +300,137 @@ const UserDashboard = () => {
 
         </>
     )
+}
+
+const MyProjectPoster = ({ disabled }) => {
+    if (disabled) {
+        return (
+            <a className="card grey white-text mb-3" data-bs-toggle="modal"
+                data-bs-target={`#myprojectposter`} style={{ pointerEvents: "none" }}>
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>No poster updated</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    } else {
+        return (
+            <a className="card blue white-text mb-3" data-bs-toggle="modal"
+                data-bs-target={`#myprojectposter`}>
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>Click for poster pop up</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    }
+}
+
+const MyProjectVideo = ({ disabled, video }) => {
+    if (disabled) {
+        return (
+            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>No video updated</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    } else {
+        return (
+            <a className="card blue white-text mb-3" href={video}>
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>Click for video pop up</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    }
+}
+
+
+const MyProjectREADME = ({ disabled }) => {
+    if (disabled) {
+        return (
+            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>No README updated</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    } else {
+        return (
+            <a className="card blue white-text mb-3">
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>Click to open README on new page</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    }
+}
+
+const MyProjectLog = ({ disabled }) => {
+    if (disabled) {
+        return (
+            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>No project log updated</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    } else {
+        return (
+            <a className="card blue white-text mb-3">
+                {/*Card content*/}
+                <div className="card-body d-sm-flex justify-content-between">
+                    <div className="panel box-shadow-none content-header">
+                        <div className="panel-body">
+                            <div className="col-md-12">
+                                <h4>Click to open project log on new page</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>)
+    }
 }
 
 export default UserDashboard
