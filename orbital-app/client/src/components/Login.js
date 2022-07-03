@@ -259,8 +259,8 @@ const Login = ({ setAuth }) => {
                                                 style={{
                                                     display: isActivate ? 'block' : 'none',
                                                 }}>
-                                                <h2><span>{isValidatedOTP ? 'Enter your new password' : 'Get Started'}</span></h2>
-                                                <p>Activate your account using your email</p> <br />
+                                                <h1><span className="signin">{isValidatedOTP ? 'Enter your new password' : 'Get Started'}</span></h1>
+                                                <p className="loginhere">Activate your account using your email</p> <br />
                                                 <form onSubmit={isValidatedOTP ? updatePassword : validateOTP}>
                                                     {/* Email input */}
                                                     <div className="form-outline mb-4">
@@ -291,7 +291,7 @@ const Login = ({ setAuth }) => {
                                                         Submit
                                                     </button>
 
-                                                    <p>Already a member? &nbsp;
+                                                    <p className="memberornot">Already a member? &nbsp;
                                                         <br />
                                                         <a id="ForgetPasswordBtn" className="text-primary" onClick={toggleActivate}>Login</a>
                                                     </p>

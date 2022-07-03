@@ -1,10 +1,5 @@
-/* width: 375px (iphone 8) onwards */
-
-@media only screen and (min-width: 1079px) {
-    #footer {
-        margin-top: 30%;
-    }
-}
+/* min width: 375px (iphone 8) */
+/* max width: 1000px */
 
 @media only screen and (max-width:1079px) {
     /* positions loginbody below introbody */
