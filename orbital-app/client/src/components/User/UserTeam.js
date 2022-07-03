@@ -227,10 +227,14 @@ const UserDashboard = () => {
                                     <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
                                         <h4 className="text-left blue-text mb-4">Basic Information</h4>
                                         <p>Team ID: {team.id} </p>
-                                        <p>Team Member 1: {team.teammember1} </p>
-                                        <p>Team Member 2: {team.teammember2} </p>
+                                        <p>Team Member 1: &nbsp;
+                                            <button className='btn-primary rounded'>{team.teammember1}</button>
+                                        </p>
+                                        <p>Team Member 2: &nbsp;
+                                            <button className='btn-primary rounded'>{team.teammember2}</button>
+                                        </p>
                                         <p>Team Advisor: {team.teamadvisor} </p>
-                                        <p>Team Achievement: {team.achievement} </p>
+                                        <p>Team Achievement: <MyProjectAchievement achievement={team.achievement} /> </p>
                                     </div>
                                     <br />
                                 </div>
@@ -430,6 +434,21 @@ const MyProjectLog = ({ disabled }) => {
                     </div>
                 </div>
             </a>)
+    }
+}
+
+const MyProjectAchievement = ({ achievement }) => {
+    if (achievement === "artemis") {
+        return "Artemis";
+
+    } else if (achievement === "apollo11") {
+        return "Apollo 11";
+
+    } else if (achievement === "gemini") {
+        return "Gemini";
+
+    } else {
+        return "Vostok";
     }
 }
 
