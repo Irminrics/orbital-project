@@ -54,7 +54,6 @@ router.get("/userid/:userid", async (req, res) => {
     try {
         const { userid } = req.params;
         const project = await pool.query("SELECT * FROM projects WHERE teammember1 = $1 or teammember2 = $1", [userid])
-
         res.json(project.rows[0])
     } catch (err) {
         console.error(err.message);
@@ -108,7 +107,7 @@ router.put("/video/:id", async (req, res) => {
             [video, id]
         );
 
-        
+
         res.json("Video link was uploaded!");
     } catch (err) {
         console.error(err.message);
