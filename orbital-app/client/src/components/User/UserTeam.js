@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import LoadingSpinner from '../LoadingSpinner'
 
 const UserDashboard = () => {
     const [team, setTeam] = useState([]);
@@ -7,6 +8,8 @@ const UserDashboard = () => {
     const [poster, setPoster] = useState();
     const [video, setVideo] = useState();
     const [isValidPoster, setValidPoster] = useState(false);
+    const [isLoading, setLoading] = useState(true);
+
 
     async function getUserId() {
         try {
@@ -17,7 +20,8 @@ const UserDashboard = () => {
 
             const parseRes = await response.json();
             setUserId(parseRes.userid);
-            getTeam(parseRes.userid)
+            getTeam(parseRes.userid);
+            setLoading(false);
         } catch (err) {
             console.error(err.message);
         }
@@ -213,25 +217,26 @@ const UserDashboard = () => {
                     </div>
                 </div>
 
-                <div className='row'>
-                    <div className='col-md-7'>
+                {isLoading ? <LoadingSpinner /> :
 
-                        {/*Grid column*/}
-                        <div className="card" style={{ height: '355px' }}>
-                            <div className="card-body">
-                                <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
-                                    <h4 className="text-left blue-text mb-3">Basic Information</h4>
-                                    <p>Team ID: {team.id} </p>
-                                    <p>Team Member 1: {team.teammember1} </p>
-                                    <p>Team Member 2: {team.teammember2} </p>
-                                    <p>Team Advisor: {team.teamadvisor} </p>
-                                    <p>Team Achievement: {team.achievement} </p>
+                    <div className='row'>
+                        <div className='col-md-7'>
+                            {/*Grid column*/}
+                            <div className="card" style={{ height: '355px' }}>
+                                <div className="card-body">
+                                    <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                        <h4 className="text-left blue-text mb-4">Basic Information</h4>
+                                        <p>Team ID: {team.id} </p>
+                                        <p>Team Member 1: {team.teammember1} </p>
+                                        <p>Team Member 2: {team.teammember2} </p>
+                                        <p>Team Advisor: {team.teamadvisor} </p>
+                                        <p>Team Achievement: {team.achievement} </p>
+                                    </div>
+                                    <br />
                                 </div>
-                                <br />
                             </div>
-                        </div>
 
-                        {/* <div className="card">
+                            {/* <div className="card">
                             <div className="card-body">
                                 <img src={poster} key={poster} height="360" width="258" />
                                 <br />
@@ -246,12 +251,7 @@ const UserDashboard = () => {
                                 >
                                     Submit Poster
                                 </button>
-
-
-
                                 <form>
-
-
                                     <label className="control-label float-left mt-2">Video Link</label>
                                     <input
                                         type="text"
@@ -273,18 +273,18 @@ const UserDashboard = () => {
 
                             </div>
                         </div> */}
+                        </div>
+                        <div className='col-md-5'>
+                            <MyProjectPoster disabled={poster === "" ? true : false} />
+
+                            <MyProjectVideo disabled={video === "" ? true : false} video={video} />
+
+                            <MyProjectREADME disabled={true} />
+
+                            <MyProjectLog disabled={true} />
+                        </div>
                     </div>
-                    <div className='col-md-5'>
-                        <MyProjectPoster disabled={poster === "" ? true : false} />
-
-                        <MyProjectVideo disabled={video === "" ? true : false} video={video} />
-
-                        <MyProjectREADME disabled={true} />
-
-                        <MyProjectLog disabled={true} />
-                    </div>
-                </div>
-
+                }
 
             </main>
 
@@ -344,7 +344,7 @@ const MyProjectVideo = ({ disabled, video }) => {
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
                         <div className="panel-body">
-                            <div className="col-md-12">
+                            <div className="col-md-12 white-text">
                                 <h4>No video updated</h4>
                             </div>
                         </div>
@@ -353,12 +353,12 @@ const MyProjectVideo = ({ disabled, video }) => {
             </a>)
     } else {
         return (
-            <a className="card blue white-text mb-3" href={video}>
+            <a className="card blue white-text mb-3" href={video} style={{ textDecoration: "none" }}>
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
                         <div className="panel-body">
-                            <div className="col-md-12">
+                            <div className="col-md-12 white-text">
                                 <h4>Click for video pop up</h4>
                             </div>
                         </div>
