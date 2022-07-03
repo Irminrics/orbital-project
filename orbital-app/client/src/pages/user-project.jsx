@@ -1,9 +1,9 @@
 import Navigation from "../components/Header/Navigation";
-import UserTeam from "../components/User/UserTeam";
+import UserProject from "../components/User/UserProject";
 import Sidebar from "../components/User/UserSidebar";
 import Footer from "../components/Footer/Footer";
 
-const UserTeamPage = ({ setAuth, isAuthenticated }) => {
+const UserProjectPage = ({ setAuth, isAuthenticated }) => {
 
     return (
         <>
@@ -11,7 +11,7 @@ const UserTeamPage = ({ setAuth, isAuthenticated }) => {
             <div className="page-container">
                 <Sidebar activePage={"team"}/>
                 <div className="container-fluid">
-                    <UserTeam />
+                    <UserProject />
                 </div>
                 <Footer />
             </div>
@@ -19,4 +19,4 @@ const UserTeamPage = ({ setAuth, isAuthenticated }) => {
     )
 }
 
-export default UserTeamPage
+export default UserProjectPage
