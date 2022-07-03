@@ -18,11 +18,11 @@ const Navigation = ({ setAuth, isAuthenticated }) => {
         return (
             <>
                 <nav id="navbar" className={`navbar navbar-light darken-4 fixed-top`}>
-                    <div id="title-orbital" className="navbar-brand">
+                    <div id="title-orbital" className="navleft navbar-brand">
                         <div className="icon orbital-dp" /><LinkNav to="/" className="nav-link">Orbital</LinkNav>
                     </div>
                     <div id="nav-container-right">
-                        <ul id="nav-items">
+                        <ul id="nav-items" className="navright">
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style={{ marginLeft: "7px" }}>
@@ -43,10 +43,10 @@ const Navigation = ({ setAuth, isAuthenticated }) => {
         return (
             <>
                 <nav id="navbar" className={`navbar navbar-light darken-4 fixed-top`}>
-                    <div id="title-orbital" className="navbar-brand">
+                    <div id="title-orbital" className="navleft navbar-brand">
                         <div className="icon orbital-dp" /><LinkNav to="/" className="nav-link">Orbital</LinkNav>
                     </div>
-                    <div id="nav-container-right">
+                    <div id="nav-container-right" className="navright">
                         <ul id="nav-items">
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>

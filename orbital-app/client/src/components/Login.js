@@ -208,12 +208,12 @@ const Login = ({ setAuth }) => {
     return (
         <>
             <section id='intro-div'>
-                <div className="px-4 py-5 px-md-5 text-center text-lg-start" style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}>
+                <div className="middlecontent px-4 py-5 px-md-5 text-center text-lg-start" style={{ backgroundColor: 'hsl(0, 0%, 96%)' }}>
                     <div className="container-xxl">
-                        <div className="row gx-lg-5 align-items-center">
-                            <div id="intro-left" className="col col-lg-6 mb-5 mb-lg-0">
-                                <h1 className="my-5 display-3 fw-bold ls-tight text-left wio">
-                                    What is <span className="text-primary wio">Orbital?</span>
+                        <div className="body row gx-lg-5 align-items-center">
+                            <div id="intro-left" className="introbody col col-lg-6 mb-lg-0">
+                                <h1 className="ao display-3 fw-bold ls-tight text-left">
+                                    About <span className="text-primary">Orbital</span>
                                 </h1>
                                 <p style={{ color: 'hsl(217, 10%, 50.8%)', textAlign: 'justify', textJustify: 'inter-word' }}>
                                     Orbital is the School of Computing’s self-driven programming summer experience. It is designed to give first-year students the opportunity to 1) self-learn and 2) build something useful. It is designed as a 4 modular credit (MC) module that is taken pass/fail (CS/CU) over the summer<sup>1</sup>.
@@ -224,17 +224,17 @@ const Login = ({ setAuth }) => {
                             </div>
 
 
-                            <div id="intro-right" className="col-lg-5">
+                            <div id="intro-right" className="loginbody col-lg-5">
                                 <div className="card flip-card">
-                                    <div className="py-5 px-md-5">
+                                    <div className="logincontent py-5 px-md-5">
                                         <div className="flip-card-inner" style={{
                                             transform: isActivate ? 'rotateY(180deg)' : '',
                                         }}>
                                             <div className="flip-card-front" style={{
                                                 display: isActivate ? 'none' : 'block',
                                             }}>
-                                                <h1><span>Sign in</span></h1>
-                                                <p>Login here using your username</p> <br />
+                                                <h1><span className="signin">Sign in</span></h1>
+                                                <p className="loginhere">Login here using your username</p> <br />
                                                 <form onSubmit={onSubmitLoginForm}>
                                                     {/* Email input */}
                                                     <div className="form-outline mb-4">
@@ -245,11 +245,11 @@ const Login = ({ setAuth }) => {
                                                         <input type="password" name="password" className="form-control" placeholder="Password" defaultValue={password} onChange={(e) => onChange(e)} />
                                                     </div>
                                                     {/* Submit button */}
-                                                    <button type="submit" className="btn btn-primary btn-block mb-4">
+                                                    <button type="submit" className="loginbutton btn btn-primary btn-block mb-4">
                                                         Login
                                                     </button>
 
-                                                    <p>Not a member? &nbsp;
+                                                    <p className="memberornot">Not a member? &nbsp;
                                                         <br />
                                                         <a id="ForgetPasswordBtn" className="text-primary" onClick={toggleActivate}>Activate your account</a>
                                                     </p>
@@ -259,8 +259,8 @@ const Login = ({ setAuth }) => {
                                                 style={{
                                                     display: isActivate ? 'block' : 'none',
                                                 }}>
-                                                <h2><span>{isValidatedOTP ? 'Enter your new password' : 'Get Started'}</span></h2>
-                                                <p>Activate your account using your email</p> <br />
+                                                <h1><span className="signin">{isValidatedOTP ? 'Enter your new password' : 'Get Started'}</span></h1>
+                                                <p className="loginhere">Activate your account using your email</p> <br />
                                                 <form onSubmit={isValidatedOTP ? updatePassword : validateOTP}>
                                                     {/* Email input */}
                                                     <div className="form-outline mb-4">
@@ -291,7 +291,7 @@ const Login = ({ setAuth }) => {
                                                         Submit
                                                     </button>
 
-                                                    <p>Already a member? &nbsp;
+                                                    <p className="memberornot">Already a member? &nbsp;
                                                         <br />
                                                         <a id="ForgetPasswordBtn" className="text-primary" onClick={toggleActivate}>Login</a>
                                                     </p>
