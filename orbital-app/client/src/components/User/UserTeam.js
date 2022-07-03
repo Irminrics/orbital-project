@@ -21,7 +21,6 @@ const UserDashboard = () => {
             const parseRes = await response.json();
             setUserId(parseRes.userid);
             getTeam(parseRes.userid);
-            setLoading(false);
         } catch (err) {
             console.error(err.message);
         }
@@ -39,6 +38,7 @@ const UserDashboard = () => {
             setTeam(parseRes);
             setVideo(parseRes.video);
             setPoster(parseRes.poster);
+            setLoading(false);
         } catch (err) {
             console.error(err.message);
         }
