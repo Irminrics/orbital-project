@@ -259,7 +259,7 @@ const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
                             {/*Grid column*/}
                             <div className="card" style={{ height: '355px' }}>
                                 <div className="card-body">
-                                    <div className="col-md-6 col-sm-6 col-xs-6 text-left padding-0">
+                                    <div className="text-left padding-0">
                                         <h4 className="text-left blue-text mb-4">Basic Information</h4>
                                         <p>Project ID: {team.id} </p>
                                         <p>Project Member 1: &nbsp;
@@ -314,9 +314,9 @@ const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
         </div> */}
                         </div>
                         <div className='col-md-5'>
-                            <MyProjectPoster disabled={poster === "" ? true : false} />
+                            <MyProjectPoster disabled={poster === null ? true : false} />
 
-                            <MyProjectVideo disabled={video === "" ? true : false} video={video} />
+                            <MyProjectVideo disabled={video === null ? true : false} video={video} />
 
                             <MyProjectREADME disabled={true} />
 
