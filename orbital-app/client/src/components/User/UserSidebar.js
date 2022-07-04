@@ -64,6 +64,9 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
                 </LinkNav>
+                <LinkNav to={`/user/profile`} className="list-group-item list-group-item-action">
+                    <i className="fa-regular fa-address-card mr-3" />Profile
+                </LinkNav>
             </div>
         )
     } else if (activePage === "team") {
@@ -78,6 +81,26 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
                 </LinkNav>
+                <LinkNav to={`/user/profile`} className="list-group-item list-group-item-action">
+                    <i className="fa-regular fa-address-card mr-3" />Profile
+                </LinkNav>
+            </div>
+        )
+    } else if (activePage === "submission") {
+        return (
+            <div className="list-group list-group-flush">
+                <LinkNav to={`/user`} className="list-group-item list-group-item-action">
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
+                </LinkNav>
+                <LinkNav to={`/user/project`} className="list-group-item list-group-item-action">
+                    <i className="fa-duotone fa-users mr-3" />Project
+                </LinkNav>
+                <LinkNav to={`/user/submission`} className="list-group-item active waves-effect white-text">
+                    <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
+                </LinkNav>
+                <LinkNav to={`/user/profile`} className="list-group-item list-group-item-action">
+                    <i className="fa-regular fa-address-card mr-3" />Profile
+                </LinkNav>
             </div>
         )
     } else {
@@ -89,8 +112,11 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/user/project`} className="list-group-item list-group-item-action">
                     <i className="fa-duotone fa-users mr-3" />Project
                 </LinkNav>
-                <LinkNav to={`/user/submission`} className="list-group-item active waves-effect white-text">
+                <LinkNav to={`/user/submission`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-square-chevron-up mr-3" />Submissions
+                </LinkNav>
+                <LinkNav to={`/user/profile`} className="list-group-item active waves-effect white-text">
+                    <i className="fa-regular fa-address-card mr-3" />Profile
                 </LinkNav>
             </div>
         )
