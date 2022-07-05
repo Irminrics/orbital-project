@@ -206,35 +206,39 @@ const UserDashboard = () => {
 
 
     return (
-        <>
-            <main className="pt-5 mx-lg-5 my-5">
-                <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
-                    {/*Card content*/}
-                    <div className="card-body d-sm-flex justify-content-between">
-                        <div className="panel box-shadow-none content-header">
-                            <div className="panel-body">
-                                <div className="col-md-12">
-                                    <h1>{hasTeam === true ? team.teamname : "Uh oh..."}</h1>
+        <> {
+            isLoading ? <LoadingSpinner /> :
+                <>
+                    <main className="pt-5 mx-lg-5 my-5">
+                        <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
+                            {/*Card content*/}
+                            <div className="card-body d-sm-flex justify-content-between">
+                                <div className="panel box-shadow-none content-header">
+                                    <div className="panel-body">
+                                        <div className="col-md-12">
+                                            <h1>{hasTeam === true ? team.teamname : "Uh oh..."}</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <MyProjectContent team={team} isLoading={isLoading} poster={poster} video={video} hasTeam={hasTeam} />
+
+                    </main>
+
+
+                    <div
+                        className="modal"
+                        id={`myprojectposter`}
+                    >
+                        <div className="modal-dialog">
+                            <img src={poster} height="698" width="500" />
+                        </div>
                     </div>
-                </div>
 
-                <MyProjectContent team={team} isLoading={isLoading} poster={poster} video={video} hasTeam={hasTeam} />
-
-            </main>
-
-
-            <div
-                className="modal"
-                id={`myprojectposter`}
-            >
-                <div className="modal-dialog">
-                    <img src={poster} height="698" width="500" />
-                </div>
-            </div>
-
+                </>
+        }
         </>
     )
 }
@@ -251,31 +255,28 @@ const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
     }
     else {
         return (
-            <> {
-                isLoading ? <LoadingSpinner /> :
-
-                    <div className='row'>
-                        <div className='col-md-7'>
-                            {/*Grid column*/}
-                            <div className="card" style={{ height: '355px' }}>
-                                <div className="card-body">
-                                    <div className="text-left padding-0">
-                                        <h4 className="text-left blue-text mb-4">Basic Information</h4>
-                                        <p>Project ID: {team.id} </p>
-                                        <p>Project Member 1: &nbsp;
-                                            <button className='btn-primary rounded'>{team.teammember1}</button>
-                                        </p>
-                                        <p>Project Member 2: &nbsp;
-                                            <button className='btn-primary rounded'>{team.teammember2}</button>
-                                        </p>
-                                        <p>Project Advisor: {team.teamadvisor} </p>
-                                        <p>Project Achievement: <MyProjectAchievement achievement={team.achievement} /> </p>
-                                    </div>
-                                    <br />
-                                </div>
+            <div className='row'>
+                <div className='col-md-7'>
+                    {/*Grid column*/}
+                    <div className="card" style={{ height: '355px' }}>
+                        <div className="card-body">
+                            <div className="text-left padding-0">
+                                <h4 className="text-left blue-text mb-4">Basic Information</h4>
+                                <p>Project ID: {team.id} </p>
+                                <p>Project Member 1: &nbsp;
+                                    <button className='btn-primary rounded'>{team.teammember1}</button>
+                                </p>
+                                <p>Project Member 2: &nbsp;
+                                    <button className='btn-primary rounded'>{team.teammember2}</button>
+                                </p>
+                                <p>Project Advisor: {team.teamadvisor} </p>
+                                <p>Project Achievement: <MyProjectAchievement achievement={team.achievement} /> </p>
                             </div>
+                            <br />
+                        </div>
+                    </div>
 
-                            {/* <div className="card">
+                    {/* <div className="card">
             <div className="card-body">
                 <img src={poster} key={poster} height="360" width="258" />
                 <br />
@@ -312,20 +313,17 @@ const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
 
             </div>
         </div> */}
-                        </div>
-                        <div className='col-md-5'>
-                            <MyProjectPoster disabled={poster === null ? true : false} />
+                </div>
+                <div className='col-md-5'>
+                    <MyProjectPoster disabled={poster === null ? true : false} />
 
-                            <MyProjectVideo disabled={video === null ? true : false} video={video} />
+                    <MyProjectVideo disabled={video === null ? true : false} video={video} />
 
-                            <MyProjectREADME disabled={true} />
+                    <MyProjectREADME disabled={true} />
 
-                            <MyProjectLog disabled={true} />
-                        </div>
-                    </div>
-            }
-            </>
-
+                    <MyProjectLog disabled={true} />
+                </div>
+            </div>
         )
     }
 }
