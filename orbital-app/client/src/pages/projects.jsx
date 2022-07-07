@@ -1,6 +1,7 @@
 import '../css/bootstrap/bootstrap.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
+import '../css/responsive/resprojectdisplay.css';
 import '../css/homepage.css';
 
 import Navigation from "../components/Header/Navigation";
@@ -21,7 +22,7 @@ const ProjectsPage = ({ setAuth, isAuthenticated }) => {
             <div className="page-container">
                 <ProjectTitle level={achievement} />
                 <div id="projects-div">
-                    <div className='container-xxxl'>
+                    <div className="projects-grid container-xxxl">
                         <Project />
                     </div>
                 </div>

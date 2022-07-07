@@ -1,8 +1,25 @@
 #staffs-div {
-  padding-bottom: 100px;
-  display: table;
-  width: 85%;
-  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  margin-left: 8%;
+  margin-right: 8%;
+  margin-top: 0%;
+  padding: 0px;
+  padding-bottom: 75px;
+  line-height: 1.5;
+  text-size-adjust: 100%;
+  overflow: hidden;
+}
+
+.staffs-grid {
+  margin-left: 0px;
+  margin-right: 0px;
+  display: flex;
+  flex-flow: row wrap;
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
 }
 
 .staff {
