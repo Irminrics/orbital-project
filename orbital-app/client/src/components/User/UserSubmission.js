@@ -6,6 +6,9 @@ const UserSubmission = () => {
     const [userid, setUserId] = useState([]);
     const [poster, setPoster] = useState();
     const [video, setVideo] = useState();
+    const [README, setREADME] = useState();
+    const [projectLog, setProjectLog] = useState();
+    const [milestone, setMilestone] = useState(1);
     const [hasTeam, setHasTeam] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isValidPoster, setValidPoster] = useState(false);
@@ -32,14 +35,10 @@ const UserSubmission = () => {
             const response = await fetch(`/projects/userid/${userid}`);
             const parseRes = await response.json();
 
-            console.log(parseRes);
-
             parseRes.teammember1 = await getMemberName(parseRes.teammember1)
             parseRes.teammember2 = await getMemberName(parseRes.teammember2)
 
             setTeam(parseRes);
-            setVideo(parseRes.video);
-            setPoster(parseRes.poster);
             setHasTeam(true);
             setLoading(false);
         } catch (err) {
@@ -48,8 +47,25 @@ const UserSubmission = () => {
         }
     }
 
-    const updatePoster = async e => {
-        e.preventDefault();
+
+    async function checkIfSubmissionExist(project_id, milestone) {
+        try {
+            const response = await fetch(`/submissions/${project_id}/${milestone}`);
+
+            const parseRes = await response.json();
+
+            if (parseRes === 0) {
+                return false;
+            } else {
+                return true;
+            }
+
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
+    async function posterValidation() {
         if (isValidPoster) {
             try {
                 const body = { poster };
@@ -64,15 +80,7 @@ const UserSubmission = () => {
 
                 const parseRes = await response.json();
 
-                toast.success('Poster updated!', {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
-
-
+                return true;
             } catch (err) {
                 console.error(err.message);
                 return false;
@@ -86,6 +94,7 @@ const UserSubmission = () => {
                     closeOnClick: true,
                     pauseOnHover: true,
                 });
+                return false;
             } else {
                 toast.error("Please upload an image", {
                     position: "top-center",
@@ -94,56 +103,93 @@ const UserSubmission = () => {
                     closeOnClick: true,
                     pauseOnHover: true,
                 });
+                return false;
             }
         }
     };
 
-    const updateVideo = async e => {
+    const updateSubmission = async e => {
         e.preventDefault();
-        if (validSite(video)) {
-            try {
-                const body = { video };
-                const response = await fetch(
-                    `/projects/video/${userid}`,
-                    {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(body)
+        const validPoster = await posterValidation()
+        if (validPoster) {
+            if (validSite(video) || validSite(README) || validSite(projectLog)) {
+                const exist = await checkIfSubmissionExist(team.id, milestone)
+                console.log(exist);
+                if (exist) {
+                    //update
+                    try {
+                        const body = { poster, video, README, projectLog };
+                        const response = await fetch(
+                            `/submissions/update/${team.id}/${milestone}`,
+                            {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(body)
+                            }
+                        );
+
+                        const parseRes = await response.json();
+
+                        toast.success('Submission updated!', {
+                            position: "top-center",
+                            autoClose: 3000,
+                            hideProgressBar: true,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                        });
+
+
+                    } catch (err) {
+                        console.error(err.message);
+                        return false;
                     }
-                );
+                } else {
+                    //insert
+                    const project_id = team.id;
+                    const body = { project_id, milestone, poster, video, README, projectLog };
+                    console.log(README);
+                    console.log(projectLog);
 
-                const parseRes = await response.json();
+                    const response = await fetch(
+                        "/submissions/create",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify(body)
+                        }
+                    );
 
-                toast.success('Video link updated!', {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
+                    const parseRes = await response.json();
 
+                    toast.success('Video link created!', {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                }
 
-            } catch (err) {
-                console.error(err.message);
-                return false;
-            }
-        } else {
-            if (video !== undefined) {
-                toast.error("Ensure video link is valid and starts with http", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
             } else {
-                toast.error("Please enter your video link", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
+                if (video !== undefined || README !== undefined || projectLog !== undefined) {
+                    toast.error("Ensure links are valid and starts with http", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                } else {
+                    toast.error("Please fill up your links", {
+                        position: "top-center",
+                        autoClose: 3000,
+                        hideProgressBar: true,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                    });
+                }
             }
         }
     };
@@ -228,74 +274,39 @@ const UserSubmission = () => {
                 <div className="card">
                     <div className="card-body">
                         {/* <img src={poster} key={poster} height="360" width="258" /> */}
+                        <label className="control-label float-left mt-2">Poster</label>
                         <br />
-
                         <br />
-                        <br />
-
                         <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
-                        <button
-                            type="button"
-                            onClick={e => updatePoster(e)}
-                        >
-                            Submit Poster
-                        </button>
                         <form>
                             <label className="control-label float-left mt-2">Video Link</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                defaultValue={team.video}
                                 onChange={e => setVideo(e.target.value)}
                             />
 
-
-                            <button
-                                type="button"
-                                onClick={e => updateVideo(e)}
-                            >
-                                Submit Video
-                            </button>
-
-
-
                             <br />
-                            <br />
-
 
                             <label className="control-label float-left mt-2">README Link</label>
                             <input
                                 type="text"
                                 className="form-control"
+                                onChange={e => setREADME(e.target.value)}
                             />
 
-
-                            <button
-                                type="button"
-                            >
-                                Submit README
-                            </button>
-
-
                             <br />
-                            <br />
-
-
 
                             <label className="control-label float-left mt-2">Project Log Link</label>
                             <input
                                 type="text"
                                 className="form-control"
+                                onChange={e => setProjectLog(e.target.value)}
                             />
 
 
-                            <button
-                                type="button"
-                            >
-                                Submit Project Log
-                            </button>
-
-
+                            <button onClick={e => updateSubmission(e)}>Submit</button>
+                            <br />
                         </form>
 
                     </div>
