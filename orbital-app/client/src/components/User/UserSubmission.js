@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 const UserSubmission = () => {
     const [team, setTeam] = useState([]);
+    const [submission, setSubmission] = useState([]);
     const [userid, setUserId] = useState([]);
     const [poster, setPoster] = useState();
     const [video, setVideo] = useState();
@@ -40,6 +41,7 @@ const UserSubmission = () => {
 
             setTeam(parseRes);
             setHasTeam(true);
+            checkIfSubmissionExist(parseRes.id, milestone);
             setLoading(false);
         } catch (err) {
             setLoading(false);
@@ -47,16 +49,19 @@ const UserSubmission = () => {
         }
     }
 
-
     async function checkIfSubmissionExist(project_id, milestone) {
         try {
             const response = await fetch(`/submissions/${project_id}/${milestone}`);
-
             const parseRes = await response.json();
 
-            if (parseRes === 0) {
+            if (parseRes.rowCount === 0) {
                 return false;
             } else {
+                setSubmission(parseRes.rows[0]);
+                setPoster(parseRes.rows[0].poster)
+                setVideo(parseRes.rows[0].video)
+                setREADME(parseRes.rows[0].readme)
+                setProjectLog(parseRes.rows[0].project_log)
                 return true;
             }
 
@@ -119,6 +124,7 @@ const UserSubmission = () => {
                     //update
                     try {
                         const body = { poster, video, README, projectLog };
+                        console.log(README);
                         const response = await fetch(
                             `/submissions/update/${team.id}/${milestone}`,
                             {
@@ -147,8 +153,7 @@ const UserSubmission = () => {
                     //insert
                     const project_id = team.id;
                     const body = { project_id, milestone, poster, video, README, projectLog };
-                    console.log(README);
-                    console.log(projectLog);
+
 
                     const response = await fetch(
                         "/submissions/create",
@@ -255,17 +260,23 @@ const UserSubmission = () => {
         <>
             <main className="pt-5 mx-lg-5 my-5">
                 <div className='row'>
-                    <div className='col-md-4'>
-                        <Milestone1 disabled={false} />
+                    <div className='col-md-4' >
+                        <a style={milestone !== 1 ? { pointerEvents: "none" } : {}}>
+                            <Milestone1 milestone={milestone} />
+                        </a>
                     </div>
 
                     <div className='col-md-4'>
-                        <Milestone2 disabled={true} />
+                        <a style={milestone !== 2 ? { pointerEvents: "none" } : {}}>
+                            <Milestone2 milestone={milestone} />
+                        </a>
                     </div>
 
 
                     <div className='col-md-4'>
-                        <Milestone3 disabled={true} />
+                        <a style={milestone !== 3 ? { pointerEvents: "none" } : {}}>
+                            <Milestone3 milestone={milestone} />
+                        </a>
                     </div>
                 </div>
 
@@ -278,11 +289,16 @@ const UserSubmission = () => {
                         <br />
                         <br />
                         <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
+
+                        <br />
+
+
                         <form>
                             <label className="control-label float-left mt-2">Video Link</label>
                             <input
                                 type="text"
                                 className="form-control"
+                                defaultValue={submission.video}
                                 onChange={e => setVideo(e.target.value)}
                             />
 
@@ -292,6 +308,7 @@ const UserSubmission = () => {
                             <input
                                 type="text"
                                 className="form-control"
+                                defaultValue={submission.readme}
                                 onChange={e => setREADME(e.target.value)}
                             />
 
@@ -301,12 +318,17 @@ const UserSubmission = () => {
                             <input
                                 type="text"
                                 className="form-control"
+                                defaultValue={submission.project_log}
                                 onChange={e => setProjectLog(e.target.value)}
                             />
 
+                            <br />
 
                             <button onClick={e => updateSubmission(e)}>Submit</button>
+
                             <br />
+                            <br />
+
                         </form>
 
                     </div>
@@ -321,10 +343,10 @@ const UserSubmission = () => {
 }
 
 
-const Milestone1 = ({ disabled }) => {
-    if (disabled) {
+const Milestone1 = ({ milestone }) => {
+    if (milestone !== 1) {
         return (
-            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }}>
+            <a className="card grey white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -355,10 +377,10 @@ const Milestone1 = ({ disabled }) => {
 
 
 
-const Milestone2 = ({ disabled }) => {
-    if (disabled) {
+const Milestone2 = ({ milestone }) => {
+    if (milestone !== 2) {
         return (
-            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }}>
+            <a className="card grey white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -389,10 +411,10 @@ const Milestone2 = ({ disabled }) => {
 
 
 
-const Milestone3 = ({ disabled }) => {
-    if (disabled) {
+const Milestone3 = ({ milestone }) => {
+    if (milestone !== 3) {
         return (
-            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }}>
+            <a className="card grey white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">

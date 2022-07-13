@@ -29,8 +29,6 @@ const UserDashboard = () => {
             const response = await fetch(`/projects/userid/${userid}`);
             const parseRes = await response.json();
 
-            console.log(parseRes);
-
             parseRes.teammember1 = await getMemberName(parseRes.teammember1)
             parseRes.teammember2 = await getMemberName(parseRes.teammember2)
 
