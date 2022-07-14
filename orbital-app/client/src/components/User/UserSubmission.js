@@ -53,8 +53,13 @@ const UserSubmission = () => {
         try {
             const response = await fetch(`/submissions/${project_id}/${milestone}`);
             const parseRes = await response.json();
-
+            
             if (parseRes.rowCount === 0) {
+                setSubmission([]);
+                setPoster()
+                setVideo()
+                setREADME()
+                setProjectLog()
                 return false;
             } else {
                 setSubmission(parseRes.rows[0]);
@@ -251,6 +256,13 @@ const UserSubmission = () => {
         }
     };
 
+    function changeMilestone(milestone) {
+        checkIfSubmissionExist(team.id, milestone);
+        setMilestone(milestone);
+        // console.log(milestone);
+        // console.log(submission);
+    };
+
     useEffect(() => {
         getUserId();
     }, []);
@@ -260,27 +272,25 @@ const UserSubmission = () => {
         <>
             <main className="pt-5 mx-lg-5 my-5">
                 <div className='row'>
-                    <div className='col-md-4' >
+                    <div className='col-md-4' onClick={() => changeMilestone(1)}>
                         <a style={milestone !== 1 ? { pointerEvents: "none" } : {}}>
                             <Milestone1 milestone={milestone} />
                         </a>
                     </div>
 
-                    <div className='col-md-4'>
+                    <div className='col-md-4' onClick={() => changeMilestone(2)}>
                         <a style={milestone !== 2 ? { pointerEvents: "none" } : {}}>
                             <Milestone2 milestone={milestone} />
                         </a>
                     </div>
 
 
-                    <div className='col-md-4'>
+                    <div className='col-md-4' onClick={() => changeMilestone(3)}>
                         <a style={milestone !== 3 ? { pointerEvents: "none" } : {}}>
                             <Milestone3 milestone={milestone} />
                         </a>
                     </div>
                 </div>
-
-
 
                 <div className="card">
                     <div className="card-body">
@@ -291,6 +301,8 @@ const UserSubmission = () => {
                         <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
 
                         <br />
+
+
 
 
                         <form>
@@ -346,7 +358,7 @@ const UserSubmission = () => {
 const Milestone1 = ({ milestone }) => {
     if (milestone !== 1) {
         return (
-            <a className="card grey white-text mb-3">
+            <div className="card grey white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -357,10 +369,10 @@ const Milestone1 = ({ milestone }) => {
                         </div>
                     </div>
                 </div>
-            </a>)
+            </div>)
     } else {
         return (
-            <a className="card blue white-text mb-3">
+            <div className="card blue white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -371,7 +383,7 @@ const Milestone1 = ({ milestone }) => {
                         </div>
                     </div>
                 </div>
-            </a>)
+            </div>)
     }
 }
 
@@ -380,7 +392,7 @@ const Milestone1 = ({ milestone }) => {
 const Milestone2 = ({ milestone }) => {
     if (milestone !== 2) {
         return (
-            <a className="card grey white-text mb-3">
+            <div className="card grey white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -391,10 +403,10 @@ const Milestone2 = ({ milestone }) => {
                         </div>
                     </div>
                 </div>
-            </a>)
+            </div>)
     } else {
         return (
-            <a className="card blue white-text mb-3">
+            <div className="card blue white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -405,7 +417,7 @@ const Milestone2 = ({ milestone }) => {
                         </div>
                     </div>
                 </div>
-            </a>)
+            </div>)
     }
 }
 
@@ -414,7 +426,7 @@ const Milestone2 = ({ milestone }) => {
 const Milestone3 = ({ milestone }) => {
     if (milestone !== 3) {
         return (
-            <a className="card grey white-text mb-3">
+            <div className="card grey white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -425,10 +437,10 @@ const Milestone3 = ({ milestone }) => {
                         </div>
                     </div>
                 </div>
-            </a>)
+            </div>)
     } else {
         return (
-            <a className="card blue white-text mb-3">
+            <div className="card blue white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -439,7 +451,7 @@ const Milestone3 = ({ milestone }) => {
                         </div>
                     </div>
                 </div>
-            </a>)
+            </div>)
     }
 }
 
