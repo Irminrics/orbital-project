@@ -3,6 +3,8 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../css/homepage.css';
 import '../css/staff.css';
+import '../css/responsive/resstaffdisplay.css';
+
 
 import Navigation from "../components/Header/Navigation";
 import Footer from "../components/Footer/Footer";
@@ -18,7 +20,7 @@ const StaffPage = ({ setAuth, isAuthenticated }) => {
             <div className="page-container">
                 <StaffTitle />
                 <div id="staffs-div">
-                    <div className='container-xxxl'>
+                    <div className="staffs-grid container-xxxl">
                         <Staff />
                     </div>
                 </div>

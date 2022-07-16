@@ -35,7 +35,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
     if (achievement === "artemis") {
         return (
             <>
-                <div className="project float-left m-5">
+                <div className="project m-5">
                     <div className="card project-card project-content my-4"
                         style={{ backgroundImage: `url(${artemis})`, backgroundRepeat: `no-repeat`, backgroundSize: `200px`, backgroundPosition: `center` }}>
                         <div className="project-overlay">
@@ -101,7 +101,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
     } else if (achievement === "gemini") {
         return (
             <>
-                <div className="project float-left m-5">
+                <div className="project m-5">
                     <div className="card project-card project-content my-4 project-icon"
                         style={{ backgroundImage: `url(${gemini})`, backgroundRepeat: `no-repeat`, backgroundSize: `200px`, backgroundPosition: `center` }}>
                         <div className="project-overlay">
@@ -167,7 +167,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
     } else if (achievement === "apollo11") {
         return (
             <>
-                <div className="project float-left m-5">
+                <div className="project m-5">
                     <div className="card project-card project-content my-4 project-icon"
                         style={{ backgroundImage: `url(${apollo11})`, backgroundRepeat: `no-repeat`, backgroundSize: `200px`, backgroundPosition: `center` }}>
                         <div className="project-overlay">
@@ -229,7 +229,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
     } else {
         return (
             <>
-                <div className="project float-left m-5">
+                <div className="project m-5">
                     <div className="card project-card project-content my-4 project-icon"
                         style={{ backgroundImage: `url(${vostok})`, backgroundRepeat: `no-repeat`, backgroundSize: `200px`, backgroundPosition: `center` }}>
                         <div className="project-overlay">

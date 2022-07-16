@@ -27,7 +27,7 @@ input[type=number] {
 .header {
     position: fixed;
     top: 65px;
-    z-index: 1;
+    z-index: 10;
     width: 100%
 }
 
@@ -39,6 +39,7 @@ input[type=number] {
     padding-top: 0;
     padding-bottom: 0;
     box-shadow: 2px 2px #D3D3D3;
+    z-index: 10;
 }
 
 
@@ -127,13 +128,32 @@ input[type=number] {
 }
 
 #projects-div {
-    padding-bottom: 150px;
-    width: 83%;
-    margin: 0 auto;
+    box-sizing: border-box;
+    position: relative;
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-top: 3%;
+    padding: 0px;
+    padding-bottom: 75px;
+    line-height: 1.5;
+    text-size-adjust: 100%;
+    overflow: hidden;
+}
+
+.projects-grid {
+    margin-left: 0px;
+    margin-right: 0px;
+    display: flex;
+    flex-flow: row wrap;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .project {
-    width: 300px
+    width: 300px;
+    margin-top: 0%!important;
 }
 
 .project-card {
@@ -187,10 +207,10 @@ input[type=number] {
 
 .emptyProject {
     height: 550px;
-    font-size: 50px;
+    font-size: 30px;
     color: grey;
     text-align: center;
-    line-height: 450px;
+    line-height: 50px;
 }
 
 .dropdown-menu {
