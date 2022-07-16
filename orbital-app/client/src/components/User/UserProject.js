@@ -5,6 +5,8 @@ const UserDashboard = () => {
     const [team, setTeam] = useState([]);
     const [poster, setPoster] = useState();
     const [video, setVideo] = useState();
+    const [readme, setREADME] = useState();
+    const [projectLog, setProjectLog] = useState();
     const [hasTeam, setHasTeam] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
@@ -33,12 +35,67 @@ const UserDashboard = () => {
             parseRes.teammember2 = await getMemberName(parseRes.teammember2)
 
             setTeam(parseRes);
-            setVideo(parseRes.video);
-            setPoster(parseRes.poster);
             setHasTeam(true);
             setLoading(false);
+            getLatestSubmission(parseRes.id);
         } catch (err) {
             setLoading(false);
+            console.error(err.message);
+        }
+    }
+
+    async function getLatestSubmission(project_id) {
+        try {
+            const response = await fetch(`/submissions/${project_id}/${3}`);
+            const parseRes = await response.json();
+
+            if (parseRes.rowCount === 0) {
+                try {
+                    const response = await fetch(`/submissions/${project_id}/${2}`);
+                    const parseRes = await response.json();
+
+                    if (parseRes.rowCount === 0) {
+                        try {
+                            const response = await fetch(`/submissions/${project_id}/${1}`);
+                            const parseRes = await response.json();
+
+                            if (parseRes.rowCount === 0) {
+                                setPoster()
+                                setVideo()
+                                setREADME()
+                                setProjectLog()
+                                return false;
+                            } else {
+                                setPoster(parseRes.rows[0].poster)
+                                setVideo(parseRes.rows[0].video)
+                                setREADME(parseRes.rows[0].readme)
+                                setProjectLog(parseRes.rows[0].project_log)
+                                return true;
+                            }
+
+                        } catch (err) {
+                            console.error(err.message);
+                        }
+                    } else {
+                        setPoster(parseRes.rows[0].poster)
+                        setVideo(parseRes.rows[0].video)
+                        setREADME(parseRes.rows[0].readme)
+                        setProjectLog(parseRes.rows[0].project_log)
+                        return true;
+                    }
+
+                } catch (err) {
+                    console.error(err.message);
+                }
+            } else {
+                setPoster(parseRes.rows[0].poster)
+                setVideo(parseRes.rows[0].video)
+                setREADME(parseRes.rows[0].readme)
+                setProjectLog(parseRes.rows[0].project_log)
+                return true;
+            }
+
+        } catch (err) {
             console.error(err.message);
         }
     }
@@ -76,7 +133,7 @@ const UserDashboard = () => {
                             </div>
                         </div>
 
-                        <MyProjectContent team={team} isLoading={isLoading} poster={poster} video={video} hasTeam={hasTeam} />
+                        <MyProjectContent team={team} poster={poster} video={video} readme={readme} projectLog={projectLog} hasTeam={hasTeam} />
 
                     </main>
 
@@ -96,7 +153,7 @@ const UserDashboard = () => {
     )
 }
 
-const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
+const MyProjectContent = ({ team, poster, video, readme, projectLog, hasTeam }) => {
     if (hasTeam === false) {
         return (
             <>
@@ -136,9 +193,9 @@ const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
 
                     <MyProjectVideo disabled={video === null ? true : false} video={video} />
 
-                    <MyProjectREADME disabled={true} />
+                    <MyProjectREADME disabled={readme === null ? true : false} readme={readme} />
 
-                    <MyProjectLog disabled={true} />
+                    <MyProjectLog disabled={projectLog === null ? true : false} projectLog={projectLog} />
                 </div>
             </div>
         )
