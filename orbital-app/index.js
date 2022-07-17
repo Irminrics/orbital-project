@@ -20,6 +20,7 @@ app.use("/auth", require("./routes/auth"))
 app.use("/users", require("./routes/users"))
 app.use("/projects", require("./routes/projects"))
 app.use("/staffs", require("./routes/staffs"))
+app.use("/submissions", require("./routes/submissions"))
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client/build/index.html"))

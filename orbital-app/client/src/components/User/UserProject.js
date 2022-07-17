@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
 import LoadingSpinner from '../LoadingSpinner'
 
 const UserDashboard = () => {
     const [team, setTeam] = useState([]);
-    const [userid, setUserId] = useState([]);
     const [poster, setPoster] = useState();
     const [video, setVideo] = useState();
+    const [readme, setREADME] = useState();
+    const [projectLog, setProjectLog] = useState();
     const [hasTeam, setHasTeam] = useState(false);
     const [isLoading, setLoading] = useState(true);
 
@@ -19,7 +19,6 @@ const UserDashboard = () => {
             });
 
             const parseRes = await response.json();
-            setUserId(parseRes.userid);
             getTeam(parseRes.userid);
         } catch (err) {
             console.error(err.message);
@@ -32,162 +31,73 @@ const UserDashboard = () => {
             const response = await fetch(`/projects/userid/${userid}`);
             const parseRes = await response.json();
 
-            console.log(parseRes);
-
             parseRes.teammember1 = await getMemberName(parseRes.teammember1)
             parseRes.teammember2 = await getMemberName(parseRes.teammember2)
 
             setTeam(parseRes);
-            setVideo(parseRes.video);
-            setPoster(parseRes.poster);
             setHasTeam(true);
             setLoading(false);
+            getLatestSubmission(parseRes.id);
         } catch (err) {
             setLoading(false);
             console.error(err.message);
         }
     }
 
-    // const updatePoster = async e => {
-    //     e.preventDefault();
-    //     if (isValidPoster) {
-    //         try {
-    //             const body = { poster };
-    //             const response = await fetch(
-    //                 `/projects/poster/${userid}`,
-    //                 {
-    //                     method: "PUT",
-    //                     headers: { "Content-Type": "application/json" },
-    //                     body: JSON.stringify(body)
-    //                 }
-    //             );
+    async function getLatestSubmission(project_id) {
+        try {
+            const response = await fetch(`/submissions/${project_id}/${3}`);
+            const parseRes = await response.json();
 
-    //             const parseRes = await response.json();
+            if (parseRes.rowCount === 0) {
+                try {
+                    const response = await fetch(`/submissions/${project_id}/${2}`);
+                    const parseRes = await response.json();
 
-    //             toast.success('Poster updated!', {
-    //                 position: "top-center",
-    //                 autoClose: 3000,
-    //                 hideProgressBar: true,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: true,
-    //             });
+                    if (parseRes.rowCount === 0) {
+                        try {
+                            const response = await fetch(`/submissions/${project_id}/${1}`);
+                            const parseRes = await response.json();
 
+                            if (parseRes.rowCount === 0) {
+                                setPoster()
+                                setVideo()
+                                setREADME()
+                                setProjectLog()
+                                return false;
+                            } else {
+                                setPoster(parseRes.rows[0].poster)
+                                setVideo(parseRes.rows[0].video)
+                                setREADME(parseRes.rows[0].readme)
+                                setProjectLog(parseRes.rows[0].project_log)
+                                return true;
+                            }
 
-    //         } catch (err) {
-    //             console.error(err.message);
-    //             return false;
-    //         }
-    //     } else {
-    //         if (poster !== undefined) {
-    //             toast.error("Ensure image size is within 860px x 1200px", {
-    //                 position: "top-center",
-    //                 autoClose: 3000,
-    //                 hideProgressBar: true,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: true,
-    //             });
-    //         } else {
-    //             toast.error("Please upload an image", {
-    //                 position: "top-center",
-    //                 autoClose: 3000,
-    //                 hideProgressBar: true,
-    //                 closeOnClick: true,
-    //                 pauseOnHover: true,
-    //             });
-    //         }
-    //     }
-    // };
-
-    const updateVideo = async e => {
-        e.preventDefault();
-        if (validSite(video)) {
-            try {
-                const body = { video };
-                const response = await fetch(
-                    `/projects/video/${userid}`,
-                    {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify(body)
+                        } catch (err) {
+                            console.error(err.message);
+                        }
+                    } else {
+                        setPoster(parseRes.rows[0].poster)
+                        setVideo(parseRes.rows[0].video)
+                        setREADME(parseRes.rows[0].readme)
+                        setProjectLog(parseRes.rows[0].project_log)
+                        return true;
                     }
-                );
 
-                const parseRes = await response.json();
-
-                toast.success('Video link updated!', {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
-
-
-            } catch (err) {
-                console.error(err.message);
-                return false;
-            }
-        } else {
-            if (video !== undefined) {
-                toast.error("Ensure video link is valid and starts with http", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
+                } catch (err) {
+                    console.error(err.message);
+                }
             } else {
-                toast.error("Please enter your video link", {
-                    position: "top-center",
-                    autoClose: 3000,
-                    hideProgressBar: true,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                });
+                setPoster(parseRes.rows[0].poster)
+                setVideo(parseRes.rows[0].video)
+                setREADME(parseRes.rows[0].readme)
+                setProjectLog(parseRes.rows[0].project_log)
+                return true;
             }
+
+        } catch (err) {
+            console.error(err.message);
         }
-    };
-
-    // function getBase64(e) {
-    //     var file = e.target.files[0]
-    //     let reader = new FileReader()
-    //     reader.readAsDataURL(file)
-    //     reader.onload = function (e) {
-
-    //         //Initiate the JavaScript Image object.
-    //         var image = new Image();
-
-    //         //Set the Base64 string return from FileReader as source.
-    //         image.src = e.target.result;
-
-    //         //Validate the File Height and Width.
-    //         image.onload = function (e) {
-    //             var height = this.height;
-    //             var width = this.width;
-    //             if (height > 1200 || width > 860) {
-    //                 toast.error("Ensure image size is within 860px x 1200px", {
-    //                     position: "top-center",
-    //                     autoClose: 3000,
-    //                     hideProgressBar: true,
-    //                     closeOnClick: true,
-    //                     pauseOnHover: true,
-    //                 });
-    //                 setValidPoster(false);
-    //                 return;
-    //             }
-    //             setPoster(reader.result);
-    //             setValidPoster(true);
-    //             return;
-    //         };
-    //     };
-    //     reader.onerror = function (error) {
-    //         console.log('Error: ', error);
-    //     }
-    // };
-
-    function validSite(site) {
-        var siteRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
-        return siteRegex.test(site);
     }
 
     const getMemberName = async (userid) => {
@@ -206,40 +116,44 @@ const UserDashboard = () => {
 
 
     return (
-        <>
-            <main className="pt-5 mx-lg-5 my-5">
-                <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
-                    {/*Card content*/}
-                    <div className="card-body d-sm-flex justify-content-between">
-                        <div className="panel box-shadow-none content-header">
-                            <div className="panel-body">
-                                <div className="col-md-12">
-                                    <h1>{hasTeam === true ? team.teamname : "Uh oh..."}</h1>
+        <> {
+            isLoading ? <LoadingSpinner /> :
+                <>
+                    <main className="pt-5 mx-lg-5 my-5">
+                        <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
+                            {/*Card content*/}
+                            <div className="card-body d-sm-flex justify-content-between">
+                                <div className="panel box-shadow-none content-header">
+                                    <div className="panel-body">
+                                        <div className="col-md-12">
+                                            <h1>{hasTeam === true ? team.teamname : "Uh oh..."}</h1>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <MyProjectContent team={team} poster={poster} video={video} readme={readme} projectLog={projectLog} hasTeam={hasTeam} />
+
+                    </main>
+
+
+                    <div
+                        className="modal"
+                        id={`myprojectposter`}
+                    >
+                        <div className="modal-dialog">
+                            <img src={poster} height="698" width="500" />
+                        </div>
                     </div>
-                </div>
 
-                <MyProjectContent team={team} isLoading={isLoading} poster={poster} video={video} hasTeam={hasTeam} />
-
-            </main>
-
-
-            <div
-                className="modal"
-                id={`myprojectposter`}
-            >
-                <div className="modal-dialog">
-                    <img src={poster} height="698" width="500" />
-                </div>
-            </div>
-
+                </>
+        }
         </>
     )
 }
 
-const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
+const MyProjectContent = ({ team, poster, video, readme, projectLog, hasTeam }) => {
     if (hasTeam === false) {
         return (
             <>
@@ -251,81 +165,39 @@ const MyProjectContent = ({ team, isLoading, poster, video, hasTeam }) => {
     }
     else {
         return (
-            <> {
-                isLoading ? <LoadingSpinner /> :
-
-                    <div className='row'>
-                        <div className='col-md-7'>
-                            {/*Grid column*/}
-                            <div className="card" style={{ height: '355px' }}>
-                                <div className="card-body">
-                                    <div className="text-left padding-0">
-                                        <h4 className="text-left blue-text mb-4">Basic Information</h4>
-                                        <p>Project ID: {team.id} </p>
-                                        <p>Project Member 1: &nbsp;
-                                            <button className='btn-primary rounded'>{team.teammember1}</button>
-                                        </p>
-                                        <p>Project Member 2: &nbsp;
-                                            <button className='btn-primary rounded'>{team.teammember2}</button>
-                                        </p>
-                                        <p>Project Advisor: {team.teamadvisor} </p>
-                                        <p>Project Achievement: <MyProjectAchievement achievement={team.achievement} /> </p>
-                                    </div>
-                                    <br />
-                                </div>
+            <div className='row'>
+                <div className='col-md-7'>
+                    {/*Grid column*/}
+                    <div className="card" style={{ height: '355px' }}>
+                        <div className="card-body">
+                            <div className="text-left padding-0">
+                                <h4 className="text-left blue-text mb-4">Basic Information</h4>
+                                <p>Project ID: {team.id} </p>
+                                <p>Project Member 1: &nbsp;
+                                    <button className='btn-primary rounded'>{team.teammember1}</button>
+                                </p>
+                                <p>Project Member 2: &nbsp;
+                                    <button className='btn-primary rounded'>{team.teammember2}</button>
+                                </p>
+                                <p>Project Advisor: {team.teamadvisor} </p>
+                                <p>Project Achievement: <MyProjectAchievement achievement={team.achievement} /> </p>
                             </div>
-
-                            {/* <div className="card">
-            <div className="card-body">
-                <img src={poster} key={poster} height="360" width="258" />
-                <br />
-
-                <br />
-                <br />
-
-                <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
-                <button
-                    type="button"
-                    onClick={e => updatePoster(e)}
-                >
-                    Submit Poster
-                </button>
-                <form>
-                    <label className="control-label float-left mt-2">Video Link</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        defaultValue={team.video}
-                        onChange={e => setVideo(e.target.value)}
-                    />
-
-
-                    <button
-                        type="button"
-                        onClick={e => updateVideo(e)}
-                    >
-                        Submit Video
-                    </button>
-
-
-                </form>
-
-            </div>
-        </div> */}
-                        </div>
-                        <div className='col-md-5'>
-                            <MyProjectPoster disabled={poster === null ? true : false} />
-
-                            <MyProjectVideo disabled={video === null ? true : false} video={video} />
-
-                            <MyProjectREADME disabled={true} />
-
-                            <MyProjectLog disabled={true} />
+                            <br />
                         </div>
                     </div>
-            }
-            </>
+                </div>
 
+
+                <div className='col-md-5'>
+                    <MyProjectPoster disabled={poster === null ? true : false} />
+
+                    <MyProjectVideo disabled={video === null ? true : false} video={video} />
+
+                    <MyProjectREADME disabled={readme === null ? true : false} readme={readme} />
+
+                    <MyProjectLog disabled={projectLog === null ? true : false} projectLog={projectLog} />
+                </div>
+            </div>
         )
     }
 }
