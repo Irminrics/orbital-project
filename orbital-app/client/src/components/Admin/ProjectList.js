@@ -98,11 +98,11 @@ const ProjectList = () => {
 
     const [filterText, setFilterText] = useState('');
     const filteredProjects = projects.filter(
-        item => item.teamname && item.teamname.toLowerCase().includes(filterText.toLowerCase())
-            || item.teammember1 && item.teammember1.toLowerCase().includes(filterText.toLowerCase())
-            || item.teammember2 && item.teammember2.toLowerCase().includes(filterText.toLowerCase())
-            || item.teamadvisor && item.teamadvisor.toLowerCase().includes(filterText.toLowerCase())
-            || item.achievement && item.achievement.toLowerCase().includes(filterText.toLowerCase())
+        item => (item.teamname && item.teamname.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.teammember1 && item.teammember1.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.teammember2 && item.teammember2.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.teamadvisor && item.teamadvisor.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.achievement && item.achievement.toLowerCase().includes(filterText.toLowerCase()))
     );
 
     const deleteProjects = async id => {
@@ -120,22 +120,8 @@ const ProjectList = () => {
             });
 
             setProjects(projects.filter(project => project.id !== id));
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
 
-    const getProjects = async () => {
-        try {
-            const response = await fetch("/projects");
-            const jsonData = await response.json();
-            for (let i = 0; i < jsonData.rows.length; i++) {
-                jsonData.rows[i].teammember1 = await getMemberName(jsonData.rows[i].teammember1)
-                jsonData.rows[i].teammember2 = await getMemberName(jsonData.rows[i].teammember2)
-            }
-
-            setLoading(false);
-            setProjects(jsonData.rows);
+            return deleteProject;
         } catch (err) {
             console.error(err.message);
         }
@@ -153,6 +139,21 @@ const ProjectList = () => {
     };
 
     useEffect(() => {
+        const getProjects = async () => {
+            try {
+                const response = await fetch("/projects");
+                const jsonData = await response.json();
+                for (let i = 0; i < jsonData.rows.length; i++) {
+                    jsonData.rows[i].teammember1 = await getMemberName(jsonData.rows[i].teammember1)
+                    jsonData.rows[i].teammember2 = await getMemberName(jsonData.rows[i].teammember2)
+                }
+    
+                setLoading(false);
+                setProjects(jsonData.rows);
+            } catch (err) {
+                console.error(err.message);
+            }
+        };
         setInterval(function () { getProjects(); }, 2000)
     }, []);
 

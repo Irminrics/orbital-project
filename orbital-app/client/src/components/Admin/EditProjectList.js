@@ -10,24 +10,6 @@ const EditProjectList = ({ project }) => {
     const [oldTeamMember1, setOldTeamMember1] = useState();
     const [oldTeamMember2, setOldTeamMember2] = useState();
 
-
-    const getCurrentProject = async () => {
-        try {
-            const response = await fetch(`/projects/id/${project.id}`);
-            const jsonData = await response.json();
-
-            setTeamName(jsonData.teamname);
-            setTeamMember1(jsonData.teammember1);
-            setTeamMember2(jsonData.teammember2);
-            setOldTeamMember1(jsonData.teammember1);
-            setOldTeamMember2(jsonData.teammember2);
-            setTeamAdvisor(jsonData.teamadvisor);
-            setAchievement(jsonData.achievement);
-        } catch (err) {
-            // console.error(err.message);
-        }
-    };
-
     const checkUniqueMembers = async (userid) => {
         try {
             const response = await fetch(`/projects/members`);
@@ -135,6 +117,23 @@ const EditProjectList = ({ project }) => {
     };
 
     useEffect(() => {
+        const getCurrentProject = async () => {
+            try {
+                const response = await fetch(`/projects/id/${project.id}`);
+                const jsonData = await response.json();
+
+                setTeamName(jsonData.teamname);
+                setTeamMember1(jsonData.teammember1);
+                setTeamMember2(jsonData.teammember2);
+                setOldTeamMember1(jsonData.teammember1);
+                setOldTeamMember2(jsonData.teammember2);
+                setTeamAdvisor(jsonData.teamadvisor);
+                setAchievement(jsonData.achievement);
+            } catch (err) {
+                // console.error(err.message);
+            }
+        };
+
         getCurrentProject();
     }, []);
 

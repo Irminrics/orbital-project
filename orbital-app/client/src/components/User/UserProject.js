@@ -143,7 +143,7 @@ const UserDashboard = () => {
                         id={`myprojectposter`}
                     >
                         <div className="modal-dialog">
-                            <img src={poster} height="698" width="500" />
+                            <img src={poster} height="698" width="500" alt='Poster' />
                         </div>
                     </div>
 
@@ -205,7 +205,7 @@ const MyProjectContent = ({ team, poster, video, readme, projectLog, hasTeam }) 
 const MyProjectPoster = ({ disabled }) => {
     if (disabled) {
         return (
-            <a className="card grey white-text mb-3" data-bs-toggle="modal"
+            <a href="/#" className="card grey white-text mb-3" data-bs-toggle="modal"
                 data-bs-target={`#myprojectposter`} style={{ pointerEvents: "none" }}>
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
@@ -220,7 +220,7 @@ const MyProjectPoster = ({ disabled }) => {
             </a>)
     } else {
         return (
-            <a className="card blue white-text mb-3" data-bs-toggle="modal"
+            <a href="/#" className="card blue white-text mb-3" data-bs-toggle="modal"
                 data-bs-target={`#myprojectposter`}>
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
@@ -239,7 +239,7 @@ const MyProjectPoster = ({ disabled }) => {
 const MyProjectVideo = ({ disabled, video }) => {
     if (disabled) {
         return (
-            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
+            <a href="/#" className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -272,7 +272,7 @@ const MyProjectVideo = ({ disabled, video }) => {
 const MyProjectREADME = ({ disabled }) => {
     if (disabled) {
         return (
-            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
+            <a href="/#" className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -286,7 +286,7 @@ const MyProjectREADME = ({ disabled }) => {
             </a>)
     } else {
         return (
-            <a className="card blue white-text mb-3">
+            <a href="/#" className="card blue white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -304,7 +304,7 @@ const MyProjectREADME = ({ disabled }) => {
 const MyProjectLog = ({ disabled }) => {
     if (disabled) {
         return (
-            <a className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
+            <a href="/#" className="card grey white-text mb-3" style={{ pointerEvents: "none" }} >
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">
@@ -318,7 +318,7 @@ const MyProjectLog = ({ disabled }) => {
             </a>)
     } else {
         return (
-            <a className="card blue white-text mb-3">
+            <a href="/#" className="card blue white-text mb-3">
                 {/*Card content*/}
                 <div className="card-body d-sm-flex justify-content-between">
                     <div className="panel box-shadow-none content-header">

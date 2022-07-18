@@ -24,7 +24,7 @@ const Navigation = ({ setAuth, isAuthenticated }) => {
                     <div id="nav-container-right">
                         <ul id="nav-items" className="navright">
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                                <a className="nav-link dropdown-toggle" href="/#" id="dropdownMenuButton" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style={{ marginLeft: "7px" }}>
                                     <LinkNav to={`/projects/vostok`} className="dropdown-item" onClick={refreshPage}>Vostok</LinkNav>
                                     <LinkNav to={`/projects/gemini`} className="dropdown-item" onClick={refreshPage}>Gemini</LinkNav>
@@ -49,7 +49,7 @@ const Navigation = ({ setAuth, isAuthenticated }) => {
                     <div id="nav-container-right" className="navright">
                         <ul id="nav-items">
                             <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" id="dropdownMenuButton" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
+                                <a className="nav-link dropdown-toggle" href="/#" id="dropdownMenuButton" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Projects</a>
                                 <div className="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style={{ marginLeft: "7px" }}>
                                     <LinkNav to={`/projects/vostok`} className="dropdown-item" onClick={refreshPage}>Vostok</LinkNav>
                                     <LinkNav to={`/projects/gemini`} className="dropdown-item" onClick={refreshPage}>Gemini</LinkNav>

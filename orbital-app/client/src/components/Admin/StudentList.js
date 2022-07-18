@@ -113,13 +113,13 @@ const UserList = () => {
 
     const [filterText, setFilterText] = useState('');
     const filteredUsers = users.filter(
-        item => item.firstname && item.firstname.toLowerCase().includes(filterText.toLowerCase())
-            || item.lastname && item.lastname.toLowerCase().includes(filterText.toLowerCase())
-            || item.studentnumber && item.studentnumber.toLowerCase().includes(filterText.toLowerCase())
-            || item.userid && item.userid.toLowerCase().includes(filterText.toLowerCase())
-            || item.email && item.email.toLowerCase().includes(filterText.toLowerCase())
-            || item.contactnumber && item.contactnumber.toLowerCase().includes(filterText.toLowerCase())
-            || item.programme && item.programme.toLowerCase().includes(filterText.toLowerCase())
+        item => (item.firstname && item.firstname.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.lastname && item.lastname.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.studentnumber && item.studentnumber.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.userid && item.userid.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.email && item.email.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.contactnumber && item.contactnumber.toLowerCase().includes(filterText.toLowerCase()))
+            || (item.programme && item.programme.toLowerCase().includes(filterText.toLowerCase()))
     );
 
     const deleteUsers = async id => {
@@ -137,6 +137,8 @@ const UserList = () => {
             });
 
             setUsers(users.filter(user => user.id !== id));
+
+            return deleteUser;
         } catch (err) {
             // console.error(err.message);
         }
