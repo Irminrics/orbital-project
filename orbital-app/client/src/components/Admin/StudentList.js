@@ -106,7 +106,8 @@ const UserList = () => {
                             </div>
                         </div>
                     </div>
-                </div></>,
+                </div>
+            </>
         }
     ];
 
