@@ -5,6 +5,11 @@ import { toast } from 'react-toastify';
 const AddProjectList = () => {
     const [csv, setCsv] = useState([]);
     const [validCsv, setValidCsv] = useState(false);
+    const [teamName, setTeamName] = useState();
+    const [teamMember1, setTeamMember1] = useState();
+    const [teamMember2, setTeamMember2] = useState();
+    const [teamAdvisor, setTeamAdvisor] = useState();
+    const [achievement, setAchievement] = useState();
 
     const handleFileUpload = (e) => {
         const files = e.target.files;
@@ -108,8 +113,29 @@ const AddProjectList = () => {
         return !error;
     }
 
+    const toastResultSingle = async e => {
+        const result = await addProjectList(e, teamName, teamMember1, teamMember2, teamAdvisor, achievement);
 
-    const toastResult = async e => {
+        if (result === true) {
+            toast.success(`Succesfully added ${teamName}`, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        } else {
+            toast.error(`Error adding ${teamName}`, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+    }
+
+    const toastResultCSV = async e => {
         if (validCsv) {
             const result = await csvToPSQL(e);
             if (csv.length === 0) {
@@ -167,6 +193,43 @@ const AddProjectList = () => {
             >
                 <div className="modal-dialog modal-dialog-centered modal-sm">
                     <div className="modal-content ">
+                        <div className="modal-header bg-primary">
+                            <h5 className="modal-title">Add Project</h5>
+                            <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="span2 p-20">
+                                <button
+                                    type="button"
+                                    className="btn btn-success btn-block"
+                                    data-bs-toggle="modal" data-bs-target="#addProjectModalSingle"
+                                >
+                                    Single Add
+                                </button>
+
+                                <br />
+
+                                <button
+                                    className="btn btn-warning btn-block"
+                                    data-bs-toggle="modal" data-bs-target="#addProjectModalCSV"
+                                >
+                                    Multiple Add
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className="modal"
+                id="addProjectModalCSV"
+            >
+                <div className="modal-dialog modal-dialog-centered modal-sm">
+                    <div className="modal-content ">
                         <div className="modal-body">
                             <i
                                 className="fa fa-upload modal-icon modal-icon-success"
@@ -187,7 +250,7 @@ const AddProjectList = () => {
                                 type="button"
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
-                                onClick={(e) => toastResult(e)}
+                                onClick={(e) => toastResultCSV(e)}
                             >
                                 Import
                             </button>
@@ -197,6 +260,87 @@ const AddProjectList = () => {
                                 data-bs-dismiss="modal"
                             >
                                 Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className="modal"
+                id="addProjectModalSingle"
+            >
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header bg-primary">
+                            <h4 className="modal-title">Edit User Information</h4>
+                            <button
+                                type="button"
+                                className="close"
+                                data-bs-dismiss="modal"
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        <div className="modal-body">
+                            <label className="control-label float-left mt-2 black-text">Team Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={teamName}
+                                onChange={e => setTeamName(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Team Member 1  <small>(User ID)</small> </label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={teamMember1}
+                                onChange={e => setTeamMember1(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Team Member 2 <small>(User ID)</small></label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={teamMember2}
+                                onChange={e => setTeamMember2(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Team Advisor</label>
+                            <input
+                                type="email"
+                                className="form-control"
+                                defaultValue={teamAdvisor}
+                                onChange={e => setTeamAdvisor(e.target.value)}
+                            />
+
+                            <label className="control-label float-left mt-2 black-text">Achievement</label>
+
+                            <select className="form-select" aria-label="Default select example" defaultValue={achievement} onChange={e => setAchievement(e.target.value)}>
+                                <option value="">Please select an option</option>
+                                <option value="artemis">Artemis</option>
+                                <option value="apollo11">Apollo 11</option>
+                                <option value="gemini">Gemini</option>
+                                <option value="vostok">Vostok</option>
+                            </select>
+
+
+                        </div>
+
+                        <div className="modal-footer">
+                            <button
+                                type="button"
+                                className="btn btn-warning"
+                                data-bs-dismiss="modal"
+                                onClick={e => toastResultSingle(e)}
+                            >
+                                Add
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                data-bs-dismiss="modal"
+                            >
+                                Close
                             </button>
                         </div>
                     </div>
