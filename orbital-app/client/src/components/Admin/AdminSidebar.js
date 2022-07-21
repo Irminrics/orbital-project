@@ -63,6 +63,9 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-rectangle-history mr-3" />Projects
                 </LinkNav>
+                <LinkNav to={`/admin/submissions`} className="list-group-item list-group-item-action">
+                    <i className="fa-solid fa-flag-pennant mr-3" />Submission
+                </LinkNav>
             </div>
         )
     } else if (activePage === "user") {
@@ -77,6 +80,26 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-rectangle-history mr-3" />Projects
                 </LinkNav>
+                <LinkNav to={`/admin/submissions`} className="list-group-item list-group-item-action">
+                    <i className="fa-solid fa-flag-pennant mr-3" />Submission
+                </LinkNav>
+            </div>
+        )
+    } else if (activePage === "project") {
+        return (
+            <div className="list-group list-group-flush">
+                <LinkNav to={`/admin`} className="list-group-item list-group-item-action ">
+                    <i className="fa-solid fa-chart-line mr-3" />Dashboard
+                </LinkNav>
+                <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
+                    <i className="fa-solid fa-users mr-3" />Students
+                </LinkNav>
+                <LinkNav to={`/admin/projects`} className="list-group-item active white-text">
+                    <i className="fa-solid fa-rectangle-history mr-3" />Projects
+                </LinkNav>
+                <LinkNav to={`/admin/submissions`} className="list-group-item list-group-item-action">
+                    <i className="fa-solid fa-flag-pennant mr-3" />Submission
+                </LinkNav>
             </div>
         )
     } else {
@@ -88,8 +111,11 @@ const SidebarNav = ({ activePage }) => {
                 <LinkNav to={`/admin/students`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-users mr-3" />Students
                 </LinkNav>
-                <LinkNav to={`/admin/projects`} className="list-group-item active waves-effect white-text">
+                <LinkNav to={`/admin/projects`} className="list-group-item list-group-item-action">
                     <i className="fa-solid fa-rectangle-history mr-3" />Projects
+                </LinkNav>
+                <LinkNav to={`/admin/submissions`} className="list-group-item active white-text">
+                    <i className="fa-solid fa-flag-pennant mr-3" />Submission
                 </LinkNav>
             </div>
         )
