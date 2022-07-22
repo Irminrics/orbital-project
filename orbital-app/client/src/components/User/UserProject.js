@@ -189,13 +189,13 @@ const MyProjectContent = ({ team, poster, video, readme, projectLog, hasTeam }) 
 
 
                 <div className='col-md-5'>
-                    <MyProjectPoster disabled={poster === null ? true : false} />
+                    <MyProjectPoster disabled={poster === undefined ? true : false} />
 
-                    <MyProjectVideo disabled={video === null ? true : false} video={video} />
+                    <MyProjectVideo disabled={video === undefined ? true : false} video={video} />
 
-                    <MyProjectREADME disabled={readme === null ? true : false} readme={readme} />
+                    <MyProjectREADME disabled={readme === undefined ? true : false} readme={readme} />
 
-                    <MyProjectLog disabled={projectLog === null ? true : false} projectLog={projectLog} />
+                    <MyProjectLog disabled={projectLog === undefined ? true : false} projectLog={projectLog} />
                 </div>
             </div>
         )
