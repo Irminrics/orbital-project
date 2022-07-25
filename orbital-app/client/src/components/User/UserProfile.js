@@ -120,30 +120,8 @@ const UserProfile = () => {
             isLoading ? <LoadingSpinner /> :
                 <>
                     <main className="pt-5 mx-lg-5 my-5">
-                        <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
-                            {/*Card content*/}
-                            <div className="card-body d-sm-flex justify-content-between">
-                                <div className="panel box-shadow-none content-header">
-                                    <div className="panel-body">
-                                        <div className="col-md-12">
-                                            <h1>{hasTeam === true ? team.teamname : "Uh oh..."}</h1>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
                     </main>
-
-
-                    <div
-                        className="modal"
-                        id={`myprojectposter`}
-                    >
-                        <div className="modal-dialog">
-                            <img src={poster} height="698" width="500" alt='Poster' />
-                        </div>
-                    </div>
-
                 </>
         }
         </>
