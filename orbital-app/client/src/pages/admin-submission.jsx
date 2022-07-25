@@ -2,7 +2,7 @@ import Navigation from "../components/Header/Navigation";
 import Footer from "../components/Footer/Footer";
 import Sidebar from "../components/Admin/AdminSidebar";
 
-import ProjectList from "../components/Admin/ProjectList";
+import SubmissionList from "../components/Admin/SubmissionList";
 
 
 const AdminUserPage = ({ setAuth, isAuthenticated }) => {
@@ -11,9 +11,9 @@ const AdminUserPage = ({ setAuth, isAuthenticated }) => {
         <>
             <Navigation setAuth={setAuth} isAuthenticated={isAuthenticated} />
             <div className="page-container">
-                <Sidebar activePage={"project"}/>
+                <Sidebar activePage={"submission"}/>
                 <div className="container-fluid">
-                    <ProjectList />
+                    <SubmissionList />
                 </div>
                 <Footer />
             </div>

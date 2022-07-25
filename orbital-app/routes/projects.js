@@ -60,6 +60,17 @@ router.get("/userid/:userid", async (req, res) => {
     }
 })
 
+//get projects from user
+router.get("/projectid/:projectid", async (req, res) => {
+    try {
+        const { projectid } = req.params;
+        const project = await pool.query("SELECT * FROM projects WHERE id = $1", [projectid])
+        res.json(project.rows[0])
+    } catch (err) {
+        console.error(err.message);
+    }
+})
+
 //get all projects by level
 router.get("/id/:id", async (req, res) => {
     try {

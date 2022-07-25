@@ -18,8 +18,8 @@ router.post("/create", async (req, res) => {
 //get all submission
 router.get("/", async (req, res) => {
     try {
-        const projects = await pool.query("SELECT * FROM submissions")
-        res.json(projects);
+        const submissions = await pool.query("SELECT * FROM submissions")
+        res.json(submissions);
     } catch (err) {
         console.error(err.message);
     }
@@ -51,5 +51,17 @@ router.put("/update/:project_id/:milestone", async (req, res) => {
         console.error(err.message);
     }
 })
+
+router.delete("/del/:project_id/:milestone", async (req, res) => {
+    try {
+        const { project_id, milestone } = req.params;
+        const deleteUser = await pool.query("DELETE FROM submissions WHERE project_id = $1 and milestone = $2", [project_id, milestone])
+
+        res.json("Submission is successfully deleted!");
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server error");
+    }
+});
 
 module.exports = router;

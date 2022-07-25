@@ -5,6 +5,14 @@ import { toast } from 'react-toastify';
 const AddStudentList = () => {
     const [csv, setCsv] = useState([]);
     const [validCsv, setValidCsv] = useState(false);
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [studentNumber, setStudentNumber] = useState();
+    const [userid, setUserid] = useState();
+    const [email, setEmail] = useState();
+    const [contactNumber, setContactNumber] = useState();
+    const [programme, setProgramme] = useState();
+
 
     const handleFileUpload = (e) => {
         const files = e.target.files;
@@ -28,6 +36,7 @@ const AddStudentList = () => {
         e.preventDefault();
         try {
             const body = { firstName, lastName, studentNumber, userID, email, contactNumber, programme, password };
+            console.log(JSON.stringify(body));
             const response = await fetch(
                 "/auth/register",
                 {
@@ -65,8 +74,29 @@ const AddStudentList = () => {
         return !error;
     }
 
+    const toastResultSingle = async e => {
+        const result = await addStudentList(e, firstName, lastName, studentNumber, userid, email, contactNumber, programme, "undefined");
 
-    const toastResult = async e => {
+        if (result === true) {
+            toast.success(`Succesfully added ${firstName} ${lastName}`, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        } else {
+            toast.error(`Error adding ${firstName} ${lastName}`, {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+            });
+        }
+    }
+
+    const toastResultCSV = async e => {
         if (validCsv) {
             const result = await csvToPSQL(e);
             if (csv.length === 0) {
@@ -124,6 +154,43 @@ const AddStudentList = () => {
             >
                 <div className="modal-dialog modal-dialog-centered modal-sm">
                     <div className="modal-content ">
+                        <div className="modal-header bg-primary">
+                            <h5 className="modal-title">Add Student</h5>
+                            <button type="button" className="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div className="modal-body">
+                            <div className="span2 p-20">
+                                <button
+                                    type="button"
+                                    className="btn btn-success btn-block"
+                                    data-bs-toggle="modal" data-bs-target="#addStudentModalSingle"
+                                >
+                                    Single Add
+                                </button>
+
+                                <br />
+
+                                <button
+                                    className="btn btn-warning btn-block"
+                                    data-bs-toggle="modal" data-bs-target="#addStudentModalCSV"
+                                >
+                                    Multiple Add
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div
+                className="modal"
+                id="addStudentModalCSV"
+            >
+                <div className="modal-dialog modal-dialog-centered modal-sm">
+                    <div className="modal-content ">
                         <div className="modal-body">
                             <i
                                 className="fa fa-upload modal-icon modal-icon-success"
@@ -143,7 +210,7 @@ const AddStudentList = () => {
                                 type="button"
                                 className="btn btn-success"
                                 data-bs-dismiss="modal"
-                                onClick={(e) => toastResult(e)}
+                                onClick={(e) => toastResultCSV(e)}
                             >
                                 Import
                             </button>
@@ -158,6 +225,116 @@ const AddStudentList = () => {
                     </div>
                 </div>
             </div>
+
+
+            <div
+                className="modal"
+                id="addStudentModalSingle"
+            >
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header bg-primary">
+                            <h4 className="modal-title">Edit User Information</h4>
+                            <button
+                                type="button"
+                                className="close"
+                                data-bs-dismiss="modal"
+                            >
+                                &times;
+                            </button>
+                        </div>
+
+                        <div className="modal-body">
+                            <label className="control-label float-left mt-2 black-text">First Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={firstName}
+                                onChange={e => setFirstName(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Last Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={lastName}
+                                onChange={e => setLastName(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Student Number</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={studentNumber}
+                                onChange={e => setStudentNumber(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">User ID</label>
+                            <input
+                                type="email"
+                                className="form-control"
+                                defaultValue={userid}
+                                onChange={e => setUserid(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Email</label>
+
+                            <input
+                                type="text"
+                                className="form-control"
+                                defaultValue={email}
+                                onChange={e => setEmail(e.target.value)}
+                            />
+                            <label className="control-label float-left mt-2 black-text">Contact Number</label>
+
+                            <input
+                                type="number"
+                                className="form-control"
+                                defaultValue={contactNumber}
+                                pattern="\d{8}"
+                                required
+                                onChange={e => setContactNumber(e.target.value)}
+                            />
+
+                            <label className="control-label float-left mt-2 black-text">Programme</label>
+
+                            <select className="form-select" aria-label="Default select example"
+                                defaultValue={programme} onChange={e => setProgramme(e.target.value)}
+                            >
+                                <option value="">Please select an option</option>
+                                <option value="Bachelor of Business">Bachelor of Business</option>
+                                <option value="Bachelor of Computing">Bachelor of Computing</option>
+                                <option value="Bachelor of Dentistry">Bachelor of Dentistry</option>
+                                <option value="Bachelor of Engineering">Bachelor of Engineering</option>
+                                <option value="Bachelor of Law">Bachelor of Law</option>
+                                <option value="Bachelor of Music">Bachelor of Music</option>
+                                <option value="Bachelor of Nursing">Bachelor of Nursing</option>
+                                <option value="Bachelor of Pharmacy">Bachelor of Pharmacy</option>
+                                <option value="Bachelor of Science">Bachelor of Science</option>
+                            </select>
+
+
+                        </div>
+
+                        <div className="modal-footer">
+                            <button
+                                type="button"
+                                className="btn btn-warning"
+                                data-bs-dismiss="modal"
+                                onClick={e => toastResultSingle(e)}
+                            >
+                                Add
+                            </button>
+                            <button
+                                type="button"
+                                className="btn btn-danger"
+                                data-bs-dismiss="modal"
+                            >
+                                Close
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </Fragment>
     );
 };

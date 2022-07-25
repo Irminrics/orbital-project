@@ -123,6 +123,7 @@ const Login = ({ setAuth }) => {
 
             );
 
+            return response;
         } catch (err) {
             console.error(err.message);
         }
@@ -251,7 +252,7 @@ const Login = ({ setAuth }) => {
 
                                                     <p className="memberornot">Not a member? &nbsp;
                                                         <br />
-                                                        <a id="ForgetPasswordBtn" className="text-primary" onClick={toggleActivate}>Activate your account</a>
+                                                        <a id="ForgetPasswordBtn" className="text-primary" href="/#" onClick={toggleActivate}>Activate your account</a>
                                                     </p>
                                                 </form>
                                             </div>
@@ -293,7 +294,7 @@ const Login = ({ setAuth }) => {
 
                                                     <p className="memberornot">Already a member? &nbsp;
                                                         <br />
-                                                        <a id="ForgetPasswordBtn" className="text-primary" onClick={toggleActivate}>Login</a>
+                                                        <a id="ForgetPasswordBtn" href="/#" className="text-primary" onClick={toggleActivate}>Login</a>
                                                     </p>
                                                 </form>
                                             </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import LoadingSpinner from '../LoadingSpinner'
 
 const UserSubmission = () => {
     const [team, setTeam] = useState([]);
@@ -13,22 +14,6 @@ const UserSubmission = () => {
     const [hasTeam, setHasTeam] = useState(false);
     const [isLoading, setLoading] = useState(true);
     const [isValidPoster, setValidPoster] = useState(false);
-
-
-    async function getUserId() {
-        try {
-            const response = await fetch("/users/me", {
-                method: "GET",
-                headers: { token: localStorage.token }
-            });
-
-            const parseRes = await response.json();
-            setUserId(parseRes.userid);
-            getTeam(parseRes.userid);
-        } catch (err) {
-            console.error(err.message);
-        }
-    }
 
     async function getTeam(userid) {
         try {
@@ -53,7 +38,7 @@ const UserSubmission = () => {
         try {
             const response = await fetch(`/submissions/${project_id}/${milestone}`);
             const parseRes = await response.json();
-            
+
             if (parseRes.rowCount === 0) {
                 setSubmission([]);
                 setPoster()
@@ -242,7 +227,7 @@ const UserSubmission = () => {
     };
 
     function validSite(site) {
-        var siteRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/
+        var siteRegex = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_.~#?&//=]*)/
         return siteRegex.test(site);
     }
 
@@ -264,94 +249,122 @@ const UserSubmission = () => {
     };
 
     useEffect(() => {
+        async function getUserId() {
+            try {
+                const response = await fetch("/users/me", {
+                    method: "GET",
+                    headers: { token: localStorage.token }
+                });
+
+                const parseRes = await response.json();
+                setUserId(parseRes.userid);
+                getTeam(parseRes.userid);
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
         getUserId();
     }, []);
 
-
-    return (
-        <>
-            <main className="pt-5 mx-lg-5 my-5">
-                <div className='row'>
-                    <div className='col-md-4' onClick={() => changeMilestone(1)}>
-                        <a style={milestone !== 1 ? { pointerEvents: "none" } : {}}>
-                            <Milestone1 milestone={milestone} />
-                        </a>
-                    </div>
-
-                    <div className='col-md-4' onClick={() => changeMilestone(2)}>
-                        <a style={milestone !== 2 ? { pointerEvents: "none" } : {}}>
-                            <Milestone2 milestone={milestone} />
-                        </a>
-                    </div>
-
-
-                    <div className='col-md-4' onClick={() => changeMilestone(3)}>
-                        <a style={milestone !== 3 ? { pointerEvents: "none" } : {}}>
-                            <Milestone3 milestone={milestone} />
-                        </a>
-                    </div>
+    if (hasTeam === false) {
+        return (
+            <>
+                <div className='emptyProject'>
+                    <p>You are currently not in a project.</p>
                 </div>
+            </>
+        )
+    }
+    else {
+        return (
+            <> {
+                isLoading ? <LoadingSpinner /> :
+                    <>
+                        <main className="pt-5 mx-lg-5 my-5">
+                            <div className='row'>
+                                <div className='col-md-4' onClick={() => changeMilestone(1)}>
+                                    <a href="/#" style={milestone !== 1 ? { pointerEvents: "none" } : {}}>
+                                        <Milestone1 milestone={milestone} />
+                                    </a>
+                                </div>
 
-                <div className="card">
-                    <div className="card-body">
-                        {/* <img src={poster} key={poster} height="360" width="258" /> */}
-                        <label className="control-label float-left mt-2">Poster</label>
-                        <br />
-                        <br />
-                        <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
-
-                        <br />
+                                <div className='col-md-4' onClick={() => changeMilestone(2)}>
+                                    <a href="/#" style={milestone !== 2 ? { pointerEvents: "none" } : {}}>
+                                        <Milestone2 milestone={milestone} />
+                                    </a>
+                                </div>
 
 
+                                <div className='col-md-4' onClick={() => changeMilestone(3)}>
+                                    <a href="/#" style={milestone !== 3 ? { pointerEvents: "none" } : {}}>
+                                        <Milestone3 milestone={milestone} />
+                                    </a>
+                                </div>
+                            </div>
 
+                            <div className="card">
+                                <div className="card-body">
+                                    {/* <img src={poster} key={poster} height="360" width="258" /> */}
+                                    <label className="control-label float-left mt-2">Poster</label>
+                                    <br />
+                                    <br />
+                                    <input type="file" className="input-file" name="imgUpload" accept='image/*' onChange={e => getBase64(e)} />
 
-                        <form>
-                            <label className="control-label float-left mt-2">Video Link</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                defaultValue={submission.video}
-                                onChange={e => setVideo(e.target.value)}
-                            />
-
-                            <br />
-
-                            <label className="control-label float-left mt-2">README Link</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                defaultValue={submission.readme}
-                                onChange={e => setREADME(e.target.value)}
-                            />
-
-                            <br />
-
-                            <label className="control-label float-left mt-2">Project Log Link</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                defaultValue={submission.project_log}
-                                onChange={e => setProjectLog(e.target.value)}
-                            />
-
-                            <br />
-
-                            <button onClick={e => updateSubmission(e)}>Submit</button>
-
-                            <br />
-                            <br />
-
-                        </form>
-
-                    </div>
-                </div>
+                                    <br />
 
 
 
 
-            </main>
-        </>
-    )
+                                    <form>
+                                        <label className="control-label float-left mt-2">Video Link</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            defaultValue={submission.video}
+                                            onChange={e => setVideo(e.target.value)}
+                                        />
+
+                                        <br />
+
+                                        <label className="control-label float-left mt-2">README Link</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            defaultValue={submission.readme}
+                                            onChange={e => setREADME(e.target.value)}
+                                        />
+
+                                        <br />
+
+                                        <label className="control-label float-left mt-2">Project Log Link</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            defaultValue={submission.project_log}
+                                            onChange={e => setProjectLog(e.target.value)}
+                                        />
+
+                                        <br />
+
+                                        <button onClick={e => updateSubmission(e)}>Submit</button>
+
+                                        <br />
+                                        <br />
+
+                                    </form>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </main>
+                    </>
+            }
+            </>
+        )
+    }
 }
 
 

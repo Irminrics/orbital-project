@@ -1,4 +1,3 @@
-import { Link as LinkNav } from 'react-router-dom'
 import { useState, useEffect } from "react";
 import artemis from "../../images/artemis.png"
 import apollo11 from "../../images/apollo11.png"
@@ -89,7 +88,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                         <div className="modal-content">
                             <div className="modal-header">
                                 <div className="modal-body">
-                                    <img src={poster} />
+                                    <img src={poster} alt="Poster"/>
                                 </div>
                             </div>
                         </div>
@@ -155,7 +154,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                         <div className="modal-content">
                             <div className="modal-header">
                                 <div className="modal-body">
-                                    <img src={poster} />
+                                    <img src={poster} alt="Poster"/>
                                 </div>
                             </div>
                         </div>
@@ -220,7 +219,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                     id={`projectposter${teamID}`}
                 >
                     <div className="modal-dialog">
-                        <img src={poster} />
+                        <img src={poster} alt="Poster"/>
                     </div>
                 </div>
 
@@ -281,7 +280,7 @@ const ProjectContent = ({ teamName, teamID, teamMember1, teamMember2, teamAdviso
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
-                                <img src={poster} />
+                                <img src={poster} alt="Poster"/>
                             </div>
                         </div>
                     </div>
