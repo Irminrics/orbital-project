@@ -1,151 +1,169 @@
 import { useState, useEffect } from 'react';
-import LoadingSpinner from '../LoadingSpinner'
+import { toast } from 'react-toastify';
 
 const UserProfile = () => {
-    const [team, setTeam] = useState([]);
-    const [poster, setPoster] = useState();
-    const [video, setVideo] = useState();
-    const [readme, setREADME] = useState();
-    const [projectLog, setProjectLog] = useState();
-    const [hasTeam, setHasTeam] = useState(false);
-    const [isLoading, setLoading] = useState(true);
+    const [isEditable, setEditable] = useState(true);
+    const [me, setMe] = useState({
+        firstname: "",
+        lastname: "",
+        contactnumber: "",
+        studentnumber: "",
+        userid: "",
+        programme: ""
+    });
 
+    const { firstname, lastname, contactnumber, studentnumber, userid, programme } = me;
 
-    async function getUserId() {
+    const onSubmitProfileForm = async e => {
+        e.preventDefault();
+        console.log("dwadawd");
         try {
-            const response = await fetch("/users/me", {
-                method: "GET",
-                headers: { token: localStorage.token }
-            });
-
-            const parseRes = await response.json();
-            getTeam(parseRes.userid);
-        } catch (err) {
-            console.error(err.message);
-        }
-    }
-
-    async function getTeam(userid) {
-        try {
-
-            const response = await fetch(`/projects/userid/${userid}`);
-            const parseRes = await response.json();
-
-            parseRes.teammember1 = await getMemberName(parseRes.teammember1)
-            parseRes.teammember2 = await getMemberName(parseRes.teammember2)
-
-            setTeam(parseRes);
-            setHasTeam(true);
-            setLoading(false);
-            getLatestSubmission(parseRes.id);
-        } catch (err) {
-            setLoading(false);
-            console.error(err.message);
-        }
-    }
-
-    async function getLatestSubmission(project_id) {
-        try {
-            const response = await fetch(`/submissions/${project_id}/${3}`);
-            const parseRes = await response.json();
-
-            if (parseRes.rowCount === 0) {
-                try {
-                    const response = await fetch(`/submissions/${project_id}/${2}`);
-                    const parseRes = await response.json();
-
-                    if (parseRes.rowCount === 0) {
-                        try {
-                            const response = await fetch(`/submissions/${project_id}/${1}`);
-                            const parseRes = await response.json();
-
-                            if (parseRes.rowCount === 0) {
-                                setPoster()
-                                setVideo()
-                                setREADME()
-                                setProjectLog()
-                                return false;
-                            } else {
-                                setPoster(parseRes.rows[0].poster)
-                                setVideo(parseRes.rows[0].video)
-                                setREADME(parseRes.rows[0].readme)
-                                setProjectLog(parseRes.rows[0].project_log)
-                                return true;
-                            }
-
-                        } catch (err) {
-                            console.error(err.message);
-                        }
-                    } else {
-                        setPoster(parseRes.rows[0].poster)
-                        setVideo(parseRes.rows[0].video)
-                        setREADME(parseRes.rows[0].readme)
-                        setProjectLog(parseRes.rows[0].project_log)
-                        return true;
-                    }
-
-                } catch (err) {
-                    console.error(err.message);
+            const body = { firstname, lastname, contactnumber, studentnumber, userid, programme };
+            const response = await fetch(
+                `/users/update/${me.id}`,
+                {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(body)
                 }
+
+            );
+            const parseRes = await response.json();
+            if (parseRes === "User was updated!") {
+                toast.success('Profile successfully updated', {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
             } else {
-                setPoster(parseRes.rows[0].poster)
-                setVideo(parseRes.rows[0].video)
-                setREADME(parseRes.rows[0].readme)
-                setProjectLog(parseRes.rows[0].project_log)
-                return true;
+                toast.error(parseRes, {
+                    position: "top-center",
+                    autoClose: 3000,
+                    hideProgressBar: true,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                });
+
+                return false;
             }
-
         } catch (err) {
-            console.error(err.message);
-        }
-    }
-
-    const getMemberName = async (userid) => {
-        try {
-            const response = await fetch(`/users/students/${userid}`);
-            const jsonData = await response.json();
-            return (jsonData.rows[0].firstname + " " + jsonData.rows[0].lastname);
-        } catch (err) {
-            console.error(err.message);
+            // console.error(err.message);
+            return false;
         }
     };
 
     useEffect(() => {
+        async function getUserId() {
+            try {
+                const response = await fetch("/users/me", {
+                    method: "GET",
+                    headers: { token: localStorage.token }
+                });
+
+                const parseRes = await response.json();
+
+                console.log(parseRes);
+                setMe(parseRes);
+            } catch (err) {
+                console.error(err.message);
+            }
+        }
         getUserId();
     }, []);
 
-
+    const onChange = e => {
+        setMe({ ...me, [e.target.name]: e.target.value });
+    };
     return (
-        <> {
-            isLoading ? <LoadingSpinner /> :
-                <>
-                    <main className="pt-5 mx-lg-5 my-5">
-                        <div className="card wow fadeIn animated blue white-text mb-3" style={{ visibility: 'visible', animationName: 'fadeIn' }}>
-                            {/*Card content*/}
-                            <div className="card-body d-sm-flex justify-content-between">
-                                <div className="panel box-shadow-none content-header">
-                                    <div className="panel-body">
-                                        <div className="col-md-12">
-                                            <h1>{hasTeam === true ? team.teamname : "Uh oh..."}</h1>
-                                        </div>
+        <>
+            <main className="pt-5 mx-lg-5 my-5">
+                <div className="col d-flex justify-content-center">
+                    <div className="card py-2" style={{ width: '600px' }}>
+                        <div className="card-body">
+                            <h2>My Profile</h2>
+                            <form onSubmit={isEditable ? onSubmitProfileForm : null}>
+                                <div class="input-group">
+
+                                    <div>
+                                        <label className="control-label float-left mt-2">First Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            defaultValue={firstname}
+                                            readOnly={isEditable}
+                                            onChange={(e) => onChange(e)}
+                                        />
                                     </div>
+
+                                    &nbsp;
+                                    &nbsp;
+
+                                    <div>
+                                        <label className="control-label float-left mt-2">Last Name</label>
+                                        <input
+                                            type="text"
+                                            className="form-control"
+                                            defaultValue={lastname}
+                                            readOnly={isEditable}
+                                            onChange={(e) => onChange(e)}
+                                        />
+                                    </div>
+
                                 </div>
-                            </div>
-                        </div>
-                    </main>
+
+                                <br />
+
+                                <label className="control-label float-left mt-2">Contact Number</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    defaultValue={contactnumber}
+                                    readOnly={isEditable}
+                                />
+
+                                <br />
+
+                                <label className="control-label float-left mt-2">Student Number</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    defaultValue={studentnumber}
+                                    readOnly={isEditable}
+                                    onChange={(e) => onChange(e)} />
+
+                                <br />
 
 
-                    <div
-                        className="modal"
-                        id={`myprojectposter`}
-                    >
-                        <div className="modal-dialog">
-                            <img src={poster} height="698" width="500" alt='Poster' />
+                                <label className="control-label float-left mt-2">User ID</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    defaultValue={userid}
+                                    readOnly={isEditable}
+                                    onChange={(e) => onChange(e)} />
+
+
+                                <br />
+
+                                <label className="control-label float-left mt-2">Programme</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    defaultValue={programme}
+                                    readOnly={isEditable}
+                                    onChange={(e) => onChange(e)} />
+                                <br />
+
+                                <button type="submit" onClick={() => setEditable(prevState => !prevState)}>{isEditable ? 'Edit' : 'Submit'}</button>
+
+
+                            </form>
                         </div>
                     </div>
-
-                </>
-        }
+                </div>
+            </main>
         </>
     )
 }
