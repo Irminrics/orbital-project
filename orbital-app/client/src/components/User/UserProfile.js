@@ -7,18 +7,23 @@ const UserProfile = () => {
         firstname: "",
         lastname: "",
         contactnumber: "",
+        email: "",
         studentnumber: "",
         userid: "",
         programme: ""
     });
 
-    const { firstname, lastname, contactnumber, studentnumber, userid, programme } = me;
+    const { firstname, lastname, studentnumber, userid, email, contactnumber, programme } = me;
 
     const onSubmitProfileForm = async e => {
         e.preventDefault();
-        console.log("dwadawd");
+        const firstName = firstname;
+        const lastName = lastname;
+        const studentNumber = studentnumber;
+        const contactNumber = contactnumber;
         try {
-            const body = { firstname, lastname, contactnumber, studentnumber, userid, programme };
+            const body = { firstName, lastName, studentNumber, userid, email, contactNumber, programme };
+            console.log(JSON.stringify(body));
             const response = await fetch(
                 `/users/update/${me.id}`,
                 {
@@ -91,6 +96,7 @@ const UserProfile = () => {
                                         <input
                                             type="text"
                                             className="form-control"
+                                            name="firstname"
                                             defaultValue={firstname}
                                             readOnly={isEditable}
                                             onChange={(e) => onChange(e)}
@@ -105,6 +111,7 @@ const UserProfile = () => {
                                         <input
                                             type="text"
                                             className="form-control"
+                                            name="lastname"
                                             defaultValue={lastname}
                                             readOnly={isEditable}
                                             onChange={(e) => onChange(e)}
@@ -119,7 +126,19 @@ const UserProfile = () => {
                                 <input
                                     type="text"
                                     className="form-control"
+                                    name="contactnumber"
                                     defaultValue={contactnumber}
+                                    readOnly={isEditable}
+                                />
+
+                                <br />
+
+                                <label className="control-label float-left mt-2">Email</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    name="email"
+                                    defaultValue={email}
                                     readOnly={isEditable}
                                 />
 
@@ -129,8 +148,9 @@ const UserProfile = () => {
                                 <input
                                     type="text"
                                     className="form-control"
+                                    name="studentnumber"
                                     defaultValue={studentnumber}
-                                    readOnly={isEditable}
+                                    readOnly
                                     onChange={(e) => onChange(e)} />
 
                                 <br />
@@ -140,20 +160,27 @@ const UserProfile = () => {
                                 <input
                                     type="text"
                                     className="form-control"
+                                    name="userid"
                                     defaultValue={userid}
-                                    readOnly={isEditable}
+                                    readOnly
                                     onChange={(e) => onChange(e)} />
 
 
                                 <br />
 
                                 <label className="control-label float-left mt-2">Programme</label>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    defaultValue={programme}
-                                    readOnly={isEditable}
-                                    onChange={(e) => onChange(e)} />
+                                <select className="form-select" aria-label="Default select example" name="programme" defaultValue={programme} disabled={true} onChange={(e) => onChange(e)}>
+                                    <option value="Bachelor of Business">Bachelor of Business</option>
+                                    <option value="Bachelor of Computing">Bachelor of Computing</option>
+                                    <option value="Bachelor of Dentistry">Bachelor of Dentistry</option>
+                                    <option value="Bachelor of Engineering">Bachelor of Engineering</option>
+                                    <option value="Bachelor of Law">Bachelor of Law</option>
+                                    <option value="Bachelor of Music">Bachelor of Music</option>
+                                    <option value="Bachelor of Nursing">Bachelor of Nursing</option>
+                                    <option value="Bachelor of Pharmacy">Bachelor of Pharmacy</option>
+                                    <option value="Bachelor of Science">Bachelor of Science</option>
+                                </select>
+
                                 <br />
 
                                 <button type="submit" onClick={() => setEditable(prevState => !prevState)}>{isEditable ? 'Edit' : 'Submit'}</button>
